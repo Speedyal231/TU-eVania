@@ -12,15 +12,23 @@ public class CharacterController : MonoBehaviour
     [SerializeField] BoxCollider2D boxCollider;
     private PlayerInputActions playerInputActions;
 
-    [Header("movement")]
+    [Header("Movement")]
     [SerializeField] float acceleration;
     [SerializeField] float accelerationFriction;
     [SerializeField] float groundMaxSpeed;
     [SerializeField] float jump;
 
+    [Header("Ground detection")]
+    [SerializeField] float rayOriginOffset;
+    [SerializeField] float groundHitRange;
+    [SerializeField] LayerMask groundLayer;
+
     //physics variables
     private Vector2 velocity;
 
+    //ground detection variables
+    private bool grounded;
+    private RaycastHit groundedRayPoint;
     private enum State
     {
         Ground,
@@ -58,10 +66,11 @@ public class CharacterController : MonoBehaviour
     void FixedUpdate()
     {
         PhysicsCalcInit();
+        GroundedCheck();
         Vector2 moveInput = GetMoveInput();
         Move(moveInput);
         Friction();
-        Jump(GetJumpInput());
+        if (grounded) { Jump(GetJumpInput()); }
         ApplyForces();
     }
 
@@ -80,7 +89,6 @@ public class CharacterController : MonoBehaviour
     private Vector2 GetMoveInput()
     {
         Vector2 inputVector = playerInputActions.Keyboard.Move.ReadValue<Vector2>();
-        inputVector = inputVector;
         return inputVector;
     }
 
@@ -134,4 +142,10 @@ public class CharacterController : MonoBehaviour
         velocity.y += jump * input;
     }
 
+    // Checks if player is in grounding range
+    private void GroundedCheck()
+    {
+        grounded = Physics2D.Raycast(playerTransform.position, Vector2.down,groundHitRange,groundLayer);
+        Debug.Log(grounded);
+    }
 }
