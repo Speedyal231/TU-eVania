@@ -391,6 +391,7 @@
 "Assets/scripts/enemies/killPlayer.cs"
 "Assets/scripts/enemies/twoPointsBounce.cs"
 "Assets/scripts/level/cameraController.cs"
+"Assets/scripts/level/checkpoint.cs"
 "Assets/scripts/level/healthManager.cs"
 "Assets/scripts/level/levelManager.cs"
 "Assets/scripts/level/lifeManager.cs"
