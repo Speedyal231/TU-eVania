@@ -10,8 +10,9 @@ public class CameraScript : MonoBehaviour
     [SerializeField] Transform cameraTransform;
 
     [Header("Offests And Tweaks")]
-    [SerializeField] float sidewaysOffset;
-    [SerializeField] float mouseOffset;
+    [SerializeField] float sidewaysMaxOffset;
+    [SerializeField] float mouseMaxOffset;
+    [SerializeField] float mouseToWorldMultiplier; 
 
     
 
@@ -25,18 +26,18 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(FetchMousePos());
         UpdateCameraPosition();
     }
 
-    private Vector2 FetchMousePos() 
+    private Vector2 FetchMouseOffset() 
     {
-        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return (Camera.main.ScreenToViewportPoint(Input.mousePosition) - new Vector3(0.5f,0.5f, 0f)) * mouseToWorldMultiplier;
     }
 
     private void UpdateCameraPosition()
     {
         Vector3 newCamPos = new Vector3(playerTransform.position.x, playerTransform.position.y, cameraTransform.position.z);
+        newCamPos += new Vector3(FetchMouseOffset().x, FetchMouseOffset().y, 0);
         cameraTransform.position = newCamPos;
     }
 }
