@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
@@ -18,15 +19,20 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float groundMaxSpeed;
     [SerializeField] float jump;
 
-    [Header("Ground detection")]
+    [Header("Ground + Wall detection")]
     [SerializeField] float groundHitRange;
+    [SerializeField] float wallHitRange;
+    [SerializeField] float wallRayOffset;
     [SerializeField] LayerMask groundLayer;
+
 
     //physics variables
     private Vector2 velocity;
 
     //ground detection variables
     private bool grounded;
+    private bool Lcheck;
+    private bool Rcheck;
     private enum State
     {
         Ground,
@@ -65,6 +71,7 @@ public class CharacterController : MonoBehaviour
     {
         PhysicsCalcInit();
         GroundedCheck();
+        WalledCheck();
         StateSwitch();
         Vector2 moveInput = GetMoveInput();
         Move(moveInput);
@@ -151,8 +158,16 @@ public class CharacterController : MonoBehaviour
     private void GroundedCheck()
     {
         grounded = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
-        Debug.Log(grounded);
     }
+
+    private void WalledCheck()
+    {
+        Lcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.left, groundHitRange, groundLayer); 
+        Rcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.right, groundHitRange, groundLayer);
+        Debug.Log(Lcheck);
+        Debug.Log(Rcheck);
+    }
+
     private void StateSwitch()
     {
         if (grounded)
@@ -163,5 +178,10 @@ public class CharacterController : MonoBehaviour
         {
             playerState = State.Air;
         }
+    }
+
+    private void WallUnstick() 
+    {
+        
     }
 }
