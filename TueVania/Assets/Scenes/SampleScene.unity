@@ -135,8 +135,9 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: PlayerCam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,6 +261,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1db4976c40ef6446b92437b501e9ec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 1348115774}
+  cameraTransform: {fileID: 519420032}
+  sidewaysOffset: 0
+  mouseOffset: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,13 +482,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644338123}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.17252284, w: 0.98500556}
-  m_LocalPosition: {x: 2.24, y: -2.56, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.072946094, w: 0.9973359}
+  m_LocalPosition: {x: 3.24, y: -3.04, z: 0}
   m_LocalScale: {x: 14.39276, y: 2.877295, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 19.869}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.366}
 --- !u!1 &735650850
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +721,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.08, y: -1.06, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.5740625, y: 0.925, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2047530993}
@@ -726,12 +743,11 @@ MonoBehaviour:
   playerTransform: {fileID: 1348115774}
   cameraTransform: {fileID: 519420032}
   boxCollider: {fileID: 1348115772}
-  acceleration: 1
+  acceleration: 3
   accelerationFriction: 0.5
-  groundMaxSpeed: 10
-  jump: 7
-  rayOriginOffset: 0.1
-  groundHitRange: 0.1
+  groundMaxSpeed: 7
+  jump: 9
+  groundHitRange: 0.15
   groundLayer:
     serializedVersion: 2
     m_Bits: 128

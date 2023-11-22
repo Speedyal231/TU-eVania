@@ -19,7 +19,6 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float jump;
 
     [Header("Ground detection")]
-    [SerializeField] float rayOriginOffset;
     [SerializeField] float groundHitRange;
     [SerializeField] LayerMask groundLayer;
 
@@ -28,7 +27,6 @@ public class CharacterController : MonoBehaviour
 
     //ground detection variables
     private bool grounded;
-    private RaycastHit groundedRayPoint;
     private enum State
     {
         Ground,
@@ -59,7 +57,7 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     // Update is called once per frame
@@ -67,10 +65,17 @@ public class CharacterController : MonoBehaviour
     {
         PhysicsCalcInit();
         GroundedCheck();
+        StateSwitch();
         Vector2 moveInput = GetMoveInput();
         Move(moveInput);
         Friction();
-        if (grounded) { Jump(GetJumpInput()); }
+        if (playerState == State.Ground) 
+        {
+            Jump(GetJumpInput());
+        } else if (playerState == State.Air) 
+        {
+            
+        }
         ApplyForces();
     }
 
@@ -92,7 +97,7 @@ public class CharacterController : MonoBehaviour
         return inputVector;
     }
 
-    private float GetJumpInput() 
+    private float GetJumpInput()
     {
         return playerInputActions.Keyboard.Jump.ReadValue<float>();
     }
@@ -137,7 +142,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void Jump(float input) 
+    private void Jump(float input)
     {
         velocity.y += jump * input;
     }
@@ -145,7 +150,18 @@ public class CharacterController : MonoBehaviour
     // Checks if player is in grounding range
     private void GroundedCheck()
     {
-        grounded = Physics2D.Raycast(playerTransform.position, Vector2.down,groundHitRange,groundLayer);
+        grounded = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
         Debug.Log(grounded);
+    }
+    private void StateSwitch()
+    {
+        if (grounded)
+        {
+            playerState = State.Ground;
+        }
+        else
+        {
+            playerState = State.Air;
+        }
     }
 }
