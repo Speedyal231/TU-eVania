@@ -101,6 +101,10 @@ public class CharacterController : MonoBehaviour
     private Vector2 GetMoveInput()
     {
         Vector2 inputVector = playerInputActions.Keyboard.Move.ReadValue<Vector2>();
+        if ((Rcheck && inputVector.x > 0) || (Lcheck && inputVector.x < 0)) 
+        {
+            inputVector.x -= inputVector.x;
+        }
         return inputVector;
     }
 
@@ -162,8 +166,8 @@ public class CharacterController : MonoBehaviour
 
     private void WalledCheck()
     {
-        Lcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.left, groundHitRange, groundLayer); 
-        Rcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.right, groundHitRange, groundLayer);
+        Lcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.left, wallHitRange, groundLayer); 
+        Rcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.right, wallHitRange, groundLayer);
         Debug.Log(Lcheck);
         Debug.Log(Rcheck);
     }
@@ -178,10 +182,5 @@ public class CharacterController : MonoBehaviour
         {
             playerState = State.Air;
         }
-    }
-
-    private void WallUnstick() 
-    {
-        
     }
 }
