@@ -11,7 +11,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform cameraTransform;
     [SerializeField] BoxCollider2D boxCollider;
+    [SerializeField] PlayerDashScript playerDashScript;
     private PlayerInputActions playerInputActions;
+    
 
     [Header("Movement")]
     [SerializeField] float acceleration;
@@ -36,7 +38,8 @@ public class CharacterController : MonoBehaviour
     private enum State
     {
         Ground,
-        Air
+        Air,
+        Dashing,
     }
     private State playerState;
 
@@ -76,13 +79,16 @@ public class CharacterController : MonoBehaviour
         Vector2 moveInput = GetMoveInput();
         Move(moveInput);
         Friction();
+        playerDashScript.Dash(moveInput, playerTransform, playerInputActions);
         if (playerState == State.Ground) 
         {
             Jump(GetJumpInput());
-        } else if (playerState == State.Air) 
+        } 
+        else if (playerState == State.Air) 
         {
             
         }
+        
         ApplyForces();
     }
 
@@ -166,10 +172,8 @@ public class CharacterController : MonoBehaviour
 
     private void WalledCheck()
     {
-        Lcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.left, wallHitRange, groundLayer); 
-        Rcheck = Physics2D.Raycast(playerTransform.position + playerTransform.up.normalized * wallRayOffset, Vector2.right, wallHitRange, groundLayer);
-        Debug.Log(Lcheck);
-        Debug.Log(Rcheck);
+        Lcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x/2, boxCollider.size.y - wallRayOffset), 0, Vector2.left, wallHitRange, groundLayer);
+        Rcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x/2, boxCollider.size.y - wallRayOffset), 0, Vector2.right, wallHitRange, groundLayer); 
     }
 
     private void StateSwitch()
