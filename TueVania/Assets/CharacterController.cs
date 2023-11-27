@@ -19,6 +19,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float accelerationFriction;
     [SerializeField] float groundMaxSpeed;
+    [SerializeField] float airMaxSpeed;
     [SerializeField] float jump;
 
     [Header("Ground + Wall detection")]
@@ -26,7 +27,6 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float wallHitRange;
     [SerializeField] float wallRayOffset;
     [SerializeField] LayerMask groundLayer;
-
 
     //physics variables
     private Vector2 velocity;
@@ -39,7 +39,7 @@ public class CharacterController : MonoBehaviour
     {
         Ground,
         Air,
-        Dashing,
+        Cling
     }
     private State playerState;
 
@@ -78,15 +78,17 @@ public class CharacterController : MonoBehaviour
         StateSwitch();
         Vector2 moveInput = GetMoveInput();
         Move(moveInput);
-        Friction();
+        
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions);
+
         if (playerState == State.Ground) 
         {
+            Friction();
             Jump(GetJumpInput());
         } 
         else if (playerState == State.Air) 
         {
-            
+            AirDrag();
         }
         
         ApplyForces();
@@ -185,6 +187,34 @@ public class CharacterController : MonoBehaviour
         else
         {
             playerState = State.Air;
+        }
+    }
+
+    private void AirDrag()
+    {
+        if (RB.velocity.x != 0f)
+        {
+            if (Mathf.Abs(RB.velocity.x) > airMaxSpeed)
+            {
+                velocity.x -= RB.velocity.x - RB.velocity.normalized.x * airMaxSpeed;
+            }
+            else if (Mathf.Abs(RB.velocity.x) == airMaxSpeed)
+            {
+                velocity.x -= RB.velocity.normalized.x * acceleration;
+            }
+            else
+            {
+
+                if (Mathf.Abs(RB.velocity.x) < accelerationFriction)
+                {
+                    velocity.x -= RB.velocity.x;
+                }
+                else
+                {
+                    velocity.x -= RB.velocity.normalized.x * accelerationFriction;
+                }
+
+            }
         }
     }
 }

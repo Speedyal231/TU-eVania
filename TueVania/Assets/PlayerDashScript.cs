@@ -6,8 +6,10 @@ public class PlayerDashScript : MonoBehaviour
 {
     float currentDashCooldown = 0;
     float currentDashDuration = 0;
-    bool canDash = true;
+    bool canDash;
+    bool hasDashed;
     bool unlocked = true;
+    RaycastHit2D hit;
 
     [Header("Dash Settings")]
     [SerializeField] float dashDistance;
@@ -21,28 +23,49 @@ public class PlayerDashScript : MonoBehaviour
     public void Dash(Vector2 direction, Transform playerTransform, PlayerInputActions playerInputActions) 
     {
         float dash = DashInput(playerInputActions);
+
         if (unlocked) 
         {
-            if ((dash > 0) && !(currentDashCooldown > 0) && !(currentDashDuration > 0))
+            if (!(currentDashCooldown > 0) && !(currentDashCooldown > 0) && !(dash > 0))
             {
-                currentDashDuration = dashDuration;
-                currentDashCooldown = dashCooldown;
-                target = Displacement(direction, playerTransform);
+                hasDashed = false;
             }
-            else if ((currentDashDuration > 0))
+
+            if (dash > 0) 
+            {
+                if (!(currentDashCooldown > 0) && !(currentDashCooldown > 0) && !hasDashed)
+                {
+                    canDash = true;
+                }
+                else 
+                { 
+                    canDash = false;
+                }
+            } 
+            else 
+            {
+                canDash = false;
+            }
+
+            Debug.Log(currentDashCooldown);
+
+            if (canDash)
+            {
+                target = Displacement(direction, playerTransform);
+                canDash = false;
+                hasDashed = true;
+                currentDashCooldown = dashCooldown;
+                currentDashDuration = dashDuration;
+            }
+            else 
             {
                 target = target;
             }
-            else 
-            { 
-                target = playerTransform.position;
-            }
 
-            if (currentDashDuration > 0) 
+            if (currentDashDuration > 0 && hasDashed)
             {
                 playerTransform.position = Vector2.Lerp(playerTransform.position, target, dashSpeed);
             }
-            Debug.Log(currentDashDuration);
         }
     }
 
@@ -52,10 +75,13 @@ public class PlayerDashScript : MonoBehaviour
         if (direction.x > 0)
         {
             newPos = new Vector2(playerTransform.position.x + dashDistance, playerTransform.position.y);
+            
         }
         else if (direction.x < 0)
         {
             newPos = new Vector2(playerTransform.position.x - dashDistance, playerTransform.position.y);
+            
+            
         }
         else 
         { 
@@ -63,6 +89,8 @@ public class PlayerDashScript : MonoBehaviour
         }
         return newPos;
     }
+
+
 
     private float DashInput(PlayerInputActions playerInputActions) 
     {
