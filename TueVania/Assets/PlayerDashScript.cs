@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerDashScript : MonoBehaviour 
 {
+    // can be used to turn on and off power-up
+    bool unlocked = true;
+
     float currentDashCooldown = 0;
     float currentDashDuration = 0;
     bool canDash;
     bool hasDashed;
-    bool unlocked = true;
     RaycastHit2D hit;
 
     [Header("Dash Settings")]
@@ -20,13 +22,13 @@ public class PlayerDashScript : MonoBehaviour
 
 
     // needs heavy reworking, add raycasts to reduce distance and stop phasing through walls
-    public void Dash(Vector2 direction, Transform playerTransform, PlayerInputActions playerInputActions) 
+    public void Dash(Vector2 direction, Transform playerTransform, PlayerInputActions playerInputActions, bool grounded) 
     {
         float dash = DashInput(playerInputActions);
 
         if (unlocked) 
         {
-            if (!(currentDashCooldown > 0) && !(currentDashCooldown > 0) && !(dash > 0))
+            if ((!(currentDashCooldown > 0) && !(dash > 0) && grounded) || (!(currentDashCooldown > 0) && !(currentDashCooldown > 0) && !(dash > 0)))
             {
                 hasDashed = false;
             }
@@ -46,8 +48,6 @@ public class PlayerDashScript : MonoBehaviour
             {
                 canDash = false;
             }
-
-            Debug.Log(currentDashCooldown);
 
             if (canDash)
             {
@@ -105,7 +105,7 @@ public class PlayerDashScript : MonoBehaviour
             currentDashDuration -= Time.fixedDeltaTime;
     }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
         Count();
     }

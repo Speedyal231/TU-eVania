@@ -18,8 +18,8 @@ public class CharacterController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float acceleration;
     [SerializeField] float accelerationFriction;
-    [SerializeField] float groundMaxSpeed;
-    [SerializeField] float airMaxSpeed;
+    [SerializeField] float groundMaxWalkSpeed;
+    [SerializeField] float groundMaxRunSpeed;
     [SerializeField] float jump;
 
     [Header("Ground + Wall detection")]
@@ -30,6 +30,7 @@ public class CharacterController : MonoBehaviour
 
     //physics variables
     private Vector2 velocity;
+    private float prevGroundVelocity;
 
     //ground detection variables
     private bool grounded;
@@ -77,18 +78,20 @@ public class CharacterController : MonoBehaviour
         WalledCheck();
         StateSwitch();
         Vector2 moveInput = GetMoveInput();
+        float runInput = GetRunInput();
         Move(moveInput);
         
-        playerDashScript.Dash(moveInput, playerTransform, playerInputActions);
+        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded);
 
         if (playerState == State.Ground) 
         {
-            Friction();
+            GetLastSpeed();
+            Friction(runInput);
             Jump(GetJumpInput());
         } 
         else if (playerState == State.Air) 
         {
-            AirDrag();
+            AirDrag(prevGroundVelocity);
         }
         
         ApplyForces();
@@ -121,6 +124,16 @@ public class CharacterController : MonoBehaviour
         return playerInputActions.Keyboard.Jump.ReadValue<float>();
     }
 
+    private float GetRunInput()
+    {
+        return playerInputActions.Keyboard.Run.ReadValue<float>();
+    }
+
+    private void GetLastSpeed() 
+    {
+        prevGroundVelocity =  RB.velocity.magnitude;
+    }
+
     private void PhysicsCalcInit()
     {
         velocity = Vector2.zero;
@@ -137,11 +150,21 @@ public class CharacterController : MonoBehaviour
     }
 
     // funtion to apply friction to motion of player on ground 
-    private void Friction()
+    private void Friction(float run)
     {
+        float max;
+        if (run > 0) 
+        {
+            max = groundMaxRunSpeed;
+        }
+        else 
+        { 
+            max = groundMaxWalkSpeed;
+        }
+
         if (RB.velocity.x != 0f)
         {
-            if (Mathf.Abs(RB.velocity.x) >= groundMaxSpeed)
+            if (Mathf.Abs(RB.velocity.x) >= max)
             {
                 velocity.x -= RB.velocity.normalized.x * acceleration;
             }
@@ -169,7 +192,8 @@ public class CharacterController : MonoBehaviour
     // Checks if player is in grounding range
     private void GroundedCheck()
     {
-        grounded = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
+        //grounded = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
+        grounded = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.x * 3 / 8, new Vector2(boxCollider.size.x / 2,boxCollider.size.x * 3 / 4), 0, -playerTransform.up, groundHitRange, groundLayer);
     }
 
     private void WalledCheck()
@@ -190,15 +214,17 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void AirDrag()
+    private void AirDrag(float lastSpeed)
     {
+        float max = lastSpeed * 7/8;
+
         if (RB.velocity.x != 0f)
         {
-            if (Mathf.Abs(RB.velocity.x) > airMaxSpeed)
+            if (Mathf.Abs(RB.velocity.x) > max)
             {
-                velocity.x -= RB.velocity.x - RB.velocity.normalized.x * airMaxSpeed;
+                velocity.x -= RB.velocity.x - RB.velocity.normalized.x * max;
             }
-            else if (Mathf.Abs(RB.velocity.x) == airMaxSpeed)
+            else if (Mathf.Abs(RB.velocity.x) == max)
             {
                 velocity.x -= RB.velocity.normalized.x * acceleration;
             }

@@ -1526,12 +1526,12 @@ MonoBehaviour:
   cameraTransform: {fileID: 519420032}
   boxCollider: {fileID: 1348115772}
   playerDashScript: {fileID: 1348115777}
-  acceleration: 5
+  acceleration: 3
   accelerationFriction: 0.5
-  groundMaxSpeed: 10
-  airMaxSpeed: 7
+  groundMaxWalkSpeed: 6
+  groundMaxRunSpeed: 12
   jump: 15
-  groundHitRange: 0.15
+  groundHitRange: 0.05
   wallHitRange: 0.1
   wallRayOffset: 0.1
   groundLayer:
@@ -1579,10 +1579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b969c1b635a4e44eb2a18df3a255312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDistance: 15
+  dashDistance: 12
   dashSpeed: 0.05
-  dashDuration: 2
-  dashCooldown: 20
+  dashDuration: 0.2
+  dashCooldown: 0.5
 --- !u!1 &2047530992
 GameObject:
   m_ObjectHideFlags: 0
