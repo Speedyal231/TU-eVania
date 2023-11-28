@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] PlayerDashScript playerDashScript;
     private PlayerInputActions playerInputActions;
-    
+
 
     [Header("Movement")]
     [SerializeField] float acceleration;
@@ -28,14 +28,21 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float wallRayOffset;
     [SerializeField] LayerMask groundLayer;
 
+    [Header("Jump")]
+    [SerializeField] float jumpTime;
+
     //physics variables
     private Vector2 velocity;
     private float prevGroundVelocity;
+    private float currentJumpTime;
 
     //ground detection variables
     private bool grounded;
     private bool Lcheck;
     private bool Rcheck;
+    private bool canJump;
+    private bool hasJumped;
+    private bool dashJumpCheck;
     private enum State
     {
         Ground,
@@ -77,23 +84,24 @@ public class CharacterController : MonoBehaviour
         GroundedCheck();
         WalledCheck();
         StateSwitch();
+        Count();
         Vector2 moveInput = GetMoveInput();
         float runInput = GetRunInput();
         Move(moveInput);
-        
-        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded);
+        Jump(GetJumpInput());
 
-        if (playerState == State.Ground) 
+        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck);
+
+        if (playerState == State.Ground)
         {
             GetLastSpeed();
             Friction(runInput);
-            Jump(GetJumpInput());
-        } 
-        else if (playerState == State.Air) 
+        }
+        else if (playerState == State.Air)
         {
             AirDrag(prevGroundVelocity);
         }
-        
+
         ApplyForces();
     }
 
@@ -112,7 +120,7 @@ public class CharacterController : MonoBehaviour
     private Vector2 GetMoveInput()
     {
         Vector2 inputVector = playerInputActions.Keyboard.Move.ReadValue<Vector2>();
-        if ((Rcheck && inputVector.x > 0) || (Lcheck && inputVector.x < 0)) 
+        if ((Rcheck && inputVector.x > 0) || (Lcheck && inputVector.x < 0))
         {
             inputVector.x -= inputVector.x;
         }
@@ -129,9 +137,9 @@ public class CharacterController : MonoBehaviour
         return playerInputActions.Keyboard.Run.ReadValue<float>();
     }
 
-    private void GetLastSpeed() 
+    private void GetLastSpeed()
     {
-        prevGroundVelocity =  RB.velocity.magnitude;
+        prevGroundVelocity = RB.velocity.magnitude;
     }
 
     private void PhysicsCalcInit()
@@ -153,12 +161,12 @@ public class CharacterController : MonoBehaviour
     private void Friction(float run)
     {
         float max;
-        if (run > 0) 
+        if (run > 0)
         {
             max = groundMaxRunSpeed;
         }
-        else 
-        { 
+        else
+        {
             max = groundMaxWalkSpeed;
         }
 
@@ -186,7 +194,32 @@ public class CharacterController : MonoBehaviour
 
     private void Jump(float input)
     {
-        velocity.y += jump * input;
+        if (!(input > 0) && (hasJumped))
+        {
+            hasJumped = false;
+        }
+
+        if ((input > 0) && !(hasJumped) && grounded)
+        {
+            canJump = true;
+        }
+
+        if (canJump)
+        {
+            currentJumpTime = jumpTime;
+            hasJumped = true;
+            canJump = false;
+        }
+
+        if ((input > 0) && (currentJumpTime > 0) & hasJumped)
+        {
+            velocity.y += jump * input;
+            dashJumpCheck = true;
+        }
+        else 
+        {
+            dashJumpCheck = false;
+        }
     }
 
     // Checks if player is in grounding range
@@ -216,7 +249,7 @@ public class CharacterController : MonoBehaviour
 
     private void AirDrag(float lastSpeed)
     {
-        float max = lastSpeed * 7/8;
+        float max = lastSpeed * 9/10;
 
         if (RB.velocity.x != 0f)
         {
@@ -242,5 +275,11 @@ public class CharacterController : MonoBehaviour
 
             }
         }
+    }
+
+    private void Count()
+    {
+        if (currentJumpTime > 0)
+            currentJumpTime -= Time.fixedDeltaTime;
     }
 }

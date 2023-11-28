@@ -22,20 +22,20 @@ public class PlayerDashScript : MonoBehaviour
 
 
     // needs heavy reworking, add raycasts to reduce distance and stop phasing through walls
-    public void Dash(Vector2 direction, Transform playerTransform, PlayerInputActions playerInputActions, bool grounded) 
+    public void Dash(Vector2 direction, Transform playerTransform, PlayerInputActions playerInputActions, bool grounded, bool dashJumpCheck) 
     {
         float dash = DashInput(playerInputActions);
 
         if (unlocked) 
         {
-            if ((!(currentDashCooldown > 0) && !(dash > 0) && grounded) || (!(currentDashCooldown > 0) && !(currentDashCooldown > 0) && !(dash > 0)))
+            if ((!(currentDashCooldown > 0) && !(dash > 0) && grounded))
             {
                 hasDashed = false;
             }
 
             if (dash > 0) 
             {
-                if (!(currentDashCooldown > 0) && !(currentDashCooldown > 0) && !hasDashed)
+                if ((!(currentDashCooldown > 0) && !hasDashed))
                 {
                     canDash = true;
                 }
@@ -65,6 +65,7 @@ public class PlayerDashScript : MonoBehaviour
             if (currentDashDuration > 0 && hasDashed)
             {
                 playerTransform.position = Vector2.Lerp(playerTransform.position, target, dashSpeed);
+                if (dashJumpCheck) { hasDashed = false; }
             }
         }
     }
