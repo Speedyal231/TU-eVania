@@ -1,0 +1,3 @@
+TBD-
+Implement wall tags to stop weird jumps off of walls
+it could also possibly help with implementing the wall jump
