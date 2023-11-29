@@ -20,7 +20,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float accelerationFriction;
     [SerializeField] float groundMaxWalkSpeed;
     [SerializeField] float groundMaxRunSpeed;
-    [SerializeField] float jump;
+    
 
     [Header("Ground + Wall detection")]
     [SerializeField] float groundHitRange;
@@ -28,8 +28,10 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float wallRayOffset;
     [SerializeField] LayerMask groundLayer;
 
-    [Header("Jump")]
+    [Header("Jump + Air movement")]
     [SerializeField] float jumpTime;
+    [SerializeField] float jump;
+    [SerializeField, Range(0,2)] float airDragMultiplier;
 
     //physics variables
     private Vector2 velocity;
@@ -89,9 +91,8 @@ public class CharacterController : MonoBehaviour
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
-
-        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck);
-
+        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, boxCollider, wallRayOffset, groundLayer);
+        Debug.Log(Mathf.Abs(RB.velocity.x));
         if (playerState == State.Ground)
         {
             GetLastSpeed();
@@ -249,7 +250,7 @@ public class CharacterController : MonoBehaviour
 
     private void AirDrag(float lastSpeed)
     {
-        float max = lastSpeed * 9/10;
+        float max = lastSpeed * airDragMultiplier;
 
         if (RB.velocity.x != 0f)
         {
