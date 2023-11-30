@@ -19,7 +19,7 @@ public class hurtPlayer : MonoBehaviour {
 	{
 		if (other.name == "tempPlayer")
 		{
-			healthManager.hurtPlayer(damageToGive);
+			playerData.hurtPlayer(damageToGive);
 			Debug.Log("Damage Given");
 
 			var player = other.GetComponent<tempPlayerController>();
