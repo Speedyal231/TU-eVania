@@ -1058,10 +1058,10 @@ MonoBehaviour:
   cameraTransform: {fileID: 519420032}
   mouseToWorldMultiplier: 3.2
   zoomMultiplier: 0.7
-  zoomSpeed: 0.01
+  zoomSpeed: 0.05
   minZoom: 5
   maxZoom: 9
-  RBmin: 7
+  RBmin: 6
   RBmax: 12
 --- !u!1 &606440456
 GameObject:
@@ -2242,7 +2242,7 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 0.2
   dashLimitCheck: 0.4
-  numberOfDashes: 0
+  numberOfDashes: 1
 --- !u!1 &1580380398
 GameObject:
   m_ObjectHideFlags: 0

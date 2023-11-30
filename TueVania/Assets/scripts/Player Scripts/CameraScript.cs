@@ -19,13 +19,12 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float RBmin = 8f;
     [SerializeField] float RBmax = 14f;
 
-
-
+    float Target;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Target = Camera.main.orthographicSize;
     }
 
     // Update is called once per frame
@@ -33,6 +32,11 @@ public class CameraScript : MonoBehaviour
     {
         UpdateCameraPosition();
         UpdateCameraZoom();
+    }
+
+    private void FixedUpdate()
+    {
+        Target = UpdateCameraTarget();
     }
 
     private Vector2 FetchMouseOffset() 
@@ -47,10 +51,10 @@ public class CameraScript : MonoBehaviour
         cameraTransform.position = newCamPos;
     }
 
-    private void UpdateCameraZoom() 
+    private float UpdateCameraTarget() 
     {
-        float Target;
-        float speed = Mathf.RoundToInt(Mathf.Abs(RB.velocity.x));
+        
+        float speed = Mathf.CeilToInt(Mathf.Abs(RB.velocity.x));
 
         if (speed <= RBmin)
         {
@@ -58,14 +62,18 @@ public class CameraScript : MonoBehaviour
         }
         else if (speed > RBmin && speed < RBmax)
         {
-            Target = minZoom + (speed - RBmin) * zoomMultiplier;
+            Target =  minZoom + (speed - RBmin) * zoomMultiplier;
         }
-        else 
+        else
         {
             Target = maxZoom;
         }
 
-        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, Target, zoomSpeed);
+        return Mathf.Lerp(Camera.main.orthographicSize, Target, zoomSpeed);
+    }
 
+    private void UpdateCameraZoom() 
+    {
+        Camera.main.orthographicSize = Target;
     }
 }

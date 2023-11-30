@@ -66,7 +66,7 @@ public class PlayerDashScript : MonoBehaviour
             }
             else 
             {
-                target = target;
+                //nothing target remains the same;
             }
 
             if (currentDashDuration > 0 && hasDashed)
