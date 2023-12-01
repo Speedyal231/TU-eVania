@@ -96,7 +96,7 @@ public class CharacterController : MonoBehaviour
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
-        clinging = playerClingScript.Cling(playerTransform, boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity);
+        clinging = playerClingScript.Cling(playerTransform, boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, boxCollider, wallRayOffset, groundLayer);
         if (playerState == State.Ground)
         {

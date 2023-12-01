@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ClingToggle"",
+                    ""type"": ""Value"",
+                    ""id"": ""38a0239b-ba14-48bd-b3fc-0cab23091eec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2072ec7-5efa-4b04-81e7-bdc1c9d10873"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClingToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Keyboard_Jump = m_Keyboard.FindAction("Jump", throwIfNotFound: true);
         m_Keyboard_Dash = m_Keyboard.FindAction("Dash", throwIfNotFound: true);
         m_Keyboard_Run = m_Keyboard.FindAction("Run", throwIfNotFound: true);
+        m_Keyboard_ClingToggle = m_Keyboard.FindAction("ClingToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Keyboard_Jump;
     private readonly InputAction m_Keyboard_Dash;
     private readonly InputAction m_Keyboard_Run;
+    private readonly InputAction m_Keyboard_ClingToggle;
     public struct KeyboardActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Keyboard_Jump;
         public InputAction @Dash => m_Wrapper.m_Keyboard_Dash;
         public InputAction @Run => m_Wrapper.m_Keyboard_Run;
+        public InputAction @ClingToggle => m_Wrapper.m_Keyboard_ClingToggle;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @ClingToggle.started += instance.OnClingToggle;
+            @ClingToggle.performed += instance.OnClingToggle;
+            @ClingToggle.canceled += instance.OnClingToggle;
         }
 
         private void UnregisterCallbacks(IKeyboardActions instance)
@@ -274,6 +300,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @ClingToggle.started -= instance.OnClingToggle;
+            @ClingToggle.performed -= instance.OnClingToggle;
+            @ClingToggle.canceled -= instance.OnClingToggle;
         }
 
         public void RemoveCallbacks(IKeyboardActions instance)
@@ -297,5 +326,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnClingToggle(InputAction.CallbackContext context);
     }
 }

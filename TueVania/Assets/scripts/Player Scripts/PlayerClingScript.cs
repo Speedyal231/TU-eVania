@@ -10,17 +10,20 @@ public class PlayerClingScript : MonoBehaviour
     bool clinging;
     Vector2 clingPosition;
     float currentClingResetTime;
-    float gravity = 5f; 
+    float gravity = 5f;
+    bool clingActive;
+    bool toggled;
 
     [Header("Cling Settings")]
     [SerializeField] bool unlocked;
     [SerializeField] float wallHitRange;
     [SerializeField] float clingResetTime;
 
-    //Holy shit fix this
-    public bool Cling(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction, bool grounded, Rigidbody2D RB, Vector2 velocity) 
+    public bool Cling(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction, bool grounded, Rigidbody2D RB, Vector2 velocity, PlayerInputActions playerInputActions) 
     {
-        if (unlocked) 
+        ClingToggle(playerInputActions);
+
+        if (unlocked && clingActive) 
         {
             wallClingcheck(playerTransform, boxCollider, wallRayOffset, groundLayer);
 
@@ -47,7 +50,12 @@ public class PlayerClingScript : MonoBehaviour
                     canCling = false;
                 }
                 else if (dashJumpCheck && !canCling)
-                { 
+                {
+                    RB.gravityScale = gravity;
+                    clinging = false;
+                }
+                else if (!LWall && !RWall)
+                {
                     RB.gravityScale = gravity;
                     clinging = false;
                 }
@@ -55,13 +63,12 @@ public class PlayerClingScript : MonoBehaviour
                 {
                     playerTransform.position = clingPosition;
                 }
+                
             }
             else 
             { 
                 clinging = false;
             }
-
-            Debug.Log(clinging);
             
             return clinging;
 
@@ -71,6 +78,43 @@ public class PlayerClingScript : MonoBehaviour
             return false;
         }
 
+    }
+
+    private void ClingToggle(PlayerInputActions playerInputActions) 
+    {
+        bool input = ClingToggleInput(playerInputActions);
+
+        if (!toggled)
+        {
+            if (!clingActive && input)
+            {
+                clingActive = true;
+                toggled = true;
+            }
+            else if (clingActive && input)
+            {
+                clingActive = false;
+                toggled = true;
+            }
+        }
+        else 
+        { 
+            if (input) 
+            {
+                toggled = true;
+            }
+            else 
+            { 
+                toggled = false; 
+            }
+        }
+
+        Debug.Log(clingActive);
+    }
+
+    private bool ClingToggleInput(PlayerInputActions playerInputActions) 
+    {
+        return 0 < playerInputActions.Keyboard.ClingToggle.ReadValue<float>();
     }
 
     private void wallClingcheck(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer) 
@@ -88,7 +132,8 @@ public class PlayerClingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        clingActive = false;
+        toggled = false;
     }
 
     // Update is called once per frame
