@@ -12,6 +12,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Transform cameraTransform;
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] PlayerDashScript playerDashScript;
+    [SerializeField] PlayerClingScript playerClingScript;
     private PlayerInputActions playerInputActions;
 
 
@@ -32,6 +33,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float jumpTime;
     [SerializeField] float jump;
     [SerializeField, Range(0,2)] float airDragMultiplier;
+    [SerializeField] float wallJumpDiviser;
 
     //physics variables
     private Vector2 velocity;
@@ -45,6 +47,7 @@ public class CharacterController : MonoBehaviour
     private bool canJump;
     private bool hasJumped;
     private bool dashJumpCheck;
+    private bool clinging;
     private enum State
     {
         Ground,
@@ -100,6 +103,7 @@ public class CharacterController : MonoBehaviour
         }
         else if (playerState == State.Air)
         {
+            clinging = playerClingScript.Cling(playerTransform,boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput);
             AirDrag(prevGroundVelocity);
         }
 
@@ -205,6 +209,11 @@ public class CharacterController : MonoBehaviour
             canJump = true;
         }
 
+        if ((input > 0) && !(hasJumped) && clinging)
+        {
+            canJump = true;
+        }
+
         if (canJump)
         {
             currentJumpTime = jumpTime;
@@ -214,8 +223,21 @@ public class CharacterController : MonoBehaviour
 
         if ((input > 0) && (currentJumpTime > 0) & hasJumped)
         {
-            velocity.y += jump * input;
             dashJumpCheck = true;
+            if (clinging && Rcheck)
+            {
+                velocity += new Vector2(-jump * input * wallJumpDiviser, jump * input / wallJumpDiviser);
+            }
+            else if (clinging && Lcheck)
+            {
+                velocity += new Vector2(jump * input * wallJumpDiviser, jump * input / wallJumpDiviser);
+            }
+            else 
+            {
+                velocity.y += jump * input;
+            }
+            
+            
         }
         else 
         {

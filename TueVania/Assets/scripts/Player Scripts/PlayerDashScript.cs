@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerDashScript : MonoBehaviour 
 {
-    // can be used to turn on and off power-up
-    
-
     float currentDashCooldown = 0;
     float currentDashDuration = 0;
     bool canDash;

@@ -15,6 +15,7 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float zoomMultiplier = 5f;
     [SerializeField] float zoomSpeed = 5f;
     [SerializeField] float minZoom = 5f;
+    [SerializeField] float midZoom = 6f;
     [SerializeField] float maxZoom = 8f;
     [SerializeField] float RBmin = 8f;
     [SerializeField] float RBmax = 14f;
@@ -62,7 +63,7 @@ public class CameraScript : MonoBehaviour
         }
         else if (speed > RBmin && speed < RBmax)
         {
-            Target =  minZoom + (speed - RBmin) * zoomMultiplier;
+            Target =  midZoom;
         }
         else
         {

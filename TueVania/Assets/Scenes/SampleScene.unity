@@ -1058,10 +1058,11 @@ MonoBehaviour:
   cameraTransform: {fileID: 519420032}
   mouseToWorldMultiplier: 3.2
   zoomMultiplier: 0.7
-  zoomSpeed: 0.05
+  zoomSpeed: 0.02
   minZoom: 5
+  midZoom: 6
   maxZoom: 9
-  RBmin: 6
+  RBmin: 5
   RBmax: 12
 --- !u!1 &606440456
 GameObject:
@@ -2069,6 +2070,7 @@ GameObject:
   - component: {fileID: 1348115776}
   - component: {fileID: 1348115775}
   - component: {fileID: 1348115777}
+  - component: {fileID: 1348115778}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2181,6 +2183,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 519420032}
   boxCollider: {fileID: 1348115772}
   playerDashScript: {fileID: 1348115777}
+  playerClingScript: {fileID: 1348115778}
   acceleration: 3
   accelerationFriction: 0.5
   groundMaxWalkSpeed: 7
@@ -2194,6 +2197,7 @@ MonoBehaviour:
   jumpTime: 0.05
   jump: 7
   airDragMultiplier: 0.9
+  wallJumpDiviser: 3
 --- !u!114 &1348115776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2243,6 +2247,21 @@ MonoBehaviour:
   dashCooldown: 0.2
   dashLimitCheck: 0.4
   numberOfDashes: 1
+--- !u!114 &1348115778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348115770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1997553b1cef84d913ab338faf9b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlocked: 1
+  wallHitRange: 0.05
+  clingResetTime: 1
 --- !u!1 &1580380398
 GameObject:
   m_ObjectHideFlags: 0
