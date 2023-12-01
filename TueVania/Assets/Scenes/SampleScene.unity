@@ -2194,10 +2194,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  Aircontrol: 0.498
   jumpTime: 0.05
   jump: 7
   airDragMultiplier: 0.9
-  wallJumpDiviser: 3
+  wallJumpDiviser: 4
+  wallJumpPower: 3
 --- !u!114 &1348115776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2260,8 +2262,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlocked: 1
-  wallHitRange: 0.05
-  clingResetTime: 1
+  wallHitRange: 0.1
+  clingResetTime: 0.5
 --- !u!1 &1580380398
 GameObject:
   m_ObjectHideFlags: 0

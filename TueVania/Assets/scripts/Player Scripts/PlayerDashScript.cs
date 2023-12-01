@@ -30,10 +30,11 @@ public class PlayerDashScript : MonoBehaviour
 
         if (unlocked) 
         {
+            if (dashJumpCheck) { currentDashes = numberOfDashes; }
+
             if ((!(currentDashCooldown > 0) && !(dash > 0) && grounded))
             {
                 hasDashed = false;
-                currentDashes = numberOfDashes;
             }
 
             if (dash > 0) 

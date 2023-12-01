@@ -10,6 +10,7 @@ public class PlayerClingScript : MonoBehaviour
     bool clinging;
     Vector2 clingPosition;
     float currentClingResetTime;
+    float gravity = 5f; 
 
     [Header("Cling Settings")]
     [SerializeField] bool unlocked;
@@ -17,7 +18,7 @@ public class PlayerClingScript : MonoBehaviour
     [SerializeField] float clingResetTime;
 
     //Holy shit fix this
-    public bool Cling(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction) 
+    public bool Cling(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction, bool grounded, Rigidbody2D RB, Vector2 velocity) 
     {
         if (unlocked) 
         {
@@ -28,38 +29,48 @@ public class PlayerClingScript : MonoBehaviour
                 canCling = true;
                 clingPosition = playerTransform.position;
             }
+            else
+            {
+                canCling = false;
+            }
+
+            if (!grounded)
+            {
+                if (canCling)
+                {
+                    clinging = true;
+                    playerTransform.position = clingPosition;
+                    RB.gravityScale = 0;
+                    RB.velocity = Vector2.zero;
+                    velocity = Vector2.zero;
+                    currentClingResetTime = clingResetTime;
+                    canCling = false;
+                }
+                else if (dashJumpCheck && !canCling)
+                { 
+                    RB.gravityScale = gravity;
+                    clinging = false;
+                }
+                else if (clinging && !canCling)
+                {
+                    playerTransform.position = clingPosition;
+                }
+            }
             else 
             { 
-                canCling = false;
+                clinging = false;
             }
 
-            if (canCling)
-            {
-                clinging = true;
-                playerTransform.position = clingPosition;
-                canCling = false;
-            }
-            else if (clinging)
-            {
-                playerTransform.position = clingPosition;
-            }
-            else if (dashJumpCheck)
-            {
-                clinging = false;
-                currentClingResetTime = clingResetTime;
-            }
-            else if ((LWall && (direction.x < 0)) || (RWall && (direction.x > 0))) 
-            {
-                clinging = false;
-                currentClingResetTime = clingResetTime;
-            }
-
+            Debug.Log(clinging);
+            
             return clinging;
+
         }
-        else 
-        { 
-            return false; 
+        else
+        {
+            return false;
         }
+
     }
 
     private void wallClingcheck(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer) 

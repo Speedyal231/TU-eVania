@@ -30,10 +30,12 @@ public class CharacterController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
 
     [Header("Jump + Air movement")]
+    [SerializeField, Range(0, 1)] float Aircontrol;
     [SerializeField] float jumpTime;
     [SerializeField] float jump;
     [SerializeField, Range(0,2)] float airDragMultiplier;
     [SerializeField] float wallJumpDiviser;
+    [SerializeField] float wallJumpPower;
 
     //physics variables
     private Vector2 velocity;
@@ -94,8 +96,8 @@ public class CharacterController : MonoBehaviour
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
+        clinging = playerClingScript.Cling(playerTransform, boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, boxCollider, wallRayOffset, groundLayer);
-        Debug.Log(Mathf.Abs(RB.velocity.x));
         if (playerState == State.Ground)
         {
             GetLastSpeed();
@@ -103,10 +105,9 @@ public class CharacterController : MonoBehaviour
         }
         else if (playerState == State.Air)
         {
-            clinging = playerClingScript.Cling(playerTransform,boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput);
+            
             AirDrag(prevGroundVelocity);
         }
-
         ApplyForces();
     }
 
@@ -125,9 +126,14 @@ public class CharacterController : MonoBehaviour
     private Vector2 GetMoveInput()
     {
         Vector2 inputVector = playerInputActions.Keyboard.Move.ReadValue<Vector2>();
-        if ((Rcheck && inputVector.x > 0) || (Lcheck && inputVector.x < 0))
+        if ((Rcheck && inputVector.x > 0) || (Lcheck && inputVector.x < 0) || clinging)
         {
             inputVector.x -= inputVector.x;
+        }
+
+        if (playerState == State.Air) 
+        {
+            inputVector *= Aircontrol;
         }
         return inputVector;
     }
@@ -226,18 +232,16 @@ public class CharacterController : MonoBehaviour
             dashJumpCheck = true;
             if (clinging && Rcheck)
             {
-                velocity += new Vector2(-jump * input * wallJumpDiviser, jump * input / wallJumpDiviser);
+                velocity += new Vector2(-jump * input * wallJumpDiviser, jump * input / wallJumpDiviser) * wallJumpPower;
             }
             else if (clinging && Lcheck)
             {
-                velocity += new Vector2(jump * input * wallJumpDiviser, jump * input / wallJumpDiviser);
+                velocity += new Vector2(jump * input * wallJumpDiviser, jump * input / wallJumpDiviser) * wallJumpPower;
             }
             else 
             {
                 velocity.y += jump * input;
             }
-            
-            
         }
         else 
         {
