@@ -75,6 +75,7 @@ public class PlayerClingScript : MonoBehaviour
         }
         else
         {
+            RB.gravityScale = gravity;
             return false;
         }
 

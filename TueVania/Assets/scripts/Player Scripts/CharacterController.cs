@@ -31,6 +31,7 @@ public class CharacterController : MonoBehaviour
 
     [Header("Jump + Air movement")]
     [SerializeField, Range(0, 1)] float Aircontrol;
+    [SerializeField] float velocityDeltaThreshold;
     [SerializeField] float jumpTime;
     [SerializeField] float jump;
     [SerializeField, Range(0,2)] float airDragMultiplier;
@@ -53,9 +54,8 @@ public class CharacterController : MonoBehaviour
     private enum State
     {
         Ground,
-        Air,
-        Cling
-    }
+        Air
+    }  
     private State playerState;
 
     /// <summary>
@@ -98,9 +98,10 @@ public class CharacterController : MonoBehaviour
         Jump(GetJumpInput());
         clinging = playerClingScript.Cling(playerTransform, boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, boxCollider, wallRayOffset, groundLayer);
+        GetLastSpeed();
         if (playerState == State.Ground)
         {
-            GetLastSpeed();
+            
             Friction(runInput);
         }
         else if (playerState == State.Air)
@@ -130,11 +131,6 @@ public class CharacterController : MonoBehaviour
         {
             inputVector.x -= inputVector.x;
         }
-
-        if (playerState == State.Air) 
-        {
-            inputVector *= Aircontrol;
-        }
         return inputVector;
     }
 
@@ -150,7 +146,14 @@ public class CharacterController : MonoBehaviour
 
     private void GetLastSpeed()
     {
-        prevGroundVelocity = RB.velocity.magnitude;
+        if (playerState == State.Ground)
+        {
+            prevGroundVelocity = RB.velocity.magnitude;
+        }
+        else if (clinging)
+        {
+            prevGroundVelocity = groundMaxRunSpeed * airDragMultiplier;
+        }
     }
 
     private void PhysicsCalcInit()
@@ -165,7 +168,21 @@ public class CharacterController : MonoBehaviour
 
     private void Move(Vector2 inputVector)
     {
-        velocity.x += inputVector.x * acceleration;
+        if (playerState == State.Air)
+        {
+            if (RB.velocity.x > 0 && inputVector.x < 0 || RB.velocity.x < 0 && inputVector.x > 0)
+            {
+                velocity.x += inputVector.x * acceleration * Aircontrol;
+            }
+            else 
+            {
+                velocity.x += inputVector.x * acceleration;
+            }
+        }
+        else 
+        {
+            velocity.x += inputVector.x * acceleration;
+        }
     }
 
     // funtion to apply friction to motion of player on ground 

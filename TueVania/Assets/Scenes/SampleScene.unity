@@ -2194,11 +2194,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  Aircontrol: 0.498
+  Aircontrol: 0.15
+  velocityDeltaThreshold: 2
   jumpTime: 0.05
   jump: 7
   airDragMultiplier: 0.9
-  wallJumpDiviser: 4
+  wallJumpDiviser: 4.5
   wallJumpPower: 3
 --- !u!114 &1348115776
 MonoBehaviour:
