@@ -249,10 +249,12 @@ public class CharacterController : MonoBehaviour
             dashJumpCheck = true;
             if (clinging && Rcheck)
             {
+                RB.velocity = Vector2.zero;
                 velocity += new Vector2(-jump * input * wallJumpDiviser, jump * input / wallJumpDiviser) * wallJumpPower;
             }
             else if (clinging && Lcheck)
             {
+                RB.velocity = Vector2.zero;
                 velocity += new Vector2(jump * input * wallJumpDiviser, jump * input / wallJumpDiviser) * wallJumpPower;
             }
             else 

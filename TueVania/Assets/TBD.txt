@@ -1,3 +1,4 @@
 TBD-
-Fix the fucking cling
-Figure out the dynamic camera smoothing
+Fix sudden cling drop
+Add the shooting now
+Draw the sprites

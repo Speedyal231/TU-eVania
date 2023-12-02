@@ -18,6 +18,7 @@ public class PlayerClingScript : MonoBehaviour
     [SerializeField] bool unlocked;
     [SerializeField] float wallHitRange;
     [SerializeField] float clingResetTime;
+    [SerializeField] float slipGravity = 0f;
 
     public bool Cling(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction, bool grounded, Rigidbody2D RB, Vector2 velocity, PlayerInputActions playerInputActions) 
     {
@@ -43,7 +44,7 @@ public class PlayerClingScript : MonoBehaviour
                 {
                     clinging = true;
                     playerTransform.position = clingPosition;
-                    RB.gravityScale = 0;
+                    RB.gravityScale = slipGravity;
                     RB.velocity = Vector2.zero;
                     velocity = Vector2.zero;
                     currentClingResetTime = clingResetTime;
@@ -63,7 +64,6 @@ public class PlayerClingScript : MonoBehaviour
                 {
                     playerTransform.position = clingPosition;
                 }
-                
             }
             else 
             { 
