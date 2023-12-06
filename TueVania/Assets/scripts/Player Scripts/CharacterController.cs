@@ -13,6 +13,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] PlayerDashScript playerDashScript;
     [SerializeField] PlayerClingScript playerClingScript;
+    [SerializeField] PlayerShootScript playerShootScript;
     private PlayerInputActions playerInputActions;
 
 
@@ -96,6 +97,7 @@ public class CharacterController : MonoBehaviour
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
+        playerShootScript.ShootBullet(playerTransform, boxCollider, playerInputActions);
         clinging = playerClingScript.Cling(playerTransform, boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, boxCollider, wallRayOffset, groundLayer);
         GetLastSpeed();

@@ -55,10 +55,15 @@ public class PlayerClingScript : MonoBehaviour
                     RB.gravityScale = gravity;
                     clinging = false;
                 }
-                else if (!LWall && !RWall)
+                else if (!LWall && !RWall && clinging)
                 {
+                    RB.velocity = Vector2.zero;
                     RB.gravityScale = gravity;
                     clinging = false;
+                }
+                else if (!LWall && !RWall && !clinging)
+                {
+                    RB.gravityScale = gravity;
                 }
                 else if (clinging && !canCling)
                 {
@@ -110,7 +115,7 @@ public class PlayerClingScript : MonoBehaviour
             }
         }
 
-        Debug.Log(clingActive);
+        //Debug.Log(clingActive);
     }
 
     private bool ClingToggleInput(PlayerInputActions playerInputActions) 
