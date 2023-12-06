@@ -4,31 +4,28 @@ using UnityEngine;
 
 public class PlayerShootScript : MonoBehaviour { 
 
-
-
-    [Header("Cling Settings")]
+    [Header("Shooting Settings")]
     [SerializeField] GameObject bullet;
     [SerializeField] float fireRateTime;
 
     float currentfireRateTime;
+    Vector2 shootTarget;
 
-    public void ShootBullet(Transform playerTransform, BoxCollider2D boxCollider, PlayerInputActions playerInputActions) 
-    { 
-
-
-        FetchPlayerToMouseDirection(playerTransform);
-
+    public void ShootBullet(Transform playerTransform, PlayerInputActions playerInputActions) 
+    {
         if (ShootInput(playerInputActions) && !(currentfireRateTime > 0)) 
         {
-            Vector2 spawnPoint = playerTransform.position + playerTransform.up * boxCollider.size.y / 2 ;
-            SpawnObject(spawnPoint, FetchPlayerToMouseDirection(playerTransform));
+            Vector2 spawnPoint = playerTransform.position + playerTransform.up.normalized * playerTransform.localScale.y / 2 ;
+            SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint));
             currentfireRateTime = fireRateTime;
         }
     }
 
-    private Vector2 FetchPlayerToMouseDirection(Transform playerTransform)
+    //Fix this so it works better, use debugs and test thouroughly.
+    private Vector2 FetchPlayerToMouseDirection(Vector2 spawnPoint)
     {
-        return (Camera.main.ScreenToViewportPoint(Input.mousePosition) - new Vector3(0.5f, 0.5f, 0f)) - (Camera.main.ScreenToViewportPoint(playerTransform.position));
+        
+        return (Camera.main.ScreenToViewportPoint(Input.mousePosition) - new Vector3(0.5f, 0.5f, 0f)) - (Camera.main.ScreenToViewportPoint(spawnPoint));
     }
 
     private bool ShootInput(PlayerInputActions playerInputActions)
@@ -53,7 +50,8 @@ public class PlayerShootScript : MonoBehaviour {
         // Create a rotation based on the angle
         Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
         Instantiate(bullet, spawnPoint, rotation);
-    }
 
+        
+    }
 
 }

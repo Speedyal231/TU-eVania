@@ -1,4 +1,3 @@
 TBD-
-Fix sudden cling drop
-Add the shooting now
+fix the shooting targeting
 Draw the sprites
