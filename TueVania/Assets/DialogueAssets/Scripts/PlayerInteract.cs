@@ -27,10 +27,6 @@ public class PlayerInteract : MonoBehaviour
     {
         Vector2 boxSize = new Vector2(interactionRange, interactionRange);
         Collider2D[] collidersInVicinity = Physics2D.OverlapBoxAll(this.transform.position, boxSize, 0);
-        foreach (Collider2D collider in collidersInVicinity)
-        {
-            Debug.Log(collider.gameObject.name);
-        }
 
         foreach (Collider2D collider in collidersInVicinity)
         {
@@ -38,13 +34,22 @@ public class PlayerInteract : MonoBehaviour
             // check if detected object has a dialogue script 
             if (collider.gameObject.TryGetComponent(out DialogueInteractable dialogueInteractable) )
             {
-                Debug.Log("ColliderFound");
                 // if there is a dialogue script, prompt the user to enter dialogue
                 dialogueInteractable.TriggerVisualCue(this.gameObject);
+
                 if (playerInputActions.Keyboard.Interact.WasPressedThisFrame() && !DialogueManager.instance.DialogueIsPlaying)
                 {
                     dialogueInteractable.EnterDialogue(this.gameObject);
                 }
+            }
+
+            if (collider.gameObject.TryGetComponent(out Door door))
+            {
+                if (playerInputActions.Keyboard.Interact.WasPressedThisFrame())
+                {
+                    door.WalkThroughDoor(this.gameObject);
+                }
+                
             }
         }
     }
