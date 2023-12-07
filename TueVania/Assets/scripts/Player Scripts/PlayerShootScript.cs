@@ -6,6 +6,7 @@ public class PlayerShootScript : MonoBehaviour {
 
     [Header("Shooting Settings")]
     [SerializeField] GameObject bullet;
+    [SerializeField] Transform targetTransform;
     [SerializeField] float fireRateTime;
 
     float currentfireRateTime;
@@ -25,7 +26,7 @@ public class PlayerShootScript : MonoBehaviour {
     private Vector2 FetchPlayerToMouseDirection(Vector2 spawnPoint)
     {
         
-        return (Camera.main.ScreenToViewportPoint(Input.mousePosition) - new Vector3(0.5f, 0.5f, 0f)) - (Camera.main.ScreenToViewportPoint(spawnPoint));
+        return new Vector2(targetTransform.position.x, targetTransform.position.y) - spawnPoint;
     }
 
     private bool ShootInput(PlayerInputActions playerInputActions)
