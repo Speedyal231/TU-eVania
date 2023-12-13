@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    [Header("Object Declarations")]
+    [Header("Object Declarations")] 
     [SerializeField] Rigidbody2D RB;
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform cameraTransform;
-    [SerializeField] BoxCollider2D boxCollider;
+    [SerializeField] CapsuleCollider2D capsuleCollider;
     [SerializeField] PlayerDashScript playerDashScript;
     [SerializeField] PlayerClingScript playerClingScript;
     [SerializeField] PlayerShootScript playerShootScript;
@@ -98,8 +98,8 @@ public class CharacterController : MonoBehaviour
         Move(moveInput);
         Jump(GetJumpInput());
         playerShootScript.ShootBullet(playerTransform, playerInputActions);
-        clinging = playerClingScript.Cling(playerTransform, boxCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
-        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, boxCollider, wallRayOffset, groundLayer);
+        clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
+        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
         GetLastSpeed();
         if (playerState == State.Ground)
         {
@@ -273,14 +273,15 @@ public class CharacterController : MonoBehaviour
     // Checks if player is in grounding range
     private void GroundedCheck()
     {
-        //grounded = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
-        grounded = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.x * 3 / 8, new Vector2(boxCollider.size.x / 2,boxCollider.size.x * 3 / 4), 0, -playerTransform.up, groundHitRange, groundLayer);
+        grounded = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
     }
 
     private void WalledCheck()
     {
-        Lcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x/2, boxCollider.size.y - wallRayOffset), 0, Vector2.left, wallHitRange, groundLayer);
-        Rcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x/2, boxCollider.size.y - wallRayOffset), 0, Vector2.right, wallHitRange, groundLayer); 
+        //Lcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x/2, boxCollider.size.y - wallRayOffset), 0, Vector2.left, wallHitRange, groundLayer);
+        //Rcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x/2, boxCollider.size.y - wallRayOffset), 0, Vector2.right, wallHitRange, groundLayer);
+        Lcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y / 2, new Vector2(capsuleCollider.size.x / 2, capsuleCollider.size.y * 3 / 4 - wallRayOffset), 0, Vector2.left, wallHitRange, groundLayer);
+        Rcheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y / 2, new Vector2(capsuleCollider.size.x / 2, capsuleCollider.size.y * 3 / 4 - wallRayOffset), 0, Vector2.right, wallHitRange, groundLayer);
     }
 
     private void StateSwitch()

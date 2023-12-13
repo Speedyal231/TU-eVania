@@ -24,7 +24,7 @@ public class PlayerDashScript : MonoBehaviour
 
 
     // needs heavy reworking, add raycasts to reduce distance and stop phasing through walls
-    public void Dash(Vector2 direction, Transform playerTransform, PlayerInputActions playerInputActions, bool grounded, bool dashJumpCheck, bool Lcheck, bool Rcheck, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer) 
+    public void Dash(Vector2 direction, Transform playerTransform, PlayerInputActions playerInputActions, bool grounded, bool dashJumpCheck, bool Lcheck, bool Rcheck, CapsuleCollider2D capsuleCollider, float wallRayOffset, LayerMask groundLayer) 
     {
         float dash = DashInput(playerInputActions);
 
@@ -69,8 +69,8 @@ public class PlayerDashScript : MonoBehaviour
 
             if (currentDashDuration > 0 && hasDashed)
             {
-                dashLCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y * 3 / 4, new Vector2(boxCollider.size.x / 2, (boxCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.left, dashLimitCheck, groundLayer);
-                dashRCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y * 3 / 4, new Vector2(boxCollider.size.x / 2, (boxCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.right, dashLimitCheck, groundLayer);
+                dashLCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y * 3 / 4, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.left, dashLimitCheck, groundLayer);
+                dashRCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y * 3 / 4, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.right, dashLimitCheck, groundLayer);
                 if (dashLCheck || dashRCheck)
                 {
                     currentDashDuration = 0;

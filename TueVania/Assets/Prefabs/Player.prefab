@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4996919354015548923}
-  - component: {fileID: 5181363940540384236}
+  - component: {fileID: 5738782845015995913}
   - component: {fileID: 5064818175417941156}
   - component: {fileID: 4439762605405643309}
   - component: {fileID: 2220030726718759438}
@@ -123,8 +123,8 @@ Transform:
   - {fileID: 4974935779684279143}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5181363940540384236
-BoxCollider2D:
+--- !u!70 &5738782845015995913
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -156,18 +156,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Direction: 0
 --- !u!50 &5064818175417941156
 Rigidbody2D:
   serializedVersion: 4
@@ -240,7 +230,7 @@ MonoBehaviour:
   RB: {fileID: 5064818175417941156}
   playerTransform: {fileID: 4996919354015548923}
   cameraTransform: {fileID: 0}
-  boxCollider: {fileID: 5181363940540384236}
+  capsuleCollider: {fileID: 5738782845015995913}
   playerDashScript: {fileID: 6659599215914230489}
   playerClingScript: {fileID: 914296479049313799}
   playerShootScript: {fileID: 3802336237528674178}
@@ -258,7 +248,7 @@ MonoBehaviour:
   velocityDeltaThreshold: 2
   jumpTime: 0.05
   jump: 7
-  airDragMultiplier: 0.9
+  airDragMultiplier: 1.1
   wallJumpDiviser: 4.5
   wallJumpPower: 3
 --- !u!114 &6659599215914230489

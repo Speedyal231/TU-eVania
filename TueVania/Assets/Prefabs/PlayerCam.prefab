@@ -153,6 +153,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   RB: {fileID: 0}
   cameraTransform: {fileID: 3414088814867449063}
+  verticalOffset: 1
   mouseToWorldMultiplier: 3.2
   zoomMultiplier: 0.7
   zoomSpeed: 0.02

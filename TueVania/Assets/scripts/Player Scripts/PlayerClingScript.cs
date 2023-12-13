@@ -20,10 +20,10 @@ public class PlayerClingScript : MonoBehaviour
     [SerializeField] float clingResetTime;
     [SerializeField] float slipGravity = 0f;
 
-    public bool Cling(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction, bool grounded, Rigidbody2D RB, Vector2 velocity, PlayerInputActions playerInputActions) 
+    public bool Cling(Transform playerTransform, CapsuleCollider2D capsuleCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction, bool grounded, Rigidbody2D RB, Vector2 velocity, PlayerInputActions playerInputActions) 
     {
         ClingToggle(playerInputActions);
-        wallClingcheck(playerTransform, boxCollider, wallRayOffset, groundLayer);
+        wallClingcheck(playerTransform, capsuleCollider, wallRayOffset, groundLayer);
 
         if (unlocked && clingActive) 
         {
@@ -127,10 +127,10 @@ public class PlayerClingScript : MonoBehaviour
         return 0 < playerInputActions.Keyboard.ClingToggle.ReadValue<float>();
     }
 
-    private void wallClingcheck(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer) 
+    private void wallClingcheck(Transform playerTransform, CapsuleCollider2D capsuleCollider, float wallRayOffset, LayerMask groundLayer) 
     {
-        LWall = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x / 2, boxCollider.size.y / 3 - wallRayOffset), 0, Vector2.left, wallHitRange, groundLayer);
-        RWall = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * boxCollider.size.y / 2, new Vector2(boxCollider.size.x / 2, boxCollider.size.y / 3 - wallRayOffset), 0, Vector2.right, wallHitRange, groundLayer);
+        LWall = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y / 2, new Vector2(capsuleCollider.size.x / 2, capsuleCollider.size.y / 3 - wallRayOffset), 0, Vector2.left, wallHitRange, groundLayer);
+        RWall = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y / 2, new Vector2(capsuleCollider.size.x / 2, capsuleCollider.size.y / 3 - wallRayOffset), 0, Vector2.right, wallHitRange, groundLayer);
     }
 
     private void Count()

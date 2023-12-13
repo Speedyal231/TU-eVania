@@ -11,6 +11,7 @@ public class CameraScript : MonoBehaviour
     [SerializeField] Transform cameraTransform;
 
     [Header("Offests And Tweaks")]
+    [SerializeField] float verticalOffset;
     [SerializeField] float mouseToWorldMultiplier;
     [SerializeField] float zoomMultiplier = 5f;
     [SerializeField] float zoomSpeed = 5f;
@@ -47,7 +48,7 @@ public class CameraScript : MonoBehaviour
 
     private void UpdateCameraPosition()
     {
-        Vector3 newCamPos = new Vector3(playerTransform.position.x, playerTransform.position.y, cameraTransform.position.z);
+        Vector3 newCamPos = new Vector3(playerTransform.position.x, playerTransform.position.y + verticalOffset, cameraTransform.position.z);
         newCamPos += new Vector3(FetchMouseOffset().x, FetchMouseOffset().y, 0);
         cameraTransform.position = newCamPos;
     }
