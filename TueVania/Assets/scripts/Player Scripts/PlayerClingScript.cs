@@ -23,11 +23,11 @@ public class PlayerClingScript : MonoBehaviour
     public bool Cling(Transform playerTransform, BoxCollider2D boxCollider, float wallRayOffset, LayerMask groundLayer, bool dashJumpCheck, Vector2 direction, bool grounded, Rigidbody2D RB, Vector2 velocity, PlayerInputActions playerInputActions) 
     {
         ClingToggle(playerInputActions);
+        wallClingcheck(playerTransform, boxCollider, wallRayOffset, groundLayer);
 
         if (unlocked && clingActive) 
         {
-            wallClingcheck(playerTransform, boxCollider, wallRayOffset, groundLayer);
-
+            
             if ((LWall || RWall) && !clinging && !(0 < currentClingResetTime))
             {
                 canCling = true;
@@ -80,10 +80,14 @@ public class PlayerClingScript : MonoBehaviour
         }
         else
         {
+            if (unlocked && !clingActive && clinging)
+            {
+                clinging = false;
+                RB.velocity = Vector2.zero;
+            }
             RB.gravityScale = gravity;
             return false;
         }
-
     }
 
     private void ClingToggle(PlayerInputActions playerInputActions) 

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6981132, g: 0.42604172, b: 0.27265927, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RB: {fileID: 5064818175417941156}
   playerTransform: {fileID: 4996919354015548923}
-  cameraTransform: {fileID: 3414088814867449063, guid: d28e4141d8cfbc1449d9b6b340633bb1, type: 3}
+  cameraTransform: {fileID: 0}
   boxCollider: {fileID: 5181363940540384236}
   playerDashScript: {fileID: 6659599215914230489}
   playerClingScript: {fileID: 914296479049313799}
@@ -308,5 +308,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7706b2acfa3b52a448ae550251c144ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockedShoot: 1
+  unlockedBigBlast: 1
   bullet: {fileID: 6701394879574513763, guid: f628952ac601b9f4293a92b180cc3b44, type: 3}
+  bigBlast: {fileID: 5336665776668268991, guid: d90907ea325eac54488551fa0caa4ee5, type: 3}
+  targetTransform: {fileID: 0}
   fireRateTime: 0.1
+  chargeTime: 1

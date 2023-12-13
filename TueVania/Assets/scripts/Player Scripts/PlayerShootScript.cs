@@ -2,23 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShootScript : MonoBehaviour { 
+public class PlayerShootScript : MonoBehaviour {
+
 
     [Header("Shooting Settings")]
+    [SerializeField] bool unlockedShoot;
+    [SerializeField] bool unlockedBigBlast;
     [SerializeField] GameObject bullet;
+    [SerializeField] GameObject bigBlast;
     [SerializeField] Transform targetTransform;
     [SerializeField] float fireRateTime;
-
+    [SerializeField] float chargeTime;
+    
     float currentfireRateTime;
+    float currentChargeTime;
+    bool canShoot = false;
+    bool hasShot = false;
+    bool canBlastMax = false;
     Vector2 shootTarget;
 
     public void ShootBullet(Transform playerTransform, PlayerInputActions playerInputActions) 
     {
-        if (ShootInput(playerInputActions) && !(currentfireRateTime > 0)) 
+        bool input = ShootInput(playerInputActions);
+
+        if (unlockedShoot)
         {
-            Vector2 spawnPoint = playerTransform.position + playerTransform.up.normalized * playerTransform.localScale.y / 2 ;
-            SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint));
-            currentfireRateTime = fireRateTime;
+            if (!hasShot && !(currentfireRateTime > 0) && input)
+            {
+                canShoot = true;
+            }
+
+            if ((hasShot || (currentfireRateTime > 0)) && input)
+            {
+                canShoot = false;
+            }
+            else
+            {
+                hasShot = false;
+            }
+
+
+            if (canShoot)
+            {
+                Vector2 spawnPoint = playerTransform.position + playerTransform.up.normalized * playerTransform.localScale.y / 2;
+                SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bullet);
+                currentfireRateTime = fireRateTime;
+                currentChargeTime = chargeTime;
+                hasShot = true;
+            }
+
+            if (unlockedBigBlast)
+            {
+                if (!(currentChargeTime > 0) && hasShot && input && !canShoot)
+                {
+                    canBlastMax = true;
+                }
+
+                if (canBlastMax && !input)
+                {
+                    Vector2 spawnPoint = playerTransform.position + playerTransform.up.normalized * playerTransform.localScale.y / 2;
+                    SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bigBlast);
+                    Debug.Log("Boom");
+                    currentfireRateTime = fireRateTime;
+                    hasShot = true;
+                    canBlastMax = false;
+                }
+            }
         }
     }
 
@@ -38,21 +87,21 @@ public class PlayerShootScript : MonoBehaviour {
     {
         if (currentfireRateTime > 0)
             currentfireRateTime -= Time.fixedDeltaTime;
-    }
+        if (currentChargeTime > 0)
+            currentChargeTime -= Time.fixedDeltaTime;
+     }
 
     void FixedUpdate()
     {
         Count();
     }
 
-    void SpawnObject(Vector2 spawnPoint, Vector2 mouseDir)
+    void SpawnObject(Vector2 spawnPoint, Vector2 mouseDir, GameObject projectile)
     {
         float angle = Mathf.Atan2(mouseDir.y, mouseDir.x) * Mathf.Rad2Deg;
         // Create a rotation based on the angle
         Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
-        Instantiate(bullet, spawnPoint, rotation);
-
-        
+        Instantiate(projectile, spawnPoint, rotation);
     }
 
 }
