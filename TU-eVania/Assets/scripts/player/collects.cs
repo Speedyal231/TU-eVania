@@ -13,7 +13,7 @@ public class collects : MonoBehaviour {
             if (other.GetComponent<tempPlayerController>() == null)
                 return;
         }
-        playerData.AddPoints(pointsToAdd);
+        PlayerScoreManager.AddPoints(pointsToAdd);
         Destroy(gameObject);
 
      }

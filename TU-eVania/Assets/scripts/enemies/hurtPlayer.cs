@@ -1,38 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class hurtPlayer : MonoBehaviour {
+public class hurtPlayer : MonoBehaviour
+{
+    public int damageToGive;
 
-	public int damageToGive;
+    // Use this for initialization
+    void Start()
+    {
+        // Initialization code if needed
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.name == "tempPlayer")
-		{
-			playerData.hurtPlayer(damageToGive);
-			Debug.Log("Damage Given");
+    // Update is called once per frame
+    void Update()
+    {
+        // Update code if needed
+    }
 
-			var player = other.GetComponent<tempPlayerController>();
-			player.knockbackCount = player.knockbackLength;
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // Use the updated method name HurtPlayer from the PlayerData class
+            PlayerHealthManager.HurtPlayer(damageToGive);
+            Debug.Log("Damage Given");
 
-			if (other.transform.position.x < transform.position.x)
+            var player = other.GetComponent<tempPlayerController>();
+            player.knockbackCount = player.knockbackLength;
+
+            if (other.transform.position.x < transform.position.x)
             {
-				player.knockFromRight = true;
+                player.knockFromRight = true;
             }
             else
             {
-				player.knockFromRight = false;
+                player.knockFromRight = false;
             }
-		}
-	}
+        }
+    }
 }
