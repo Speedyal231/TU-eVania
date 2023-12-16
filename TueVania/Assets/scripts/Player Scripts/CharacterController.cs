@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
+/**
+ * This script can be editied to add hitstun and other stuff
+ * 
+ */
 public class CharacterController : MonoBehaviour
 {
     [Header("Object Declarations")] 
