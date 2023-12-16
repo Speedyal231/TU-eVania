@@ -116,6 +116,7 @@
 -define:ENABLE_TERRAIN
 -define:ENABLE_TILEMAP
 -define:ENABLE_TIMELINE
+-define:ENABLE_INPUT_SYSTEM
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:CSHARP_7_OR_LATER
@@ -350,6 +351,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Burst.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Burst.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Collections.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InputSystem.ForUI.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InputSystem.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InternalAPIEditorBridge.001.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InternalAPIEditorBridge.005.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InternalAPIEngineBridge.001.ref.dll"
@@ -390,6 +393,7 @@
 "Assets/scripts/blockCode/PrintBlock.cs"
 "Assets/scripts/blockCode/StringVariableBlock.cs"
 "Assets/scripts/blockCode/WhileLoopBlock.cs"
+"Assets/scripts/BulletScripts/BulletMovementScript.cs"
 "Assets/scripts/enemies/flying enemy/chaseControl.cs"
 "Assets/scripts/enemies/flying enemy/fEnemyDatasheet.cs"
 "Assets/scripts/enemies/flying enemy/flyingChaseEnemy.cs"
@@ -407,6 +411,13 @@
 "Assets/scripts/level/scoreUpdated.cs"
 "Assets/scripts/level/shopManager.cs"
 "Assets/scripts/level/TeleportOnKeyPress.cs"
+"Assets/scripts/Player Scripts/CameraScript.cs"
+"Assets/scripts/Player Scripts/CharacterController.cs"
+"Assets/scripts/Player Scripts/PlayerClingScript.cs"
+"Assets/scripts/Player Scripts/PlayerDashScript.cs"
+"Assets/scripts/Player Scripts/PlayerInputActions.cs"
+"Assets/scripts/Player Scripts/PlayerShootScript.cs"
+"Assets/scripts/Player Scripts/TargetFollowScript.cs"
 "Assets/scripts/player/collects.cs"
 "Assets/scripts/player/playerData.cs"
 "Assets/scripts/player/PlayerHealthManager.cs"
