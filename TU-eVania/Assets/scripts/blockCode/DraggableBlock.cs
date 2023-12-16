@@ -1,31 +1,39 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableBlock : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class DraggableBlock : MonoBehaviour
 {
-    private RectTransform rectTransform;
-    private CanvasGroup canvasGroup;
+    private bool isDragging = false;
+    private Vector2 originalPosition;
 
-    private void Start()
+    void Update()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
+        if (isDragging)
+        {
+            // Update block position based on mouse/touch input
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector2(mousePosition.x, mousePosition.y);
+        }
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    void OnMouseDown()
     {
-        canvasGroup.alpha = 0.6f;
-        canvasGroup.blocksRaycasts = false;
+        // Start dragging when the block is clicked
+        isDragging = true;
+        originalPosition = transform.position;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    void OnMouseUp()
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        // Stop dragging and snap to a grid or other blocks
+        isDragging = false;
+        SnapToGrid();
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    void SnapToGrid()
     {
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
+        // Implement logic to snap the block to a grid or other blocks
+        // For simplicity, let's just round the position to the nearest whole number
+        transform.position = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
     }
 }
