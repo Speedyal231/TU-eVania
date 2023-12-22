@@ -21,13 +21,13 @@ public class PlayerShootScript : MonoBehaviour {
     bool canBlastMax = false;
     Vector2 shootTarget;
 
-    public void ShootBullet(Transform playerTransform, PlayerInputActions playerInputActions) 
+    public void ShootBullet(Transform playerTransform, PlayerInputActions playerInputActions, bool isAirFlipping) 
     {
         bool input = ShootInput(playerInputActions);
 
         if (unlockedShoot)
         {
-            if (!hasShot && !(currentfireRateTime > 0) && input)
+            if (!hasShot && !(currentfireRateTime > 0) && input && !isAirFlipping)
             {
                 canShoot = true;
             }
@@ -58,7 +58,7 @@ public class PlayerShootScript : MonoBehaviour {
                     canBlastMax = true;
                 }
 
-                if (canBlastMax && !input)
+                if (canBlastMax && !input && !isAirFlipping)
                 {
                     Vector2 spawnPoint = playerTransform.position + playerTransform.up.normalized * playerTransform.localScale.y / 2;
                     SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bigBlast);

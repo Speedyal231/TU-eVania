@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Rendering;
 
 /**
  * This script can be editied to add hitstun and other stuff
@@ -42,6 +44,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField, Range(0,2)] float airDragMultiplier;
     [SerializeField] float wallJumpDiviser;
     [SerializeField] float wallJumpPower;
+    [SerializeField] float flipThreshold;
 
     //physics variables
     private Vector2 velocity;
@@ -56,6 +59,9 @@ public class CharacterController : MonoBehaviour
     private bool hasJumped;
     private bool dashJumpCheck;
     private bool clinging;
+    // true if player speed is large and they are in air
+    private bool willFlip;
+    private bool isAirFlipping;
     private enum State
     {
         Ground,
@@ -96,12 +102,14 @@ public class CharacterController : MonoBehaviour
         GroundedCheck();
         WalledCheck();
         StateSwitch();
+        CheckWillFlip();
+        UpdateFlipping();
         Count();
         Vector2 moveInput = GetMoveInput();
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
-        playerShootScript.ShootBullet(playerTransform, playerInputActions);
+        playerShootScript.ShootBullet(playerTransform, playerInputActions, isAirFlipping);
         clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
         GetLastSpeed();
@@ -335,4 +343,34 @@ public class CharacterController : MonoBehaviour
         if (currentJumpTime > 0)
             currentJumpTime -= Time.fixedDeltaTime;
     }
+
+    private void CheckWillFlip()
+    {
+        if (playerState == State.Ground || clinging)
+        {
+            if (Mathf.Abs(RB.velocity.x) >= flipThreshold)
+            {
+                willFlip = true;
+            }
+            else
+            {
+                willFlip = false;
+            }
+        }
+    }
+
+    private void UpdateFlipping()
+    {
+        if (willFlip && playerState == State.Air)
+        {
+            isAirFlipping = true;
+            
+        } 
+        else
+        {
+            isAirFlipping = false;
+        }
+        
+    }
+
 }

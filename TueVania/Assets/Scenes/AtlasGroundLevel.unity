@@ -4063,6 +4063,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2220030726718759438, guid: 865c1ff944d25f44db28bb5dd962b2ab, type: 3}
+      propertyPath: flipThreshold
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220030726718759438, guid: 865c1ff944d25f44db28bb5dd962b2ab, type: 3}
+      propertyPath: groundHitRange
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220030726718759438, guid: 865c1ff944d25f44db28bb5dd962b2ab, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 1657213857}
