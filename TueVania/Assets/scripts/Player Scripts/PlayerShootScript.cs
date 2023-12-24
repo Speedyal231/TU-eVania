@@ -21,7 +21,7 @@ public class PlayerShootScript : MonoBehaviour {
     bool canBlastMax = false;
     Vector2 shootTarget;
 
-    public void ShootBullet(Transform playerTransform, PlayerInputActions playerInputActions, bool isAirFlipping) 
+    public void ShootBullet(Transform gunTransform, PlayerInputActions playerInputActions, bool isAirFlipping) 
     {
         bool input = ShootInput(playerInputActions);
 
@@ -44,7 +44,7 @@ public class PlayerShootScript : MonoBehaviour {
 
             if (canShoot)
             {
-                Vector2 spawnPoint = playerTransform.position + playerTransform.up.normalized * playerTransform.localScale.y / 2;
+                Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
                 SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bullet);
                 currentfireRateTime = fireRateTime;
                 currentChargeTime = chargeTime;
@@ -60,7 +60,7 @@ public class PlayerShootScript : MonoBehaviour {
 
                 if (canBlastMax && !input && !isAirFlipping)
                 {
-                    Vector2 spawnPoint = playerTransform.position + playerTransform.up.normalized * playerTransform.localScale.y / 2;
+                    Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
                     SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bigBlast);
                     Debug.Log("Boom");
                     currentfireRateTime = fireRateTime;

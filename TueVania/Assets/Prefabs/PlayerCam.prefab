@@ -157,8 +157,8 @@ MonoBehaviour:
   mouseToWorldMultiplier: 3.2
   zoomMultiplier: 0.7
   zoomSpeed: 0.02
-  minZoom: 5
-  midZoom: 6
-  maxZoom: 9
-  RBmin: 5
-  RBmax: 12
+  minZoom: 3
+  midZoom: 4
+  maxZoom: 5
+  RBmin: 3
+  RBmax: 8

@@ -16,6 +16,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Rigidbody2D RB;
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform cameraTransform;
+    [SerializeField] Transform gunTransform;
     [SerializeField] CapsuleCollider2D capsuleCollider;
     [SerializeField] PlayerDashScript playerDashScript;
     [SerializeField] PlayerClingScript playerClingScript;
@@ -62,6 +63,9 @@ public class CharacterController : MonoBehaviour
     // true if player speed is large and they are in air
     private bool willFlip;
     private bool isAirFlipping;
+    // stores current direction faced
+    bool lFace;
+    bool rFace;
     private enum State
     {
         Ground,
@@ -92,7 +96,8 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        rFace = true;
+        lFace = false;
     }
 
     // Update is called once per frame
@@ -109,7 +114,7 @@ public class CharacterController : MonoBehaviour
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
-        playerShootScript.ShootBullet(playerTransform, playerInputActions, isAirFlipping);
+        playerShootScript.ShootBullet(gunTransform, playerInputActions, isAirFlipping);
         clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
         GetLastSpeed();
@@ -145,7 +150,19 @@ public class CharacterController : MonoBehaviour
         {
             inputVector.x -= inputVector.x;
         }
+        if (inputVector.x > 0)
+        {
+            rFace = true;
+            lFace = false;
+        } 
+        else if (inputVector.x < 0)
+        {
+            rFace = false;
+            lFace = true;
+        }
+
         return inputVector;
+
     }
 
     private float GetJumpInput()
