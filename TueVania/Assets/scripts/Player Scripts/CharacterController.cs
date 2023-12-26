@@ -284,11 +284,13 @@ public class CharacterController : MonoBehaviour
             if (clinging && Rcheck)
             {
                 RB.velocity = Vector2.zero;
+                willFlip = true;
                 velocity += new Vector2(-jump * input * wallJumpDiviser, jump * input / wallJumpDiviser) * wallJumpPower;
             }
             else if (clinging && Lcheck)
             {
                 RB.velocity = Vector2.zero;
+                willFlip = true;
                 velocity += new Vector2(jump * input * wallJumpDiviser, jump * input / wallJumpDiviser) * wallJumpPower;
             }
             else 
@@ -381,7 +383,7 @@ public class CharacterController : MonoBehaviour
 
     private void UpdateFlipping()
     {
-        if (willFlip && playerState == State.Air)
+        if (willFlip && playerState == State.Air && !clinging)
         {
             isAirFlipping = true;
             
