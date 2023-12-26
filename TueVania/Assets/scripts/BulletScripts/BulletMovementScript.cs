@@ -16,6 +16,7 @@ public class BulletMovementScript : MonoBehaviour
     [SerializeField] float bulletExistanceTime;
 
     float currentBulletExistanceTime;
+    Vector3 initialVelocity;
     float addedVelocity;
 
 
@@ -23,6 +24,7 @@ public class BulletMovementScript : MonoBehaviour
     void Start()
     {
         currentBulletExistanceTime = bulletExistanceTime;
+        initialVelocity = rbPlayer.velocity;
         addedVelocity = rbPlayer.velocity.magnitude;
     }
 
@@ -37,7 +39,7 @@ public class BulletMovementScript : MonoBehaviour
 
     private void Move() 
     {
-        bulletObject.transform.position += (bulletSpeed + addedVelocity) * bulletObject.transform.right.normalized * Time.deltaTime;
+        bulletObject.transform.position += (bulletSpeed) * bulletObject.transform.right.normalized * Time.deltaTime + initialVelocity;
     }
 
     private void HitCheck() 

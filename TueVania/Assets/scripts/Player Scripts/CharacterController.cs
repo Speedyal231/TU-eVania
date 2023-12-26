@@ -16,11 +16,13 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Rigidbody2D RB;
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform cameraTransform;
+    [SerializeField] GameObject gunVisual;
     [SerializeField] Transform gunTransform;
     [SerializeField] CapsuleCollider2D capsuleCollider;
     [SerializeField] PlayerDashScript playerDashScript;
     [SerializeField] PlayerClingScript playerClingScript;
     [SerializeField] PlayerShootScript playerShootScript;
+    [SerializeField] AnimationControlScript animation;
     private PlayerInputActions playerInputActions;
 
 
@@ -118,6 +120,7 @@ public class CharacterController : MonoBehaviour
         clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
         GetLastSpeed();
+        AnimationBehaviour(moveInput);
         if (playerState == State.Ground)
         {
             
@@ -388,6 +391,100 @@ public class CharacterController : MonoBehaviour
             isAirFlipping = false;
         }
         
+    }
+
+    /// <summary>
+    /// 
+    /// Animation declaration stuff
+    /// 
+    /// </summary>
+
+    //animation States
+    const string RF_rIdle = "RF_rIdle";
+    const string RF_lIdle = "RF_lIdle";
+    const string RF_uIdle = "RF_uIdle";
+    const string LF_lIdle = "LF_lIdle";
+    const string LF_rIdle = "LF_rIdle";
+    const string RF_rRun = "RF_rRun";
+    const string RF_lRun = "RF_lRun";
+    const string RF_uRun = "RF_uRun";
+    const string LF_lRun = "LF_lRun";
+    const string LF_rRun = "LF_rRun";
+
+    Vector2 RFGunPos = new Vector2(-0.2f,0.5f);
+    Vector2 LFrGunPos = new Vector2(0.08f, 0.5f);
+    Vector2 LFlGunPos = new Vector2(-0.185f, 0.5f);
+
+    private void AnimationBehaviour(Vector2 moveInput)
+    {
+        float gunAngle = gunTransform.eulerAngles.z;
+        bool moving = moveInput.magnitude > 0;
+
+        if (rFace)
+        {
+            gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunOver";
+            gunTransform.localPosition = RFGunPos;
+
+            if (!moving)
+            {
+                if (gunAngle < 45 || gunAngle > 270)
+                {
+                    animation.ChangeAnimationState(RF_rIdle);
+                }
+                else if (gunAngle < 135 && gunAngle >= 45)
+                {
+                    animation.ChangeAnimationState(RF_uIdle);
+                }
+                else if (gunAngle <= 270 && gunAngle >= 135)
+                {
+                    animation.ChangeAnimationState(RF_lIdle);
+                }
+            }
+            else if (moving)
+            {
+                if (gunAngle < 45 || gunAngle > 270)
+                {
+                    animation.ChangeAnimationState(RF_rRun);
+                }
+                else if (gunAngle < 135 && gunAngle >= 45)
+                {
+                    animation.ChangeAnimationState(RF_uRun);
+                }
+                else if (gunAngle <= 270 && gunAngle >= 135)
+                {
+                    animation.ChangeAnimationState(RF_lRun);
+                }
+            }
+        } 
+        else if (lFace)
+        {
+            gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunUnder";
+            gunTransform.localPosition = LFrGunPos;
+
+
+            if (!moving)
+            {
+                if (gunAngle < 120 || gunAngle > 240)
+                {
+                    animation.ChangeAnimationState(LF_rIdle);
+                }
+                else if (gunAngle <= 240 && gunAngle >= 120)
+                {
+                    animation.ChangeAnimationState(LF_lIdle);
+                }
+            }
+            else if (moving)
+            {
+                if (gunAngle < 120 || gunAngle > 240)
+                {
+                    animation.ChangeAnimationState(LF_rRun);
+                }
+                else if (gunAngle <= 240 && gunAngle >= 120)
+                {
+                    animation.ChangeAnimationState(LF_lRun);
+                }
+            }
+        }
     }
 
 }
