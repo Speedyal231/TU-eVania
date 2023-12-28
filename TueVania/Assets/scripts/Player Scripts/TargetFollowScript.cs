@@ -7,7 +7,7 @@ public class TargetFollowScript : MonoBehaviour
     [Header("Target Settings")]
     [SerializeField] Transform targetTransform;
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
         // Get the mouse position in world coordinates
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

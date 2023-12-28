@@ -19,11 +19,11 @@ public class PlayerShootScript : MonoBehaviour {
     bool canShoot = false;
     bool hasShot = false;
     bool canBlastMax = false;
-    Vector2 shootTarget;
 
     public void ShootBullet(Transform gunTransform, PlayerInputActions playerInputActions, bool isAirFlipping) 
     {
         bool input = ShootInput(playerInputActions);
+
 
         if (unlockedShoot)
         {
@@ -41,14 +41,14 @@ public class PlayerShootScript : MonoBehaviour {
                 hasShot = false;
             }
 
-
             if (canShoot)
             {
-                Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
-                SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bullet);
                 currentfireRateTime = fireRateTime;
                 currentChargeTime = chargeTime;
                 hasShot = true;
+                canShoot = false;
+                Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
+                SpawnObject(spawnPoint, FetchPlayerToMouseDirection(gunTransform.position), bullet); 
             }
 
             if (unlockedBigBlast)
@@ -60,12 +60,12 @@ public class PlayerShootScript : MonoBehaviour {
 
                 if (canBlastMax && !input && !isAirFlipping)
                 {
-                    Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
-                    SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bigBlast);
-                    Debug.Log("Boom");
                     currentfireRateTime = fireRateTime;
                     hasShot = true;
                     canBlastMax = false;
+                    Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
+                    SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bigBlast);
+                    Debug.Log("Boom");  
                 }
             }
         }

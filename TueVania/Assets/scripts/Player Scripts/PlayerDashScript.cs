@@ -21,6 +21,7 @@ public class PlayerDashScript : MonoBehaviour
     [SerializeField] float dashLimitCheck;
     [SerializeField] int numberOfDashes;
     Vector2 target;
+    public bool dashing;
 
 
     // needs heavy reworking, add raycasts to reduce distance and stop phasing through walls
@@ -69,6 +70,7 @@ public class PlayerDashScript : MonoBehaviour
 
             if (currentDashDuration > 0 && hasDashed)
             {
+                dashing = true;
                 dashLCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y * 3 / 4, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.left, dashLimitCheck, groundLayer);
                 dashRCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y * 3 / 4, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.right, dashLimitCheck, groundLayer);
                 if (dashLCheck || dashRCheck)
@@ -80,6 +82,10 @@ public class PlayerDashScript : MonoBehaviour
                     playerTransform.position = Vector2.Lerp(playerTransform.position, target, dashSpeed);
                 }
                 if (dashJumpCheck) { hasDashed = false; }
+            } 
+            else if (!(currentDashDuration > 0))
+            {
+                dashing = false;
             }
         }
     }

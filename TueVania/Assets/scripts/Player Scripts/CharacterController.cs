@@ -120,15 +120,13 @@ public class CharacterController : MonoBehaviour
         clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
         GetLastSpeed();
-        AnimationBehaviour(moveInput);
+        AnimationBehaviour(moveInput, runInput);
         if (playerState == State.Ground)
         {
-            
             Friction(runInput);
         }
         else if (playerState == State.Air)
         {
-            
             AirDrag(prevGroundVelocity);
         }
         ApplyForces();
@@ -407,27 +405,100 @@ public class CharacterController : MonoBehaviour
     const string RF_uIdle = "RF_uIdle";
     const string LF_lIdle = "LF_lIdle";
     const string LF_rIdle = "LF_rIdle";
+
+    const string RF_rWalk = "RF_rWalk";
+    const string RF_lWalk = "RF_lWalk";
+    const string RF_uWalk = "RF_uWalk";
+    const string LF_lWalk = "LF_lWalk";
+    const string LF_rWalk = "LF_rWalk";
+
     const string RF_rRun = "RF_rRun";
     const string RF_lRun = "RF_lRun";
     const string RF_uRun = "RF_uRun";
     const string LF_lRun = "LF_lRun";
     const string LF_rRun = "LF_rRun";
 
+    const string RF_rJump = "RF_rJump";
+    const string RF_lJump = "RF_lJump";
+    const string RF_uJump = "RF_uJump";
+    const string LF_lJump = "LF_lJump";
+    const string LF_rJump = "LF_rJump";
+
+    const string rightFlip = "RightFlip";
+    const string leftFlip = "LeftFlip";
+
+    const string rightCling = "rightCling";
+    const string leftCling = "leftCling";
+
+    const string rightDash = "RightDash";
+    const string leftDash = "LeftDash";
+
     Vector2 RFGunPos = new Vector2(-0.2f,0.5f);
     Vector2 LFrGunPos = new Vector2(0.08f, 0.5f);
-    Vector2 LFlGunPos = new Vector2(-0.185f, 0.5f);
 
-    private void AnimationBehaviour(Vector2 moveInput)
+    private void AnimationBehaviour(Vector2 moveInput, float runInput)
     {
         float gunAngle = gunTransform.eulerAngles.z;
-        bool moving = moveInput.magnitude > 0;
+        bool moving = MathF.Abs(moveInput.x) > 0;
+        bool running = runInput > 0;
+
+        if (isAirFlipping || (playerDashScript.dashing && moving))
+        { 
+            gunVisual.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else 
+        {
+            gunVisual.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        if (clinging)
+        {
+            if (Lcheck)
+            {
+                gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunUnder";
+                gunTransform.localPosition = LFrGunPos;
+                animation.ChangeAnimationState(leftCling);
+            }
+            else if (Rcheck)
+            {
+                gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunOver";
+                gunTransform.localPosition = RFGunPos;
+                animation.ChangeAnimationState(rightCling);
+            }
+        }
 
         if (rFace)
         {
             gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunOver";
             gunTransform.localPosition = RFGunPos;
 
-            if (!moving)
+            if (clinging || (playerDashScript.dashing && moving))
+            {
+                if (!clinging && playerDashScript.dashing)
+                {
+                    animation.ChangeAnimationState(rightDash);
+                }
+            }
+            else if (playerState == State.Air)
+            {
+                if (isAirFlipping)
+                {
+                    animation.ChangeAnimationState(rightFlip);
+                }
+                else if (gunAngle < 45 || gunAngle > 270)
+                {
+                    animation.ChangeAnimationState(RF_rJump);
+                }
+                else if (gunAngle < 135 && gunAngle >= 45)
+                {
+                    animation.ChangeAnimationState(RF_uJump);
+                }
+                else if (gunAngle <= 270 && gunAngle >= 135)
+                {
+                    animation.ChangeAnimationState(RF_lJump);
+                }
+            }
+            else if (!moving)
             {
                 if (gunAngle < 45 || gunAngle > 270)
                 {
@@ -441,21 +512,40 @@ public class CharacterController : MonoBehaviour
                 {
                     animation.ChangeAnimationState(RF_lIdle);
                 }
-            }
+            } 
             else if (moving)
             {
-                if (gunAngle < 45 || gunAngle > 270)
+                if (running)
                 {
-                    animation.ChangeAnimationState(RF_rRun);
+                    if (gunAngle < 45 || gunAngle > 270)
+                    {
+                        animation.ChangeAnimationState(RF_rRun);
+                    }
+                    else if (gunAngle < 135 && gunAngle >= 45)
+                    {
+                        animation.ChangeAnimationState(RF_uRun);
+                    }
+                    else if (gunAngle <= 270 && gunAngle >= 135)
+                    {
+                        animation.ChangeAnimationState(RF_lRun);
+                    }
                 }
-                else if (gunAngle < 135 && gunAngle >= 45)
+                else if (!running)
                 {
-                    animation.ChangeAnimationState(RF_uRun);
+                    if (gunAngle < 45 || gunAngle > 270)
+                    {
+                        animation.ChangeAnimationState(RF_rWalk);
+                    }
+                    else if (gunAngle < 135 && gunAngle >= 45)
+                    {
+                        animation.ChangeAnimationState(RF_uWalk);
+                    }
+                    else if (gunAngle <= 270 && gunAngle >= 135)
+                    {
+                        animation.ChangeAnimationState(RF_lWalk);
+                    }
                 }
-                else if (gunAngle <= 270 && gunAngle >= 135)
-                {
-                    animation.ChangeAnimationState(RF_lRun);
-                }
+                
             }
         } 
         else if (lFace)
@@ -463,8 +553,29 @@ public class CharacterController : MonoBehaviour
             gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunUnder";
             gunTransform.localPosition = LFrGunPos;
 
-
-            if (!moving)
+            if (clinging || (playerDashScript.dashing && moving))
+            {
+                if (!clinging && playerDashScript.dashing)
+                {
+                    animation.ChangeAnimationState(leftDash);
+                }
+            }
+            else if (playerState == State.Air )
+            {
+                if (isAirFlipping)
+                {
+                    animation.ChangeAnimationState(leftFlip);
+                }
+                else if (gunAngle < 120 || gunAngle > 240)
+                {
+                    animation.ChangeAnimationState(LF_rJump);
+                }
+                else if (gunAngle <= 240 && gunAngle >= 120)
+                {
+                    animation.ChangeAnimationState(LF_lJump);
+                }
+            }
+            else if (!moving)
             {
                 if (gunAngle < 120 || gunAngle > 240)
                 {
@@ -477,14 +588,29 @@ public class CharacterController : MonoBehaviour
             }
             else if (moving)
             {
-                if (gunAngle < 120 || gunAngle > 240)
+                if (running)
                 {
-                    animation.ChangeAnimationState(LF_rRun);
-                }
-                else if (gunAngle <= 240 && gunAngle >= 120)
+                    if (gunAngle < 120 || gunAngle > 240)
+                    {
+                        animation.ChangeAnimationState(LF_rRun);
+                    }
+                    else if (gunAngle <= 240 && gunAngle >= 120)
+                    {
+                        animation.ChangeAnimationState(LF_lRun);
+                    }
+                } 
+                else if (!running)
                 {
-                    animation.ChangeAnimationState(LF_lRun);
+                    if (gunAngle < 120 || gunAngle > 240)
+                    {
+                        animation.ChangeAnimationState(LF_rWalk);
+                    }
+                    else if (gunAngle <= 240 && gunAngle >= 120)
+                    {
+                        animation.ChangeAnimationState(LF_lWalk);
+                    }
                 }
+                
             }
         }
     }

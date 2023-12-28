@@ -4088,6 +4088,10 @@ PrefabInstance:
       value: Sprite
       objectReference: {fileID: 0}
     - target: {fileID: 3802336237528674178, guid: 865c1ff944d25f44db28bb5dd962b2ab, type: 3}
+      propertyPath: fireRateTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802336237528674178, guid: 865c1ff944d25f44db28bb5dd962b2ab, type: 3}
       propertyPath: targetTransform
       value: 
       objectReference: {fileID: 905225417}
@@ -15500,7 +15504,7 @@ Transform:
   m_GameObject: {fileID: 1218162259}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.059, y: 0.486, z: 0}
+  m_LocalPosition: {x: -0.24, y: 0.486, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
