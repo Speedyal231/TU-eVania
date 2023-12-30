@@ -23,6 +23,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] PlayerClingScript playerClingScript;
     [SerializeField] PlayerShootScript playerShootScript;
     [SerializeField] AnimationControlScript animation;
+    [SerializeField] PlayerSound sfx;
     private PlayerInputActions playerInputActions;
 
 
@@ -49,6 +50,12 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float wallJumpPower;
     [SerializeField] float flipThreshold;
 
+    [Header("Sound Sources")]
+    [SerializeField] AudioSource srcStepsflipsdash;
+    [SerializeField] AudioSource srcGun;
+    [SerializeField] AudioSource srcJumpCling;
+
+
     //physics variables
     private Vector2 velocity;
     private float prevGroundVelocity;
@@ -68,6 +75,20 @@ public class CharacterController : MonoBehaviour
     // stores current direction faced
     bool lFace;
     bool rFace;
+    // ground snap stuff
+    RaycastHit2D hit;
+
+    //sounds
+    int smallBlastsfx = 0;
+    int bigBlastsfx = 1;
+    int grabsfx = 2;
+    int dashdsfx = 3;
+    int landOrStepsfx = 4;
+    int flipsfx = 5;
+    int jumpsfx = 6;
+    int chargesfx = 7;
+    //sounds
+
     private enum State
     {
         Ground,
@@ -116,9 +137,10 @@ public class CharacterController : MonoBehaviour
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
-        playerShootScript.ShootBullet(gunTransform, playerInputActions, isAirFlipping);
+        playerShootScript.ShootBullet(gunTransform, playerInputActions, isAirFlipping, sfx, smallBlastsfx, bigBlastsfx, chargesfx, srcGun);
         clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
+        GroundSnap();
         GetLastSpeed();
         AnimationBehaviour(moveInput, runInput);
         if (playerState == State.Ground)
@@ -278,6 +300,7 @@ public class CharacterController : MonoBehaviour
 
         if ((input > 0) && (currentJumpTime > 0) & hasJumped)
         {
+            
             dashJumpCheck = true;
             if (clinging && Rcheck)
             {
@@ -306,6 +329,15 @@ public class CharacterController : MonoBehaviour
     private void GroundedCheck()
     {
         grounded = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
+        hit = Physics2D.Raycast(playerTransform.position, Vector2.down, groundHitRange, groundLayer);
+    }
+
+    private void GroundSnap()
+    {
+        if (!playerDashScript.dashing && playerState == State.Ground)
+        {
+            playerTransform.position = hit.point;
+        }
     }
 
     private void WalledCheck()
@@ -433,6 +465,9 @@ public class CharacterController : MonoBehaviour
     const string rightDash = "RightDash";
     const string leftDash = "LeftDash";
 
+    bool jumped;
+    bool clung;
+
     Vector2 RFGunPos = new Vector2(-0.2f,0.5f);
     Vector2 LFrGunPos = new Vector2(0.08f, 0.5f);
 
@@ -449,6 +484,28 @@ public class CharacterController : MonoBehaviour
         else 
         {
             gunVisual.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        if (hasJumped && !jumped) 
+        {
+            sfx.PlaySoundUninterupted(jumpsfx, 1.2f, srcJumpCling);
+            jumped = true;
+
+        }
+        else if (!hasJumped && jumped)
+        {
+            jumped = false;
+        }
+
+        if (clinging && !clung)
+        {
+            sfx.PlaySound(grabsfx, srcJumpCling);
+            clung = true;
+
+        }
+        else if (!clinging && clung)
+        {
+            clung = false;
         }
 
         if (clinging)
@@ -476,6 +533,7 @@ public class CharacterController : MonoBehaviour
             {
                 if (!clinging && playerDashScript.dashing)
                 {
+                    sfx.PlaySoundfixedLoop(dashdsfx, 1, srcStepsflipsdash);
                     animation.ChangeAnimationState(rightDash);
                 }
             }
@@ -483,6 +541,8 @@ public class CharacterController : MonoBehaviour
             {
                 if (isAirFlipping)
                 {
+                    if (!(currentJumpTime > 0)) { sfx.PlaySoundfixedLoop(flipsfx, 0.7f, srcStepsflipsdash); }
+                    else { sfx.PlaySoundfixedLoop(jumpsfx, 1.2f, srcJumpCling); }
                     animation.ChangeAnimationState(rightFlip);
                 }
                 else if (gunAngle < 45 || gunAngle > 270)
@@ -515,8 +575,11 @@ public class CharacterController : MonoBehaviour
             } 
             else if (moving)
             {
+                
                 if (running)
                 {
+                    if (!(currentJumpTime > 0)) { sfx.PlaySoundfixedLoop(landOrStepsfx, 1.7f, srcStepsflipsdash); }
+                    else { sfx.PlaySoundfixedLoop(jumpsfx, 1.2f, srcJumpCling); }
                     if (gunAngle < 45 || gunAngle > 270)
                     {
                         animation.ChangeAnimationState(RF_rRun);
@@ -532,6 +595,8 @@ public class CharacterController : MonoBehaviour
                 }
                 else if (!running)
                 {
+                    if (!(currentJumpTime > 0)) { sfx.PlaySoundfixedLoop(landOrStepsfx, 2.5f, srcStepsflipsdash); }
+                    else { sfx.PlaySoundfixedLoop(jumpsfx, 1.2f, srcJumpCling); }
                     if (gunAngle < 45 || gunAngle > 270)
                     {
                         animation.ChangeAnimationState(RF_rWalk);
@@ -557,6 +622,7 @@ public class CharacterController : MonoBehaviour
             {
                 if (!clinging && playerDashScript.dashing)
                 {
+                    sfx.PlaySoundfixedLoop(dashdsfx, 1, srcStepsflipsdash);
                     animation.ChangeAnimationState(leftDash);
                 }
             }
@@ -564,6 +630,8 @@ public class CharacterController : MonoBehaviour
             {
                 if (isAirFlipping)
                 {
+                    if (!(currentJumpTime > 0)) { sfx.PlaySoundfixedLoop(flipsfx, 0.7f, srcStepsflipsdash); }
+                    else { sfx.PlaySoundfixedLoop(jumpsfx, 1.2f, srcJumpCling); }
                     animation.ChangeAnimationState(leftFlip);
                 }
                 else if (gunAngle < 120 || gunAngle > 240)
@@ -588,8 +656,11 @@ public class CharacterController : MonoBehaviour
             }
             else if (moving)
             {
+                
                 if (running)
                 {
+                    if (!(currentJumpTime > 0)) {sfx.PlaySoundfixedLoop(landOrStepsfx, 1.7f, srcStepsflipsdash); }
+                    else { sfx.PlaySoundfixedLoop(jumpsfx, 1.2f, srcJumpCling); }
                     if (gunAngle < 120 || gunAngle > 240)
                     {
                         animation.ChangeAnimationState(LF_rRun);
@@ -601,6 +672,8 @@ public class CharacterController : MonoBehaviour
                 } 
                 else if (!running)
                 {
+                    if (!(currentJumpTime > 0)) { sfx.PlaySoundfixedLoop(landOrStepsfx, 2.5f, srcStepsflipsdash); }
+                    else { sfx.PlaySoundfixedLoop(jumpsfx, 1.2f, srcJumpCling); }
                     if (gunAngle < 120 || gunAngle > 240)
                     {
                         animation.ChangeAnimationState(LF_rWalk);
@@ -614,5 +687,4 @@ public class CharacterController : MonoBehaviour
             }
         }
     }
-
 }

@@ -20,7 +20,7 @@ public class PlayerShootScript : MonoBehaviour {
     bool hasShot = false;
     bool canBlastMax = false;
 
-    public void ShootBullet(Transform gunTransform, PlayerInputActions playerInputActions, bool isAirFlipping) 
+    public void ShootBullet(Transform gunTransform, PlayerInputActions playerInputActions, bool isAirFlipping, PlayerSound sfx, int small, int big, int charge, AudioSource src) 
     {
         bool input = ShootInput(playerInputActions);
 
@@ -47,6 +47,7 @@ public class PlayerShootScript : MonoBehaviour {
                 currentChargeTime = chargeTime;
                 hasShot = true;
                 canShoot = false;
+                sfx.PlaySound(small, src);
                 Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
                 SpawnObject(spawnPoint, FetchPlayerToMouseDirection(gunTransform.position), bullet); 
             }
@@ -56,6 +57,7 @@ public class PlayerShootScript : MonoBehaviour {
                 if (!(currentChargeTime > 0) && hasShot && input && !canShoot)
                 {
                     canBlastMax = true;
+                    sfx.PlaySoundfixedLoop(charge, 1, src);
                 }
 
                 if (canBlastMax && !input && !isAirFlipping)
@@ -63,6 +65,7 @@ public class PlayerShootScript : MonoBehaviour {
                     currentfireRateTime = fireRateTime;
                     hasShot = true;
                     canBlastMax = false;
+                    sfx.PlaySound(big, src);
                     Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
                     SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bigBlast);
                     Debug.Log("Boom");  
