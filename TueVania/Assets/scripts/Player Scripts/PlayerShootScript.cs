@@ -20,7 +20,7 @@ public class PlayerShootScript : MonoBehaviour {
     bool hasShot = false;
     bool canBlastMax = false;
 
-    public void ShootBullet(Transform gunTransform, PlayerInputActions playerInputActions, bool isAirFlipping, PlayerSound sfx, int small, int big, int charge, AudioSource src) 
+    public void ShootBullet(Transform gunTransform, PlayerInputActions playerInputActions, bool isAirFlipping, PlayerSound sfx, int small, int big, int charge, int chargeStart, AudioSource src) 
     {
         bool input = ShootInput(playerInputActions);
 
@@ -59,8 +59,13 @@ public class PlayerShootScript : MonoBehaviour {
                     canBlastMax = true;
                     sfx.PlaySoundfixedLoop(charge, 1, src);
                 }
+                else if (!(currentChargeTime > chargeTime * 3/5) && hasShot && input && !canShoot)
+                {
+                    sfx.PlaySoundfixedLoop(chargeStart, 1, src);
+                } 
+                
 
-                if (canBlastMax && !input && !isAirFlipping)
+                    if (canBlastMax && !input && !isAirFlipping)
                 {
                     currentfireRateTime = fireRateTime;
                     hasShot = true;

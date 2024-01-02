@@ -87,6 +87,7 @@ public class CharacterController : MonoBehaviour
     int flipsfx = 5;
     int jumpsfx = 6;
     int chargesfx = 7;
+    int chargeStartsfx = 8;
     //sounds
 
     private enum State
@@ -137,7 +138,7 @@ public class CharacterController : MonoBehaviour
         float runInput = GetRunInput();
         Move(moveInput);
         Jump(GetJumpInput());
-        playerShootScript.ShootBullet(gunTransform, playerInputActions, isAirFlipping, sfx, smallBlastsfx, bigBlastsfx, chargesfx, srcGun);
+        playerShootScript.ShootBullet(gunTransform, playerInputActions, isAirFlipping, sfx, smallBlastsfx, bigBlastsfx, chargesfx, chargeStartsfx, srcGun);
         clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
         playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
         GroundSnap();
@@ -488,7 +489,7 @@ public class CharacterController : MonoBehaviour
 
         if (hasJumped && !jumped) 
         {
-            sfx.PlaySoundUninterupted(jumpsfx, 1.2f, srcJumpCling);
+            sfx.PlaySound(jumpsfx, srcJumpCling);
             jumped = true;
 
         }
@@ -508,21 +509,7 @@ public class CharacterController : MonoBehaviour
             clung = false;
         }
 
-        if (clinging)
-        {
-            if (Lcheck)
-            {
-                gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunUnder";
-                gunTransform.localPosition = LFrGunPos;
-                animation.ChangeAnimationState(leftCling);
-            }
-            else if (Rcheck)
-            {
-                gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunOver";
-                gunTransform.localPosition = RFGunPos;
-                animation.ChangeAnimationState(rightCling);
-            }
-        }
+        
 
         if (rFace)
         {
@@ -684,6 +671,22 @@ public class CharacterController : MonoBehaviour
                     }
                 }
                 
+            }
+        }
+
+        if (clinging)
+        {
+            if (Lcheck)
+            {
+                gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunUnder";
+                gunTransform.localPosition = LFrGunPos;
+                animation.ChangeAnimationState(leftCling);
+            }
+            else if (Rcheck)
+            {
+                gunVisual.GetComponent<SpriteRenderer>().sortingLayerName = "GunOver";
+                gunTransform.localPosition = RFGunPos;
+                animation.ChangeAnimationState(rightCling);
             }
         }
     }

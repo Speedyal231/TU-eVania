@@ -18,6 +18,7 @@ public class BulletMovementScript : MonoBehaviour
     float currentBulletExistanceTime;
     Vector3 initialVelocity;
     float addedVelocity;
+    string tag = "Breakable";
 
 
     // Start is called before the first frame update
@@ -44,9 +45,21 @@ public class BulletMovementScript : MonoBehaviour
 
     private void HitCheck() 
     {
-        Boolean hit = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x/2, bulletObject.transform.right, hitRayOffset, groundLayer);
-        if (hit) 
-        { 
+        Boolean contact = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x/2, bulletObject.transform.right, hitRayOffset, groundLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x / 2, bulletObject.transform.right, hitRayOffset, groundLayer);
+        if (contact) 
+        {
+            if (hit.collider != null)
+            {
+                // Access the GameObject that was hit
+                GameObject hitObject = hit.collider.gameObject;
+
+                if (hitObject.CompareTag(tag))
+                {
+                    // The hit object has the specified tag
+                    Destroy(hitObject);
+                }
+            }
             Destroy(bulletObject);
         }
     }
