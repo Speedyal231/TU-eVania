@@ -57,7 +57,15 @@ public class BulletMovementScript : MonoBehaviour
                 if (hitObject.CompareTag(tag))
                 {
                     // The hit object has the specified tag
-                    Destroy(hitObject);
+
+                    BreakScript breakScript = hitObject.GetComponent<BreakScript>();
+
+                    // Check if the script is found
+                    if (breakScript != null)
+                    {
+                        // Now you can access methods or variables from breakScript
+                        breakScript.BreakAnimPlay(); // Replace YourMethod() with the actual method you want to call
+                    }
                 }
             }
             Destroy(bulletObject);
