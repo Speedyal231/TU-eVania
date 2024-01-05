@@ -71,8 +71,8 @@ public class PlayerDashScript : MonoBehaviour
             if (currentDashDuration > 0 && hasDashed)
             {
                 dashing = true;
-                dashLCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y * 3 / 4, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.left, dashLimitCheck, groundLayer);
-                dashRCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y * 3 / 4, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.right, dashLimitCheck, groundLayer);
+                dashLCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y / 2, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.left, dashLimitCheck, groundLayer);
+                dashRCheck = Physics2D.BoxCast(playerTransform.position + playerTransform.up.normalized * capsuleCollider.size.y / 2, new Vector2(capsuleCollider.size.x / 2, (capsuleCollider.size.y - wallRayOffset) * 3 / 5), 0, Vector2.right, dashLimitCheck, groundLayer);
                 if (dashLCheck || dashRCheck)
                 {
                     currentDashDuration = 0;

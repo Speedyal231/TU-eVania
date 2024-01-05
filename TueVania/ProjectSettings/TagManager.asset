@@ -42,6 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background(back)
+    uniqueID: 694607451
+    locked: 0
+  - name: Background(Front)
+    uniqueID: 734366151
+    locked: 0
   - name: GunUnder
     uniqueID: 1335790575
     locked: 0
@@ -50,4 +56,7 @@ TagManager:
     locked: 0
   - name: GunOver
     uniqueID: 615614575
+    locked: 0
+  - name: Walls
+    uniqueID: 4035887173
     locked: 0
