@@ -6,6 +6,7 @@ public class PlayerShootScript : MonoBehaviour {
 
 
     [Header("Shooting Settings")]
+    [SerializeField] Rigidbody2D rbPlayer;
     [SerializeField] bool unlockedShoot;
     [SerializeField] bool unlockedBigBlast;
     [SerializeField] GameObject bullet;
@@ -65,14 +66,14 @@ public class PlayerShootScript : MonoBehaviour {
                 } 
                 
 
-                    if (canBlastMax && !input && !isAirFlipping)
+                if (canBlastMax && !input && !isAirFlipping)
                 {
                     currentfireRateTime = fireRateTime;
                     hasShot = true;
                     canBlastMax = false;
                     sfx.PlaySound(big, src);
                     Vector2 spawnPoint = gunTransform.position + gunTransform.right.normalized * 0.7f;
-                    SpawnObject(spawnPoint, FetchPlayerToMouseDirection(spawnPoint), bigBlast);
+                    SpawnObject(spawnPoint, FetchPlayerToMouseDirection(gunTransform.position), bigBlast);
                     Debug.Log("Boom");  
                 }
             }

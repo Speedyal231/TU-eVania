@@ -6,6 +6,9 @@ public class TargetFollowScript : MonoBehaviour
 {
     [Header("Target Settings")]
     [SerializeField] Transform targetTransform;
+    [SerializeField, Range(0, 1)] float targetSense;
+
+    Vector2 target;
     // Update is called once per frame
     private void Update()
     {
@@ -16,3 +19,4 @@ public class TargetFollowScript : MonoBehaviour
         targetTransform.position = new Vector2(mousePosition.x, mousePosition.y);
     }
 }
+

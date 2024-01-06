@@ -7,7 +7,6 @@ using UnityEngine;
 public class BulletMovementScript : MonoBehaviour
 {
     [Header("Shooting Settings")]
-    [SerializeField] Rigidbody2D rbPlayer;
     [SerializeField] float bulletSpeed;
     [SerializeField] GameObject bulletObject;
     [SerializeField] float hitRayOffset;
@@ -16,17 +15,12 @@ public class BulletMovementScript : MonoBehaviour
     [SerializeField] float bulletExistanceTime;
 
     float currentBulletExistanceTime;
-    Vector3 initialVelocity;
-    float addedVelocity;
     string tag = "Breakable";
-
 
     // Start is called before the first frame update
     void Start()
     {
         currentBulletExistanceTime = bulletExistanceTime;
-        initialVelocity = rbPlayer.velocity;
-        addedVelocity = rbPlayer.velocity.magnitude;
     }
 
     // Update is called once per frame
@@ -40,7 +34,7 @@ public class BulletMovementScript : MonoBehaviour
 
     private void Move() 
     {
-        bulletObject.transform.position += (bulletSpeed) * bulletObject.transform.right.normalized * Time.deltaTime + initialVelocity;
+        bulletObject.transform.position += (bulletSpeed) * bulletObject.transform.right.normalized * Time.deltaTime;
     }
 
     private void HitCheck() 

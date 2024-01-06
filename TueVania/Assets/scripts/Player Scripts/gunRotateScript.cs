@@ -8,7 +8,7 @@ public class gunRotateScript : MonoBehaviour
     [SerializeField] Transform targetTransform;
     [SerializeField] Transform gunTransform;
 
-    void Update()
+    void FixedUpdate()
     {
         if (targetTransform != null)
         {
