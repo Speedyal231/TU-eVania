@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1742081030518266537}
   - component: {fileID: 1858672291631320904}
   - component: {fileID: 8123839018930735527}
-  - component: {fileID: 2572815800664685736}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: MainCamera
@@ -164,27 +163,6 @@ MonoBehaviour:
   maxZoom: 5
   RBmin: 3
   RBmax: 8
---- !u!95 &2572815800664685736
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008197571412002959}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: df15bd88e04400d4e9ed7d37fc04b3c3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3787357874536506267
 GameObject:
   m_ObjectHideFlags: 0

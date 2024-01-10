@@ -15,7 +15,7 @@ TagManager:
   - 
   - Ground
   - Wall
-  - 
+  - background
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
     locked: 0
   - name: Background(Front)
     uniqueID: 734366151
+    locked: 0
+  - name: Doors
+    uniqueID: 1909928817
     locked: 0
   - name: GunUnder
     uniqueID: 1335790575
