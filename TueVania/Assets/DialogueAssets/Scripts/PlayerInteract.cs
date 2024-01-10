@@ -30,7 +30,6 @@ public class PlayerInteract : MonoBehaviour
 
         foreach (Collider2D collider in collidersInVicinity)
         {
-
             // check if detected object has a dialogue script 
             if (collider.gameObject.TryGetComponent(out DialogueInteractable dialogueInteractable) )
             {
@@ -43,13 +42,12 @@ public class PlayerInteract : MonoBehaviour
                 }
             }
 
-            if (collider.gameObject.TryGetComponent(out Door door))
+            if (collider.gameObject.TryGetComponent(out Interactable interactable))
             {
                 if (playerInputActions.Keyboard.Interact.WasPressedThisFrame())
                 {
-                    door.WalkThroughDoor(this.gameObject);
+                    interactable.Interact(this.gameObject);
                 }
-                
             }
         }
     }
