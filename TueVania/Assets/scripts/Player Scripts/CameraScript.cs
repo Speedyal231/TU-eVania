@@ -9,6 +9,7 @@ public class CameraScript : MonoBehaviour
     [SerializeField] Transform playerTransform;
     [SerializeField] Rigidbody2D RB;
     [SerializeField] Transform cameraTransform;
+    [SerializeField] BoxCollider2D boxCollider;
 
     [Header("Offests And Tweaks")]
     [SerializeField] float verticalOffset;
