@@ -7,17 +7,14 @@ using TMPro;
 public class PlayerScoreManager : MonoBehaviour
 {
     public static int playerScore;
-    public int damageToGive;
-    public float bounceOnEnemy;
-
-    private TMP_Text textScore;
+    public TMP_Text textScore;
 
     private static PlayerScoreManager _instance;
     public static PlayerScoreManager Instance { get { return _instance; } }
 
     void Start()
     {
-        textScore = GetComponent<TMP_Text>();
+
     }
 
     void Update()
@@ -28,7 +25,7 @@ public class PlayerScoreManager : MonoBehaviour
         }
 
         // Update UI or handle score-related logic here
-        // textScore.text = "" + playerScore;
+        textScore.text = "score: " + playerScore;
     }
 
     public static void AddPoints(int pointsToAdd)

@@ -6,13 +6,13 @@ using TMPro;
 
 public class healthManager : MonoBehaviour {
 	public static int playerHealth;
-	public int maxPlayerHealth;
+	public static int maxPlayerHealth;
 
 	public bool isDead;
 
-	//public Slider healthBar;
+	public Slider healthBar;
 
-	TMP_Text  text;
+	//TMP_Text  text;
 
 	private levelManager levelManager;
 
@@ -21,7 +21,7 @@ public class healthManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		text = GetComponent<TMP_Text>(); 
+		//text = GetComponent<TMP_Text>(); 
 
 		//healthBar = GetComponent<Slider>();
 
@@ -44,7 +44,7 @@ public class healthManager : MonoBehaviour {
 			lifeSystem.TakeLife();
 		}
 		//text.text = "" + playerHealth;
-		//healthBar.value = playerHealth;
+		healthBar.value = playerHealth;
 
         if (playerHealth > maxPlayerHealth)
         {
@@ -60,5 +60,14 @@ public class healthManager : MonoBehaviour {
     public void fullHealth()
     {
 		playerHealth = maxPlayerHealth;
+    }
+
+	public static void increaseHealth()
+    {
+		if (playerHealth == maxPlayerHealth) {
+			Debug.Log("Max Health");
+			return;
+		}
+		playerHealth += 1;
     }
 }

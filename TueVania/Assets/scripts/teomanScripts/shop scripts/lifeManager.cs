@@ -12,23 +12,23 @@ public class lifeManager : MonoBehaviour {
 
 	private int lifeCounter;
 
-	private TMP_Text theText;
+	//private TMP_Text theText;
 
-	public GameObject gameOverScreen;
+	//public GameObject gameOverScreen;
 
-	public tempPlayerController player;
+	public CharacterController player;
 
-	public string mainMenu;
+	//public string mainMenu;
 
 	public float waitAfter;
 
 	// Use this for initialization
 	void Start () {
-		theText = GetComponent<TMP_Text>();
+		//theText = GetComponent<TMP_Text>();
 
 		lifeCounter = startingLives;
 
-		player = FindObjectOfType<tempPlayerController>();
+		player = FindObjectOfType<CharacterController>();
 	}
 	
 	// Update is called once per frame
@@ -38,15 +38,15 @@ public class lifeManager : MonoBehaviour {
 
         if (lifeCounter == 0) 
         {
-			gameOverScreen.SetActive(true);
+			//gameOverScreen.SetActive(true);
 			player.gameObject.SetActive(false);
         }
 
-
+		/*
         if (gameOverScreen.activeSelf)
         {
 			waitAfter -= Time.deltaTime;
-        }
+        }*/
 
         if (waitAfter < 0)
         {
