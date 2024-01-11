@@ -9,14 +9,12 @@ public class levelManager : MonoBehaviour {
 	//public GameObject spawnParticle;
 	public GameObject player;
     public float delay;
-	public int penalty;
-	private cameraController kamera;
 	public healthManager healthManager;
 
     // Use this for initialization
     void Start () {
 
-		kamera = FindObjectOfType<cameraController>();
+		//kamera = FindObjectOfType<cameraController>();
 		healthManager = FindObjectOfType<healthManager>();
 		
 	}
@@ -45,8 +43,8 @@ public class levelManager : MonoBehaviour {
 //		player.knockbackCount = 0;
 //		player.enabled = true;
 //		player.GetComponent<Renderer>().enabled = true;
-//		healthManager.fullHealth();
-//		healthManager.isDead = false;
+		healthManager.fullHealth();
+		healthManager.isDead = false;
 //		kamera.isFollowing = true;
 		//Instantiate(spawnParticle, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
 

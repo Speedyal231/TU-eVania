@@ -21,10 +21,11 @@ public class hurtPlayer : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Use the updated method name HurtPlayer from the PlayerData class
-            PlayerHealthManager.HurtPlayer(damageToGive);
+            healthManager.hurtPlayer(damageToGive);
             Debug.Log("Damage Given");
 
-            var player = other.GetComponent<tempPlayerController>();
+            /*
+            var player = other.GetComponent<CharacterController>();
             player.knockbackCount = player.knockbackLength;
 
             if (other.transform.position.x < transform.position.x)
@@ -34,7 +35,7 @@ public class hurtPlayer : MonoBehaviour
             else
             {
                 player.knockFromRight = false;
-            }
+            }*/
         }
     }
 }

@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void TogglePause()
+    public void TogglePause()
     {
         isPaused = !isPaused;
 

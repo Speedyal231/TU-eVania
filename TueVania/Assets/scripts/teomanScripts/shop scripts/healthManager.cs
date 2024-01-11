@@ -6,7 +6,7 @@ using TMPro;
 
 public class healthManager : MonoBehaviour {
 	public static int playerHealth;
-	public static int maxPlayerHealth;
+	public static int maxPlayerHealth = 3;
 
 	public bool isDead;
 
@@ -36,11 +36,13 @@ public class healthManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		//Debug.Log("Current lives: " + playerHealth);
 		if (playerHealth <= 0 && !isDead)
 		{
+			Debug.Log("died");
 			levelManager.RespawnPlayer();
 			isDead = true;
-			playerHealth = 0;
+			playerHealth = maxPlayerHealth;
 			lifeSystem.TakeLife();
 		}
 		//text.text = "" + playerHealth;
@@ -54,6 +56,7 @@ public class healthManager : MonoBehaviour {
 
     public static void hurtPlayer(int damageToGive)
     {
+		Debug.Log("Player Hurt");
 		playerHealth -= damageToGive;
     }
 
