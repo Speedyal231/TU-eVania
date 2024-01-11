@@ -1,12 +1,12 @@
 TBD-
 Art shit:
-    enemies
-        follow enemy
-        patrol enemy 
-    inner light for the foreground areas
-    misc. art decorations (tables etc.)
-the border issue
-button and event systems
+    enemies - Done
+        follow enemy - done
+        patrol enemy - done
+    inner light for the foreground areas - done
+    misc. art decorations (tables etc.) - done
+the border issue - done
+button and event systems - button done
 scene transitions
     work with bartek to implement this!!!!
 UI
