@@ -1,0 +1,65 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class DraggableBlock : MonoBehaviour
+{
+    private bool isDragging = false;
+    private Vector2 originalPosition;
+    public SpriteRenderer spriteRenderer;
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("SpriteRenderer component not found on DraggableBlock.");
+        }
+    }
+
+
+    void Update()
+    {
+        if (isDragging)
+        {
+            // Update block position based on mouse/touch input
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector2(mousePosition.x, mousePosition.y);
+        }
+    }
+
+    void OnMouseDown()
+    {
+        // Start dragging when the block is clicked
+        isDragging = true;
+        originalPosition = transform.position;
+    }
+
+    void OnMouseUp()
+    {
+        // Stop dragging and snap to a grid or other blocks
+        isDragging = false;
+        SnapToGrid();
+    }
+
+    void SnapToGrid()
+    {
+        // Implement logic to snap the block to a grid or other blocks
+        // For simplicity, let's just round the position to the nearest whole number
+        transform.position = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+    }
+
+    // New method to set the visibility of the block
+    public void SetVisible(bool isVisible)
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = isVisible;
+        }
+        else
+        {
+            Debug.LogError("SpriteRenderer is not assigned in DraggableBlock.");
+        }
+    }
+
+}
