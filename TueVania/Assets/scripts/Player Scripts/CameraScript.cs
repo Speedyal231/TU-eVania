@@ -9,7 +9,6 @@ public class CameraScript : MonoBehaviour
     [SerializeField] Transform playerTransform;
     [SerializeField] Rigidbody2D RB;
     [SerializeField] Transform cameraTransform;
-    [SerializeField] BoxCollider2D boxCollider;
 
     [Header("Offests And Tweaks")]
     [SerializeField] float verticalOffset;
@@ -23,6 +22,8 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float RBmax = 14f;
 
     float Target;
+    bool xScrollLock;
+    bool yScrollLock;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +52,17 @@ public class CameraScript : MonoBehaviour
     {
         Vector3 newCamPos = new Vector3(playerTransform.position.x, playerTransform.position.y + verticalOffset, cameraTransform.position.z);
         newCamPos += new Vector3(FetchMouseOffset().x, FetchMouseOffset().y, 0);
+
+        //border correction
+        if (xScrollLock)
+        {
+            Debug.Log("On x border");
+        }
+        if (yScrollLock)
+        {
+            Debug.Log("On y border");
+        }
+        
         cameraTransform.position = newCamPos;
     }
 
@@ -79,4 +91,5 @@ public class CameraScript : MonoBehaviour
     {
         Camera.main.orthographicSize = Target;
     }
+
 }
