@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class pEnemyDataSheet : MonoBehaviour
+public class pEnemyDataSheet : MonoBehaviour, IEnemy
 {
     public int enemyHealth;
     public int pointsOnDeath;
@@ -23,7 +23,7 @@ public class pEnemyDataSheet : MonoBehaviour
         }
     }
 
-    public void GiveDamage(int damageToGive)
+    public void TakeDamage(int damageToGive)
     {
         enemyHealth -= damageToGive;
     }

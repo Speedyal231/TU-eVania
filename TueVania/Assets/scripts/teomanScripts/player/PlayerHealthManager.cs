@@ -67,17 +67,4 @@ public class PlayerHealthManager : MonoBehaviour
         playerHealth = maxPlayerHealth;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("enemy1"))
-        {
-            other.GetComponent<pEnemyDataSheet>().GiveDamage(damageToGive);
-            rb.velocity = new Vector2(rb.velocity.x, bounceOnEnemy);
-        }
-        else if (other.CompareTag("enemy2"))
-        {
-            other.GetComponent<fEnemyDatasheet>().GiveDamage(damageToGive);
-            rb.velocity = new Vector2(rb.velocity.x, bounceOnEnemy);
-        }
-    }
 }

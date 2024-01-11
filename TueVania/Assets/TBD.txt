@@ -1,3 +1,23 @@
 TBD-
-Draw block sprites and background sprites and elevator/door sprites
-add sound
+Art shit:
+    enemies
+        follow enemy
+        patrol enemy 
+    inner light for the foreground areas
+    misc. art decorations (tables etc.)
+the border issue
+button and event systems
+scene transitions
+    work with bartek to implement this!!!!
+UI
+    start screen
+    small background information on the game
+    credits?
+    finalize the health bar (teoman on it)
+finalizing minigames:
+    circuits: teoman & bora
+    andreas game: andreas and alex
+    block game: teoman
+ending of the game
+
+

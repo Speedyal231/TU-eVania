@@ -62,9 +62,13 @@ public class BulletMovementScript : MonoBehaviour
                     }
                 } else if (hitObject.CompareTag("Enemy")) {
                     Debug.Log("Enemy hit");
-                    pEnemyDataSheet datasheet = hitObject.GetComponent<pEnemyDataSheet>();
+                    IEnemy enemy = hitObject.GetComponent<IEnemy>();
 
-                    datasheet.GiveDamage(2);
+                    if (enemy != null)
+                    {
+                        // Now you can call the TakeDamage method on any enemy type
+                        enemy.TakeDamage(2);
+                    }
                 }
             }
             Destroy(bulletObject);
