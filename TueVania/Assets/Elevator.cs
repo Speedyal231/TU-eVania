@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,20 @@ public class Elevator : Interactable
 {
     [SerializeField]
     private int floorNum;
+
+    [SerializeField]
+    private TextMeshProUGUI floorText;
+
+    [SerializeField]
+    private GameObject prompt;
+
+
+
+    public void Start()
+    {
+        floorText.text = "Floor " + floorNum;
+        prompt.SetActive(false);
+    }
 
     public void setFloor(int num)
     {
@@ -17,6 +32,17 @@ public class Elevator : Interactable
     public override void Interact(GameObject player)
     {
         SceneManager.LoadScene(getSceneName(floorNum));
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        prompt.SetActive(true);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        prompt.SetActive(false);
     }
 
     private string getSceneName(int num)

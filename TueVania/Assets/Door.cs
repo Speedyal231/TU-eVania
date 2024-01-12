@@ -15,4 +15,5 @@ public class Door : Interactable
         Vector2 final = relative + exit;
         player.transform.position = final;
     }
+
 }

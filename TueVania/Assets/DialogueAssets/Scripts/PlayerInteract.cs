@@ -44,6 +44,7 @@ public class PlayerInteract : MonoBehaviour
 
             if (collider.gameObject.TryGetComponent(out Interactable interactable))
             {
+
                 if (playerInputActions.Keyboard.Interact.WasPressedThisFrame())
                 {
                     interactable.Interact(this.gameObject);
