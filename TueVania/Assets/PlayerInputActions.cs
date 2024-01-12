@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExtraInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d989cf9-580e-4e99-b625-b0273fb2783f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,7 +143,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""31e75317-959a-468f-9cfe-d1165d91737e"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -152,6 +161,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee5fb224-9237-4882-a242-fdf16a02e71b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExtraInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Keyboard_Jump = m_Keyboard.FindAction("Jump", throwIfNotFound: true);
         m_Keyboard_Interact = m_Keyboard.FindAction("Interact", throwIfNotFound: true);
         m_Keyboard_Submit = m_Keyboard.FindAction("Submit", throwIfNotFound: true);
+        m_Keyboard_ExtraInteract = m_Keyboard.FindAction("ExtraInteract", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Keyboard_Jump;
     private readonly InputAction m_Keyboard_Interact;
     private readonly InputAction m_Keyboard_Submit;
+    private readonly InputAction m_Keyboard_ExtraInteract;
     public struct KeyboardActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Keyboard_Jump;
         public InputAction @Interact => m_Wrapper.m_Keyboard_Interact;
         public InputAction @Submit => m_Wrapper.m_Keyboard_Submit;
+        public InputAction @ExtraInteract => m_Wrapper.m_Keyboard_ExtraInteract;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Submit.started += instance.OnSubmit;
             @Submit.performed += instance.OnSubmit;
             @Submit.canceled += instance.OnSubmit;
+            @ExtraInteract.started += instance.OnExtraInteract;
+            @ExtraInteract.performed += instance.OnExtraInteract;
+            @ExtraInteract.canceled += instance.OnExtraInteract;
         }
 
         private void UnregisterCallbacks(IKeyboardActions instance)
@@ -274,6 +300,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Submit.started -= instance.OnSubmit;
             @Submit.performed -= instance.OnSubmit;
             @Submit.canceled -= instance.OnSubmit;
+            @ExtraInteract.started -= instance.OnExtraInteract;
+            @ExtraInteract.performed -= instance.OnExtraInteract;
+            @ExtraInteract.canceled -= instance.OnExtraInteract;
         }
 
         public void RemoveCallbacks(IKeyboardActions instance)
@@ -297,5 +326,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
+        void OnExtraInteract(InputAction.CallbackContext context);
     }
 }

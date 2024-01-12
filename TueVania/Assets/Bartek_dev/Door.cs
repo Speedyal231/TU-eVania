@@ -16,4 +16,9 @@ public class Door : Interactable
         player.transform.position = final;
     }
 
+    public override void ExtraInteract(GameObject player)
+    {
+        // empty on purpose
+    }
+
 }

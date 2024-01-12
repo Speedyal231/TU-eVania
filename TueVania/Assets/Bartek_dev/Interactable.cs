@@ -6,4 +6,6 @@ public abstract class Interactable : MonoBehaviour
 {
     public abstract void Interact(GameObject player);
 
+    public abstract void ExtraInteract(GameObject player);
+
 }

@@ -1,14 +1,15 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.SceneManagement;
 
 public class Elevator : Interactable
 {
-    [SerializeField]
-    private int floorNum;
+    private int floorNum = 0;
 
     [SerializeField]
     private TextMeshProUGUI floorText;
@@ -16,7 +17,7 @@ public class Elevator : Interactable
     [SerializeField]
     private GameObject prompt;
 
-
+    private const int MAX_FLOOR_NUM = 4;
 
     public void Start()
     {
@@ -32,6 +33,7 @@ public class Elevator : Interactable
     public override void Interact(GameObject player)
     {
         SceneManager.LoadScene(getSceneName(floorNum));
+
     }
 
 
@@ -44,6 +46,25 @@ public class Elevator : Interactable
     {
         prompt.SetActive(false);
     }
+
+    public override void ExtraInteract(GameObject player)
+    {
+        if (floorNum >= MAX_FLOOR_NUM) 
+        {
+            floorNum = 0;
+        }
+        else
+        {
+            floorNum++;
+        }
+
+        floorText.text = "Floor " + floorNum;
+
+        // debug
+        UnityEngine.Debug.Log("floorNum = " + floorNum);
+        
+    }
+
 
     private string getSceneName(int num)
     {

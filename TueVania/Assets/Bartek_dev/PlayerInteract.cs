@@ -49,6 +49,11 @@ public class PlayerInteract : MonoBehaviour
                 {
                     interactable.Interact(this.gameObject);
                 }
+
+                if (playerInputActions.Keyboard.ExtraInteract.WasPressedThisFrame())
+                {
+                    interactable.ExtraInteract(this.gameObject);
+                }
             }
         }
     }
