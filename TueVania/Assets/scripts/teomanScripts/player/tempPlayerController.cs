@@ -14,7 +14,7 @@ public class tempPlayerController : MonoBehaviour {
 	public LayerMask whatIsGround;
 	private bool grounded;
 
-	private bool doubleJumped;
+	//private bool doubleJumped;
 
 	/*
 	private Animator anim;
@@ -44,7 +44,8 @@ public class tempPlayerController : MonoBehaviour {
 
         if (grounded)
         {
-			doubleJumped = false;
+			//doubleJumped = false;
+			Debug.Log("Cem Karaca - Resimdeki Göz yaşları");
         }
 		//anim.SetBool("Grounded", grounded);
 
