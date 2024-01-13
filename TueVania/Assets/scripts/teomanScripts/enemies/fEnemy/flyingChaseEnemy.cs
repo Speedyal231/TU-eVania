@@ -10,6 +10,7 @@ public class flyingChaseEnemy : MonoBehaviour
     public bool chase = false;
     public Transform startingPoint;
     // Start is called before the first frame update
+    public float detectionRadius = 5f;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -38,15 +39,15 @@ public class flyingChaseEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player == null)
+        if (Vector2.Distance(transform.position, player.transform.position) <= detectionRadius)
         {
-            return;
-        }
-        if(chase == true){
             Chase();
-        }else{
+        }
+        else
+        {
             ReturnStartPoint();
         }
+
         Flip();
     }
     private void ReturnStartPoint(){
