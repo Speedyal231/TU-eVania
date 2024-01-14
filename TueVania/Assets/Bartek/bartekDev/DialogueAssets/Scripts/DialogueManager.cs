@@ -122,11 +122,12 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Update called");
 
         // When player presses space (jump), next dialogue line is read
+        /*
         if(playerInputActions.Keyboard.Submit.WasPressedThisFrame())
         {
             Debug.Log("ContinueStory() called");
             ContinueStory();
-        }
+        }*/
 
     }
 
