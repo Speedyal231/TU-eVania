@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Wire : MonoBehaviour
 {
-    public bool value = false; // Boolean value of the wire
+    public bool value; // Boolean value of the wire
     public Terminal connectedTerminal; // Reference to the connected terminal
 
     // Method to check if the wire is connected

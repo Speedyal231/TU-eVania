@@ -12,6 +12,7 @@ public class WiringGame : MonoBehaviour
         // Check for player input (assuming left mouse button for simplicity)
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Clicked");
             // Cast a ray from the mouse position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
