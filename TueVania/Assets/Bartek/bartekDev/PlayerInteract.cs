@@ -36,26 +36,26 @@ public class PlayerInteract : MonoBehaviour
                 // if there is a dialogue script, prompt the user to enter dialogue
                 dialogueInteractable.TriggerVisualCue(this.gameObject);
 
-                /*
+                
                 if (playerInputActions.Keyboard.Interact.WasPressedThisFrame() && !DialogueManager.instance.DialogueIsPlaying)
                 {
                     dialogueInteractable.EnterDialogue(this.gameObject);
-                }*/
+                }
             }
 
             if (collider.gameObject.TryGetComponent(out Interactable interactable))
             {
-                /*
+                
                 if (playerInputActions.Keyboard.Interact.WasPressedThisFrame())
                 {
                     interactable.Interact(this.gameObject);
-                }*/
+                }
 
-                /*
+                
                 if (playerInputActions.Keyboard.ExtraInteract.WasPressedThisFrame())
                 {
                     interactable.ExtraInteract(this.gameObject);
-                }*/
+                }
             }
         }
     }
