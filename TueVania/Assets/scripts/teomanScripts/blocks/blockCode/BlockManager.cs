@@ -44,7 +44,7 @@ public class BlockManager : MonoBehaviour
             case 2:
                 currentBlocks = set2Blocks;
                 currentCorrectOrder = correctOrderSet2;
-                instructionsText.text = "Arrange set 2 blocks based on set 1 order.";
+                instructionsText.text = "Arrange the blocks so that it prints numbers greater than 5";
                 HideSet(1); // Ensure set 1 is not visible
                 HideSet(3); // Ensure set 3 is not visible
                 ShowSet(2);
@@ -52,7 +52,7 @@ public class BlockManager : MonoBehaviour
             case 3:
                 currentBlocks = set3Blocks;
                 currentCorrectOrder = correctOrderSet3;
-                instructionsText.text = "Arrange set 3 blocks based on set 2 order.";
+                instructionsText.text = "Arrange the blocks so that it keeps on printing numbers less than 10";
                 HideSet(1); // Ensure set 1 is not visible
                 HideSet(2); // Ensure set 2 is not visible
                 ShowSet(3);
