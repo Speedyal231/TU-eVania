@@ -53,6 +53,12 @@ TagManager:
   - name: Doors
     uniqueID: 1909928817
     locked: 0
+  - name: Walls
+    uniqueID: 4035887173
+    locked: 0
+  - name: overWallEffects
+    uniqueID: 429266479
+    locked: 0
   - name: GunUnder
     uniqueID: 1335790575
     locked: 0
@@ -62,8 +68,8 @@ TagManager:
   - name: GunOver
     uniqueID: 615614575
     locked: 0
-  - name: Walls
-    uniqueID: 4035887173
+  - name: Light
+    uniqueID: 692213711
     locked: 0
   - name: UI
     uniqueID: 1647622453

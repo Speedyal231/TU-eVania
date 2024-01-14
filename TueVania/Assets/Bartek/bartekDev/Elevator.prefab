@@ -407,12 +407,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6560252758984508048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec245084c387db34098e008493697d55, type: 3}
+  m_Script: {fileID: 11500000, guid: 7581e9b4e98e0564099eac451a720a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorNum: 1
-  floorText: {fileID: 5231589164758744427}
-  prompt: {fileID: 9113049407448805999}
+  floorText: {fileID: 0}
+  prompt: {fileID: 0}
 --- !u!61 &5232111189401881700
 BoxCollider2D:
   m_ObjectHideFlags: 0

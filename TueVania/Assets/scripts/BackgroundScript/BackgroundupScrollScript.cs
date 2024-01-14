@@ -9,10 +9,13 @@ public class BackgroundupScrollScript : MonoBehaviour
     [SerializeField] Transform backgroundTransform;
     [SerializeField] Transform centreTransform;
     [SerializeField] float upScrollMultiplier;
+    [SerializeField] float offsetclamp;
+
 
     private void FixedUpdate()
     {
         float camYOffset = cameraTransform.position.y - centreTransform.position.y;
-        backgroundTransform.position = new Vector3(centreTransform.position.x, centreTransform.position.y + camYOffset * upScrollMultiplier, 0); ;
+        camYOffset = Mathf.Clamp(centreTransform.position.y + camYOffset * upScrollMultiplier, centreTransform.position.y - offsetclamp, centreTransform.position.y + offsetclamp);
+        backgroundTransform.position = new Vector3(centreTransform.position.x, camYOffset, 0); ;
     }
 }

@@ -80,6 +80,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f87c05b-9026-4581-974b-74f0fe91efc4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3801826-4af0-41ab-8efc-37f2218293ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExtraInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f6f12c0-a309-40ec-8f59-011491be54e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +219,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d05e89c1-43b0-455b-a7f0-75d45efb98d1"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c33f694-285a-43c3-8352-b9a186d0c8a9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f10e2ee0-6251-4400-b8c4-103f22a01507"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExtraInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +266,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Keyboard_Run = m_Keyboard.FindAction("Run", throwIfNotFound: true);
         m_Keyboard_ClingToggle = m_Keyboard.FindAction("ClingToggle", throwIfNotFound: true);
         m_Keyboard_Shoot = m_Keyboard.FindAction("Shoot", throwIfNotFound: true);
+        m_Keyboard_Interact = m_Keyboard.FindAction("Interact", throwIfNotFound: true);
+        m_Keyboard_Submit = m_Keyboard.FindAction("Submit", throwIfNotFound: true);
+        m_Keyboard_ExtraInteract = m_Keyboard.FindAction("ExtraInteract", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +336,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Keyboard_Run;
     private readonly InputAction m_Keyboard_ClingToggle;
     private readonly InputAction m_Keyboard_Shoot;
+    private readonly InputAction m_Keyboard_Interact;
+    private readonly InputAction m_Keyboard_Submit;
+    private readonly InputAction m_Keyboard_ExtraInteract;
     public struct KeyboardActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -283,6 +349,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_Keyboard_Run;
         public InputAction @ClingToggle => m_Wrapper.m_Keyboard_ClingToggle;
         public InputAction @Shoot => m_Wrapper.m_Keyboard_Shoot;
+        public InputAction @Interact => m_Wrapper.m_Keyboard_Interact;
+        public InputAction @Submit => m_Wrapper.m_Keyboard_Submit;
+        public InputAction @ExtraInteract => m_Wrapper.m_Keyboard_ExtraInteract;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -310,6 +379,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @Submit.started += instance.OnSubmit;
+            @Submit.performed += instance.OnSubmit;
+            @Submit.canceled += instance.OnSubmit;
+            @ExtraInteract.started += instance.OnExtraInteract;
+            @ExtraInteract.performed += instance.OnExtraInteract;
+            @ExtraInteract.canceled += instance.OnExtraInteract;
         }
 
         private void UnregisterCallbacks(IKeyboardActions instance)
@@ -332,6 +410,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @Submit.started -= instance.OnSubmit;
+            @Submit.performed -= instance.OnSubmit;
+            @Submit.canceled -= instance.OnSubmit;
+            @ExtraInteract.started -= instance.OnExtraInteract;
+            @ExtraInteract.performed -= instance.OnExtraInteract;
+            @ExtraInteract.canceled -= instance.OnExtraInteract;
         }
 
         public void RemoveCallbacks(IKeyboardActions instance)
@@ -357,5 +444,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnClingToggle(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
+        void OnExtraInteract(InputAction.CallbackContext context);
     }
 }

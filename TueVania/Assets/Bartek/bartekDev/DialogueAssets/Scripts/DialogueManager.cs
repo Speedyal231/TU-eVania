@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Player Reference")]
     [SerializeField] private GameObject player;
-    private PlayerController playerController;
+    private CharacterController playerController;
     private PlayerInputActions playerInputActions;
 
     private Story currentStory;
@@ -48,7 +48,7 @@ public class DialogueManager : MonoBehaviour
         DialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
 
-        playerController = player.GetComponent<PlayerController>();
+        playerController = player.GetComponent<CharacterController>();
         if (playerController == null)
         {
             Debug.Log("Dialogue Manager couldn't get the Player Controller script of the Player.");
