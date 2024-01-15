@@ -13,7 +13,6 @@ public class enemyPatrol : MonoBehaviour {
 
     public Transform wallCheck;
     public float wallCheckDistance;
-    public LayerMask whatIsWall;
 
     private bool atEdge;
 
@@ -28,7 +27,7 @@ public class enemyPatrol : MonoBehaviour {
         bool isWalled = CheckWall();
         atEdge = isWalled;
 
-        if (!isGrounded || isWalled)
+        if (isWalled)
         {
             moveRight = !moveRight;
         }
@@ -49,7 +48,14 @@ public class enemyPatrol : MonoBehaviour {
     bool CheckWall()
     {
         float direction = moveRight ? 1f : -1f;
-        RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, new Vector2(direction, 0), wallCheckDistance, whatIsWall);
-        return hit.collider != null;
+        RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, new Vector2(direction, 0), wallCheckDistance);
+
+        // Check if the detected object has the tag "unbreakable"
+        if (hit.collider != null && hit.collider.CompareTag("Breakable"))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
