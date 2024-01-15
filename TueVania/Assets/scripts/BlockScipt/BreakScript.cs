@@ -32,7 +32,7 @@ public class BreakScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (broke && !(currentAnimTime > 0.25))
+        if (broke && !(currentAnimTime > 0.18))
         {
             boxCollider.enabled = false;
         }
@@ -42,6 +42,6 @@ public class BreakScript : MonoBehaviour
     {
         script.ChangeAnimationState(Break);
         broke = true;
-        currentAnimTime = 0.3f;
+        currentAnimTime = 0.25f;
     }
 }

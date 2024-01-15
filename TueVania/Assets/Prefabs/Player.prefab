@@ -620,7 +620,7 @@ MonoBehaviour:
   airDragMultiplier: 1.1
   wallJumpDiviser: 4.5
   wallJumpPower: 3
-  flipThreshold: 6.5
+  flipThreshold: 6.8
   srcStepsflipsdash: {fileID: 4936364695528513494}
   srcGun: {fileID: 3497831142867328012}
   srcJumpCling: {fileID: 8387724557433740717}

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BulletMovementScript : MonoBehaviour
 {
+    //ADD bullet velocity
     [Header("Shooting Settings")]
     [SerializeField] float bulletSpeed;
     [SerializeField] GameObject bulletObject;
@@ -16,6 +17,7 @@ public class BulletMovementScript : MonoBehaviour
 
     float currentBulletExistanceTime;
     string tag = "Breakable";
+    bool gone = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,7 @@ public class BulletMovementScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        GoneCheck();
         Count();
         Move();
         HitCheck();
@@ -39,8 +42,8 @@ public class BulletMovementScript : MonoBehaviour
 
     private void HitCheck() 
     {
-        Boolean contact = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x/2, bulletObject.transform.right, hitRayOffset, groundLayer);
-        RaycastHit2D hit = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x / 2, bulletObject.transform.right, hitRayOffset, groundLayer);
+        Boolean contact = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x / 7, bulletObject.transform.right, hitRayOffset, groundLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x / 7, bulletObject.transform.right, hitRayOffset, groundLayer);
         if (contact) 
         {
             if (hit.collider != null)
@@ -71,7 +74,7 @@ public class BulletMovementScript : MonoBehaviour
                     }
                 }
             }
-            Destroy(bulletObject);
+            gone = true;
         }
     }
 
@@ -79,6 +82,14 @@ public class BulletMovementScript : MonoBehaviour
     {
         if (currentBulletExistanceTime > 0)
             currentBulletExistanceTime -= Time.fixedDeltaTime;
+    }
+
+    private void GoneCheck()
+    {
+        if (gone)
+        {
+            Destroy(bulletObject);
+        }
     }
 
     private void BulletTimeOutCheck() 
