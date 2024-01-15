@@ -9,6 +9,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float interactionRange = 10f;
     bool interactedWithDoor;
     float currentAnimTime;
+    Interactable interactableTemp;
 
     private void Awake()
     {
@@ -25,6 +26,11 @@ public class PlayerInteract : MonoBehaviour
             LookForInteraction();
         }
         Count();
+        if (currentAnimTime <= 0 && interactedWithDoor)
+        {
+            interactableTemp.Interact(this.gameObject);
+            interactedWithDoor = false;
+        }
 
         
     }
@@ -58,7 +64,7 @@ public class PlayerInteract : MonoBehaviour
                    { 
                         interactedWithDoor = true;
                         currentAnimTime = 3;
-                        EnterDoor(interactable);
+                        interactableTemp = interactable;
                    } 
                    else
                    {
@@ -79,16 +85,6 @@ public class PlayerInteract : MonoBehaviour
     public bool DoorEnterCheck()
     {
         return interactedWithDoor;
-    }
-
-    private void EnterDoor(Interactable interactable)
-    {
-        while(currentAnimTime <= 0)
-        {
-            //wait
-        }
-        interactedWithDoor = false;
-        interactable.Interact(this.gameObject);
     }
 
     private void Count()

@@ -130,6 +130,7 @@ public class CharacterController : MonoBehaviour
     {
         if(InteractScript.DoorEnterCheck())
         {
+            gunVisual.GetComponent<SpriteRenderer>().enabled = false;
             animation.ChangeAnimationState(DoorEnter);
         } 
         else 
