@@ -23,6 +23,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] PlayerClingScript playerClingScript;
     [SerializeField] PlayerShootScript playerShootScript;
     [SerializeField] AnimationControlScript animation;
+    [SerializeField] PlayerInteract InteractScript;
     [SerializeField] PlayerSound sfx;
     private PlayerInputActions playerInputActions;
 
@@ -127,32 +128,40 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        PhysicsCalcInit();
-        GroundedCheck();
-        WalledCheck();
-        StateSwitch();
-        CheckWillFlip();
-        UpdateFlipping();
-        Count();
-        Vector2 moveInput = GetMoveInput();
-        float runInput = GetRunInput();
-        Move(moveInput);
-        Jump(GetJumpInput());
-        playerShootScript.ShootBullet(gunTransform, playerInputActions, isAirFlipping, sfx, smallBlastsfx, bigBlastsfx, chargesfx, chargeStartsfx, srcGun);
-        clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
-        playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
-        GroundSnap();
-        GetLastSpeed();
-        AnimationBehaviour(moveInput, runInput);
-        if (playerState == State.Ground)
+        if(InteractScript.DoorEnterCheck())
         {
-            Friction(runInput);
-        }
-        else if (playerState == State.Air)
+            animation.ChangeAnimationState(DoorEnter);
+        } 
+        else 
         {
-            AirDrag(prevGroundVelocity);
+            PhysicsCalcInit();
+            GroundedCheck();
+            WalledCheck();
+            StateSwitch();
+            CheckWillFlip();
+            UpdateFlipping();
+            Count();
+            Vector2 moveInput = GetMoveInput();
+            float runInput = GetRunInput();
+            Move(moveInput);
+            Jump(GetJumpInput());
+            playerShootScript.ShootBullet(gunTransform, playerInputActions, isAirFlipping, sfx, smallBlastsfx, bigBlastsfx, chargesfx, chargeStartsfx, srcGun);
+            clinging = playerClingScript.Cling(playerTransform, capsuleCollider, wallRayOffset, groundLayer, dashJumpCheck, moveInput, grounded, RB, velocity, playerInputActions);
+            playerDashScript.Dash(moveInput, playerTransform, playerInputActions, grounded, dashJumpCheck, Lcheck, Rcheck, capsuleCollider, wallRayOffset, groundLayer);
+            GroundSnap();
+            GetLastSpeed();
+            AnimationBehaviour(moveInput, runInput);
+            if (playerState == State.Ground)
+            {
+                Friction(runInput);
+            }
+            else if (playerState == State.Air)
+            {
+                AirDrag(prevGroundVelocity);
+            }
+            ApplyForces();
         }
-        ApplyForces();
+        
     }
 
     /// <summary>
@@ -465,6 +474,8 @@ public class CharacterController : MonoBehaviour
 
     const string rightDash = "RightDash";
     const string leftDash = "LeftDash";
+
+    const string DoorEnter = "DoorEnter";
 
     bool jumped;
     bool clung;

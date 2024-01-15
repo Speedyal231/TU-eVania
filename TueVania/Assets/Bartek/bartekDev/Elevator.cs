@@ -23,9 +23,12 @@ public class Elevator : Interactable
     [SerializeField] AudioClip clipClose;
     [SerializeField] AudioClip clipToggle;
     [SerializeField] AudioClip clipFail;
+    [SerializeField] AnimationControlScript animation;
 
 
     private const int MAX_FLOOR_NUM = 4;
+    const string open = "Opening";
+    const string close = "Closed";
 
     public void Start()
     {
@@ -59,13 +62,18 @@ public class Elevator : Interactable
             floorText.fontSize = 0.5f;
             floorText.text = "Floor " + floorNum;
             src.PlayOneShot(clipOpen);
+            animation.ChangeAnimationState(open);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         prompt.SetActive(false);
-        if (active) { src.PlayOneShot(clipClose); }
+        if (active) 
+        { 
+            src.PlayOneShot(clipClose); 
+            animation.ChangeAnimationState(close);
+        }
         
     }
 

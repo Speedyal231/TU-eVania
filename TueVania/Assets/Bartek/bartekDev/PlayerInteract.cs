@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
     private PlayerInputActions playerInputActions;
     [SerializeField] private float interactionRange = 10f;
+    bool interactedWithDoor;
+    float currentAnimTime;
 
     private void Awake()
     {
         //enable player input script.
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
+        GetComponent<CharacterController>().enabled = true;
     }
 
     void Update()
@@ -20,6 +24,8 @@ public class PlayerInteract : MonoBehaviour
         {
             LookForInteraction();
         }
+        Count();
+
         
     }
 
@@ -48,17 +54,46 @@ public class PlayerInteract : MonoBehaviour
                 
                 if (playerInputActions.Keyboard.Interact.WasPressedThisFrame())
                 {
-                    interactable.Interact(this.gameObject);
+                   if (collider.CompareTag("Door"))
+                   { 
+                        interactedWithDoor = true;
+                        currentAnimTime = 3;
+                        EnterDoor(interactable);
+                   } 
+                   else
+                   {
+                        interactable.Interact(this.gameObject);
+                   }
+                    
+                           
                 }
-
-                
                 if (playerInputActions.Keyboard.ExtraInteract.WasPressedThisFrame())
                 {
                     interactable.ExtraInteract(this.gameObject);
+
                 }
             }
         }
     }
 
-   
+    public bool DoorEnterCheck()
+    {
+        return interactedWithDoor;
+    }
+
+    private void EnterDoor(Interactable interactable)
+    {
+        while(currentAnimTime <= 0)
+        {
+            //wait
+        }
+        interactedWithDoor = false;
+        interactable.Interact(this.gameObject);
+    }
+
+    private void Count()
+    {
+        if (currentAnimTime > 0)
+            currentAnimTime -= Time.fixedDeltaTime;
+    }
 }
