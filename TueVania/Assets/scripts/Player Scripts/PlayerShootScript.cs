@@ -113,4 +113,14 @@ public class PlayerShootScript : MonoBehaviour {
         Instantiate(projectile, spawnPoint, rotation);
     }
 
+    public void changeGunStatus(){
+
+        unlockedShoot = true;
+    }
+
+    public void changeBigGunStatus(){
+
+        unlockedBigBlast = true;
+    }
+
 }

@@ -1,0 +1,7 @@
+minecraft: https://dl.dafont.com/dl/?f=minecraft
+
+dogica: https://dl.dafont.com/dl/?f=dogica
+
+pixeled: https://dl.dafont.com/dl/?f=pixeled
+
+retro computer: https://dl.dafont.com/dl/?f=retro_computer

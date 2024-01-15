@@ -134,4 +134,9 @@ public class PlayerDashScript : MonoBehaviour
     {
         Count();
     }
+
+    public void changeDashStatus(){
+
+        unlocked = true;
+    }
 }

@@ -153,4 +153,9 @@ public class PlayerClingScript : MonoBehaviour
     {
         Count();
     }
+
+    public void changeClingStatus(){
+
+        unlocked = true;
+    }
 }
