@@ -620,7 +620,7 @@ MonoBehaviour:
   airDragMultiplier: 1.1
   wallJumpDiviser: 4.5
   wallJumpPower: 3
-  flipThreshold: 6.8
+  flipThreshold: 7
   srcStepsflipsdash: {fileID: 4936364695528513494}
   srcGun: {fileID: 3497831142867328012}
   srcJumpCling: {fileID: 8387724557433740717}
@@ -636,7 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b969c1b635a4e44eb2a18df3a255312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 1
+  unlocked: 0
   dashDistance: 10
   dashSpeed: 0.05
   dashDuration: 0.2
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1997553b1cef84d913ab338faf9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 1
+  unlocked: 0
   wallHitRange: 0.2
   clingResetTime: 0.5
   slipSpeed: 0.02
@@ -673,8 +673,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rbPlayer: {fileID: 5064818175417941156}
-  unlockedShoot: 1
-  unlockedBigBlast: 1
+  unlockedShoot: 0
+  unlockedBigBlast: 0
   bullet: {fileID: 6701394879574513763, guid: f628952ac601b9f4293a92b180cc3b44, type: 3}
   bigBlast: {fileID: 5336665776668268991, guid: d90907ea325eac54488551fa0caa4ee5, type: 3}
   targetTransform: {fileID: 0}
@@ -714,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ed4d0930fbab84b82e162315fe382b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRange: 10
+  interactionRange: 2
 --- !u!82 &4936364695528513494
 AudioSource:
   m_ObjectHideFlags: 0

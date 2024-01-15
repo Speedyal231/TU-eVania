@@ -14,6 +14,7 @@ public class BulletMovementScript : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] float bulletExistanceTime;
+    [SerializeField] GameObject effect;
 
     float currentBulletExistanceTime;
     string tag = "Breakable";
@@ -46,6 +47,7 @@ public class BulletMovementScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.CircleCast(bulletObject.transform.position, bulletObject.transform.localScale.x / 7, bulletObject.transform.right, hitRayOffset, groundLayer);
         if (contact) 
         {
+
             if (hit.collider != null)
             {
                 // Access the GameObject that was hit
@@ -88,6 +90,7 @@ public class BulletMovementScript : MonoBehaviour
     {
         if (gone)
         {
+            Instantiate(effect, bulletObject.transform.position, Quaternion.identity);
             Destroy(bulletObject);
         }
     }

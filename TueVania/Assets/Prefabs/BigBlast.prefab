@@ -108,6 +108,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   bulletExistanceTime: 3
+  effect: {fileID: 493669778249904430, guid: d4d26f5f52088b14b8c651c9949244e3, type: 3}
 --- !u!95 &598398073091741559
 Animator:
   serializedVersion: 5

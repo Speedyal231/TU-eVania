@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class collects : MonoBehaviour {
 
+    [SerializeField] GameObject effect;
     public int pointsToAdd;
     public int identifier;
 
@@ -17,6 +18,8 @@ public class collects : MonoBehaviour {
             if (other.GetComponent<CharacterController>() == null)
                 return;
         }
+
+        Instantiate(effect, transform.position, Quaternion.identity);
 
         PlayerShootScript ps = other.GetComponent<PlayerShootScript>();
         if (ps != null) {

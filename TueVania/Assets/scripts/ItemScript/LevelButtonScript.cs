@@ -7,6 +7,8 @@ public class LevelButtonScript : Interactable
 {
     [SerializeField] GameObject button;
     [SerializeField] Elevator elevator;
+    [SerializeField] AudioSource src;
+    [SerializeField] AudioClip clip;
     Color baseColor;
     Color flashColor;
 
@@ -35,6 +37,7 @@ public class LevelButtonScript : Interactable
     public override void Interact(GameObject player)
     {
         elevator.SetActive(true);
+        src.PlayOneShot(clip);
         button.GetComponent<SpriteRenderer>().color = Color.green;
         baseColor = Color.green;
     }

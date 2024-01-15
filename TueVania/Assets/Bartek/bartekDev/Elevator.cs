@@ -18,6 +18,12 @@ public class Elevator : Interactable
 
     [SerializeField]
     private GameObject prompt;
+    [SerializeField] AudioSource src;
+    [SerializeField] AudioClip clipOpen;
+    [SerializeField] AudioClip clipClose;
+    [SerializeField] AudioClip clipToggle;
+    [SerializeField] AudioClip clipFail;
+
 
     private const int MAX_FLOOR_NUM = 4;
 
@@ -40,11 +46,6 @@ public class Elevator : Interactable
         }
     }
 
-    private void Update()
-    {
-        UnityEngine.Debug.Log(active);
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         prompt.SetActive(true);
@@ -52,16 +53,20 @@ public class Elevator : Interactable
         {
             floorText.fontSize = 0.3f;
             floorText.text = "Activate elevator switch.";
+            src.PlayOneShot(clipFail);
         } else
         {
             floorText.fontSize = 0.5f;
             floorText.text = "Floor " + floorNum;
+            src.PlayOneShot(clipOpen);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         prompt.SetActive(false);
+        if (active) { src.PlayOneShot(clipClose); }
+        
     }
 
     public override void ExtraInteract(GameObject player)
@@ -78,7 +83,7 @@ public class Elevator : Interactable
             }
 
             floorText.text = "Floor " + floorNum;
-
+            src.PlayOneShot(clipToggle);
             // debug
             UnityEngine.Debug.Log("floorNum = " + floorNum);
         }
