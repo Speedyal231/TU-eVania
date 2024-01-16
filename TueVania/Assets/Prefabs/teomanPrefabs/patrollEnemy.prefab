@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 8262717950380718430}
   - component: {fileID: 118240573222126535}
   - component: {fileID: 4913520634240817739}
+  - component: {fileID: 2989518447116237911}
   m_Layer: 7
   m_Name: patrollEnemy
   m_TagString: Enemy
@@ -263,8 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855d9baf15f8b9846bea2215cde31b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 2
-  pointsOnDeath: 4
+  enemyHealth: 4
+  pointsOnDeath: 2
+  animation: {fileID: 2989518447116237911}
 --- !u!95 &118240573222126535
 Animator:
   serializedVersion: 5
@@ -321,3 +323,15 @@ CircleCollider2D:
   m_Offset: {x: -0.0033550262, y: -0.11910415}
   serializedVersion: 2
   m_Radius: 0.38760543
+--- !u!114 &2989518447116237911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720606732766178529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3397b7e9bcad0444eb37c828d5018e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -8,6 +8,13 @@ public class fEnemyDatasheet : MonoBehaviour, IEnemy
     public int enemyHealth;
     public int pointsOnDeath;
 
+
+    public AnimationControlScript animation;
+    const string FlyHit = "FlyHit";
+    const string DeathFly = "DeathFly";
+
+    const string fEnemyFly = "fEnemyFly";
+
     // Use this for initialization
     void Start()
     {
@@ -21,11 +28,13 @@ public class fEnemyDatasheet : MonoBehaviour, IEnemy
         {
             HandleEnemyDeath();
         }
+        animation.ChangeAnimationState(fEnemyFly);
     }
 
     public void TakeDamage(int damageToGive)
     {
         enemyHealth -= damageToGive;
+        animation.ChangeAnimationState(FlyHit);
     }
 
     void HandleEnemyDeath()
@@ -35,6 +44,7 @@ public class fEnemyDatasheet : MonoBehaviour, IEnemy
 
         // Add points to the player's score
         PlayerScoreManager.AddPoints(pointsOnDeath);
+        animation.ChangeAnimationState(DeathFly);
 
         // Destroy the enemy GameObject
         Destroy(gameObject);
