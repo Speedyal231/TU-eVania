@@ -89,6 +89,7 @@ public class CharacterController : MonoBehaviour
     int jumpsfx = 6;
     int chargesfx = 7;
     int chargeStartsfx = 8;
+    int DamageSfx = 9;
     //sounds
 
     private enum State
@@ -135,7 +136,9 @@ public class CharacterController : MonoBehaviour
             gunVisual.GetComponent<SpriteRenderer>().enabled = false;
             animation.ChangeAnimationState(DoorEnter);
         } else if (stunned){
-            Debug.Log("Stunned");
+            gunVisual.GetComponent<SpriteRenderer>().enabled = false;
+            animation.ChangeAnimationState(Damaged);
+            sfx.PlaySoundfixedLoop(9, 2, srcGun);
         }
         else 
         {
@@ -483,6 +486,7 @@ public class CharacterController : MonoBehaviour
     const string leftDash = "LeftDash";
 
     const string DoorEnter = "DoorEnter";
+    const string Damaged = "Damage";
 
     bool jumped;
     bool clung;

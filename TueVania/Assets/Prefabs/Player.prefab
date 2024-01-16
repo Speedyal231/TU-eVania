@@ -602,6 +602,7 @@ MonoBehaviour:
   playerClingScript: {fileID: 914296479049313799}
   playerShootScript: {fileID: 3802336237528674178}
   animation: {fileID: 8541096872111860997}
+  InteractScript: {fileID: 6834419301376873926}
   sfx: {fileID: 555533963255801938}
   acceleration: 3
   accelerationFriction: 0.5
@@ -624,6 +625,13 @@ MonoBehaviour:
   srcStepsflipsdash: {fileID: 4936364695528513494}
   srcGun: {fileID: 3497831142867328012}
   srcJumpCling: {fileID: 8387724557433740717}
+  StunnedTime: 0.3
+  knockback: 10.1
+  moveVelocity: 10
+  knockbackLength: 5
+  knockbackCount: 5
+  knockFromRight: 0
+  stunned: 0
 --- !u!114 &6659599215914230489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -702,6 +710,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2ecd11bd6b332a146a7cce3fa547f0b4, type: 3}
   - {fileID: 8300000, guid: 3a3600ce42bf9fb42ae80d52cb1cbdb5, type: 3}
   - {fileID: 8300000, guid: 815235984ed5456418efa1731c1bbc08, type: 3}
+  - {fileID: 8300000, guid: d182d334785020545b6d0940eada2733, type: 3}
 --- !u!114 &6834419301376873926
 MonoBehaviour:
   m_ObjectHideFlags: 0

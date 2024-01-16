@@ -35,6 +35,11 @@ public class PlayerSound : MonoBehaviour
 
     }
 
+    public void PlayOneTime(int index, AudioSource src)
+    {
+        src.PlayOneShot(clip[index]);
+    }
+
     private void Count()
     {
         if (currentClipDuration > 0)
