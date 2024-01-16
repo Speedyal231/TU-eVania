@@ -66,7 +66,7 @@ public class EffectsScript : MonoBehaviour
         if (currentAnimTime > 0)
             currentAnimTime -= Time.fixedDeltaTime;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Count();
         if (currentAnimTime <= 0 && done)

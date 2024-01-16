@@ -25,7 +25,7 @@ public class PlayerInteract : MonoBehaviour
         {
             LookForInteraction();
         }
-        Count();
+        
         if (currentAnimTime <= 0 && interactedWithDoor)
         {
             interactableTemp.Interact(this.gameObject);
@@ -33,6 +33,11 @@ public class PlayerInteract : MonoBehaviour
         }
 
         
+    }
+
+    private void FixedUpdate()
+    {
+        Count();
     }
 
     void LookForInteraction()
