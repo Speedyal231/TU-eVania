@@ -174,7 +174,7 @@ MonoBehaviour:
   groundCheckDistance: 0.05
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 129
   wallCheck: {fileID: 3190736986950926333}
   wallCheckDistance: 0.005
 --- !u!50 &5417094235842616886

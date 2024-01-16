@@ -51,7 +51,7 @@ public class enemyPatrol : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, new Vector2(direction, 0), wallCheckDistance);
 
         // Check if the detected object has the tag "unbreakable"
-        if (hit.collider != null && hit.collider.CompareTag("Breakable"))
+        if (hit.collider != null && (hit.collider.CompareTag("Breakable") || hit.collider.CompareTag("Border") || hit.collider.CompareTag("Player") || hit.collider.CompareTag("Enemy")))
         {
             return true;
         }

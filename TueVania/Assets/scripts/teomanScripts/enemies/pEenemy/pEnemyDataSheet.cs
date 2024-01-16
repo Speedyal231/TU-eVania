@@ -25,13 +25,21 @@ public class pEnemyDataSheet : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
-        
+
         if (enemyHealth <= 0)
         {
-            
+            animation.ChangeAnimationState(Death);
             HandleEnemyDeath();
         }
-        animation.ChangeAnimationState(pEnemyWalk);
+        else if (currentAnimTime > 0)
+        {
+            animation.ChangeAnimationState(Hit);
+        }
+        else 
+        {
+            animation.ChangeAnimationState(pEnemyWalk);
+        }
+        
     }
 
     void FixedUpdate() {
@@ -40,21 +48,12 @@ public class pEnemyDataSheet : MonoBehaviour, IEnemy
 
     public void TakeDamage(int damageToGive)
     {
-        enemyHealth -= damageToGive;
-
-        if (enemyHealth > 0) {
-            animation.ChangeAnimationState(Hit);
-        } else {
-            animation.ChangeAnimationState(Death);
+        if (currentStunTime <= 0)
+        {
+            enemyHealth -= damageToGive;
+            currentAnimTime = 0.3f;
+            currentStunTime = 0.05f;
         }
-        
-        
-        currentAnimTime = 1f;
-        if (currentAnimTime <= 0) {
-  
-        }
-        
-        
     }
 
     void HandleEnemyDeath()
@@ -76,10 +75,14 @@ public class pEnemyDataSheet : MonoBehaviour, IEnemy
     }
 
     float currentAnimTime;
+    float currentStunTime;
+
     bool countController;
     private void Count()
     {
         if (currentAnimTime > 0)
             currentAnimTime -= Time.fixedDeltaTime;
+        if (currentStunTime > 0)
+            currentStunTime -= Time.fixedDeltaTime;
     }
 }
