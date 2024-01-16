@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class Elevator : Interactable
 {
     private int floorNum = 0;
-    bool active;
+    public bool active;
 
     [SerializeField]
     private TextMeshProUGUI floorText;
@@ -102,8 +102,8 @@ public class Elevator : Interactable
     {
         switch (num)
         {
-            case 0: return "BaseScene";
-            case 1: return "ElevatorTest1";
+            case 0: return "AtlasGroundLevel";
+            case 1: return "AtlasLevel1";
             case 2: return "ElevatorTest2";
             default: return "BaseScene";
         }
