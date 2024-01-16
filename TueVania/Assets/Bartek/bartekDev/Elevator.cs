@@ -15,6 +15,7 @@ public class Elevator : Interactable
 
     [SerializeField]
     private TextMeshProUGUI floorText;
+    [SerializeField] SenderScript sender;  
 
     [SerializeField]
     private GameObject prompt;
@@ -45,6 +46,7 @@ public class Elevator : Interactable
     {
         if (active)
         {
+            sender.Send();
             SceneManager.LoadScene(getSceneName(floorNum));
         }
     }

@@ -123,4 +123,14 @@ public class PlayerShootScript : MonoBehaviour {
         unlockedBigBlast = true;
     }
 
+    public bool shootStatus()
+    {
+        return unlockedShoot;
+    }
+
+    public bool BlastStatus()
+    {
+        return unlockedBigBlast;
+    }
+
 }

@@ -88,4 +88,15 @@ public class healthManager : MonoBehaviour {
 	public bool getDeadStatus() {
 		return isDead;
 	}
+
+    public int getHealth()
+    {
+        return playerHealth;
+    }
+
+    public void setHealth(int health)
+    {
+        playerHealth = health;
+    }
+
 }

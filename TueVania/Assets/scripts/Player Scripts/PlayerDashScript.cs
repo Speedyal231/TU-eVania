@@ -139,4 +139,8 @@ public class PlayerDashScript : MonoBehaviour
 
         unlocked = true;
     }
+    public bool dashStatus()
+    {
+        return unlocked;
+    }
 }
