@@ -6,6 +6,10 @@ public class Door : Interactable
 {
     [Header("The door on the other side")]
     [SerializeField] GameObject otherSideDoor;
+    [SerializeField] AnimationControlScript animation;
+
+    const string open = "DoorOpening";
+    const string close = "Doorclosing";
 
     // Walk through the door
     public override void Interact(GameObject player)
@@ -19,6 +23,21 @@ public class Door : Interactable
     public override void ExtraInteract(GameObject player)
     {
         // empty on purpose
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")) {
+            animation.ChangeAnimationState(open);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            animation.ChangeAnimationState(close);
+        }
     }
 
 }
