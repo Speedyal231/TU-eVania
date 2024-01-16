@@ -20,6 +20,10 @@ public class healthManager : MonoBehaviour {
 
 	private lifeManager lifeSystem;
 
+	public bool animPlayed;
+
+	public bool checkStunned;
+
 	// Use this for initialization
 	void Start () {
 
@@ -39,13 +43,16 @@ public class healthManager : MonoBehaviour {
 	void Update () {
 
 		//Debug.Log("Current lives: " + playerHealth);
-		if (playerHealth <= 0 && !isDead)
+		if (playerHealth <= 0 && !isDead & checkStunned)
 		{
-			Debug.Log("died");
-			levelManager.RespawnPlayer();
 			isDead = true;
-			playerHealth = maxPlayerHealth;
-			lifeSystem.TakeLife();
+			Debug.Log(animPlayed +" number");
+			if (!checkStunned) {
+				Debug.Log("died");
+				levelManager.RespawnPlayer();
+				playerHealth = maxPlayerHealth;
+				lifeSystem.TakeLife();
+			}
 		}
 		//text.text = "" + playerHealth;
 		healthBar.value = playerHealth;
