@@ -412,6 +412,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorText: {fileID: 0}
   prompt: {fileID: 0}
+  src: {fileID: 0}
+  clipOpen: {fileID: 0}
+  clipClose: {fileID: 0}
+  clipToggle: {fileID: 0}
+  clipFail: {fileID: 0}
+  animation: {fileID: 0}
 --- !u!61 &5232111189401881700
 BoxCollider2D:
   m_ObjectHideFlags: 0

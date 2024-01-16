@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1647622453
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.4838919, g: 0.86415094, b: 0.37663934, a: 0.3019608}
@@ -141,12 +141,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6372464147833690273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b187d559044d8304f98ac28311e70b38, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c9a24c96ccb68d4187ca847cf7199af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   regenerate: 0
   spawnPoint: {fileID: 8427948015790537216}
-  objectToSpawn: {fileID: 5454916199908466820, guid: 44c951d839827f546a73b17024ab78af, type: 3}
+  objectToSpawn: {fileID: 0}
 --- !u!1 &8427948015790537216
 GameObject:
   m_ObjectHideFlags: 0

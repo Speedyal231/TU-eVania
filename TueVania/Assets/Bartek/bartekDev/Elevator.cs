@@ -54,12 +54,12 @@ public class Elevator : Interactable
         prompt.SetActive(true);
         if (!active)
         {
-            floorText.fontSize = 0.3f;
+            floorText.fontSize = 0.2f;
             floorText.text = "Activate elevator switch.";
             src.PlayOneShot(clipFail);
         } else
         {
-            floorText.fontSize = 0.5f;
+            floorText.fontSize = 0.35f;
             floorText.text = "Floor " + floorNum;
             src.PlayOneShot(clipOpen);
             animation.ChangeAnimationState(open);
