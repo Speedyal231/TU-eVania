@@ -6,6 +6,13 @@ public class VariableManager : MonoBehaviour
     public static int hTransfer;
     public static int sTransfer;
     public static bool p1;
+    public static bool p2;
+    public static bool p3;
+    public static bool p4;
+    public static bool L1e;
+    public static bool L2e;
+    public static bool L3e;
+    public static bool L4e;
 
     private void Awake()
     {
