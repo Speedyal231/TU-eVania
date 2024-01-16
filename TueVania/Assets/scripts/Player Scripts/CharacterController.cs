@@ -98,6 +98,7 @@ public class CharacterController : MonoBehaviour
         Air
     }  
     private State playerState;
+    //private healthManager healthManager;
 
     /// <summary>
     /// 
@@ -124,6 +125,7 @@ public class CharacterController : MonoBehaviour
     {
         rFace = true;
         lFace = false;
+        //healthManager = FindObjectOfType<healthManager>();
     }
 
     // Update is called once per frame
@@ -139,7 +141,10 @@ public class CharacterController : MonoBehaviour
             gunVisual.GetComponent<SpriteRenderer>().enabled = false;
             animation.ChangeAnimationState(Damaged);
             sfx.PlaySoundfixedLoop(9, 2, srcGun);
-        }
+        } /*else if (healthManager.getDeadStatus()){
+            gunVisual.GetComponent<SpriteRenderer>().enabled = false;
+            animation.ChangeAnimationState(Death);
+        }*/
         else 
         {
             PhysicsCalcInit();
@@ -487,6 +492,8 @@ public class CharacterController : MonoBehaviour
 
     const string DoorEnter = "DoorEnter";
     const string Damaged = "Damage";
+
+    const string Death = "Death";
 
     bool jumped;
     bool clung;

@@ -75,4 +75,9 @@ public class healthManager : MonoBehaviour {
 		}
 		playerHealth += 1;
     }
+
+
+	public bool getDeadStatus() {
+		return isDead;
+	}
 }
