@@ -6,7 +6,7 @@ public class levelManager : MonoBehaviour {
 
 	public GameObject currentCheckpoint;
 	//public GameObject deathParticle;
-	//public GameObject spawnParticle;
+	public GameObject spawnParticle;
 	public GameObject player;
     public float delay;
 	public healthManager healthManager;
@@ -46,7 +46,7 @@ public class levelManager : MonoBehaviour {
 		healthManager.fullHealth();
 		healthManager.isDead = false;
 //		kamera.isFollowing = true;
-		//Instantiate(spawnParticle, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
+		Instantiate(spawnParticle, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
 
 	}
 }

@@ -43,11 +43,12 @@ public class healthManager : MonoBehaviour {
 	void Update () {
 
 		//Debug.Log("Current lives: " + playerHealth);
-		if (playerHealth <= 0 && !isDead & checkStunned)
+		if (playerHealth <= 0)
 		{
-			isDead = true;
-			Debug.Log(animPlayed +" number");
-			if (!checkStunned) {
+            isDead = true;
+            Debug.Log(animPlayed +" number");
+            Debug.Log(animPlayed + " number");
+            if (animPlayed && !checkStunned) {
 				Debug.Log("died");
 				levelManager.RespawnPlayer();
 				playerHealth = maxPlayerHealth;

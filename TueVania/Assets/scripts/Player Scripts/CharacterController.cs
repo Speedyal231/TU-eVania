@@ -137,16 +137,23 @@ public class CharacterController : MonoBehaviour
         {
             gunVisual.GetComponent<SpriteRenderer>().enabled = false;
             animation.ChangeAnimationState(DoorEnter);
-        } else if (stunned){
-            gunVisual.GetComponent<SpriteRenderer>().enabled = false;
-            animation.ChangeAnimationState(Damaged);
-            sfx.PlaySoundfixedLoop(9, 2, srcGun);
-        } else if (healthManager.getDeadStatus()){
+        }  else if (healthManager.getDeadStatus()){
+            if (!healthManager.animPlayed)
+            {
+                currentStunnedTime = 2;
+            }
+            healthManager.animPlayed = true;
             Debug.Log(stunned + " status");
             healthManager.checkStunned = stunned;
             gunVisual.GetComponent<SpriteRenderer>().enabled = false;
             animation.ChangeAnimationState(Death);
-            healthManager.animPlayed = true;
+            
+        }
+        else if (stunned)
+        {
+            gunVisual.GetComponent<SpriteRenderer>().enabled = false;
+            animation.ChangeAnimationState(Damaged);
+            sfx.PlaySoundfixedLoop(9, 2, srcGun);
         }
         else 
         {
