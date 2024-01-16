@@ -12,6 +12,8 @@ public class LevelButtonScript : Interactable
     Color baseColor;
     Color flashColor;
 
+    public bool pressed;
+
     private void Start()
     {
         baseColor = button.GetComponent<SpriteRenderer>().color;
@@ -36,6 +38,7 @@ public class LevelButtonScript : Interactable
 
     public override void Interact(GameObject player)
     {
+        pressed = true;
         elevator.SetActive(true);
         src.PlayOneShot(clip);
         button.GetComponent<SpriteRenderer>().color = Color.green;

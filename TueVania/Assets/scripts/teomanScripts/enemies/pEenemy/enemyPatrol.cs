@@ -32,6 +32,9 @@ public class enemyPatrol : MonoBehaviour {
             moveRight = !moveRight;
         }
 
+
+
+        
         float moveDirection = moveRight ? 1f : -1f;
 
         transform.localScale = new Vector3(moveDirection, 1f, 1f);
