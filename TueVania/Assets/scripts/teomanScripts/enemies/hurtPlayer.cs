@@ -3,6 +3,8 @@
 public class hurtPlayer : MonoBehaviour
 {
     public int damageToGive;
+    
+
 
     // Use this for initialization
     void Start()
@@ -18,24 +20,31 @@ public class hurtPlayer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        var player = other.GetComponent<CharacterController>();
         if (other.CompareTag("Player"))
         {
-            // Use the updated method name HurtPlayer from the PlayerData class
-            healthManager.hurtPlayer(damageToGive);
-            Debug.Log("Damage Given");
+            if (player.stunned){
+                
+            } else {
 
-            /*
-            var player = other.GetComponent<CharacterController>();
-            player.knockbackCount = player.knockbackLength;
+                
+                // Use the updated method name HurtPlayer from the PlayerData class
+                healthManager.hurtPlayer(damageToGive);
+                Debug.Log("Damage Given");
 
-            if (other.transform.position.x < transform.position.x)
-            {
-                player.knockFromRight = true;
+
+                
+                if (other.transform.position.x < transform.position.x)
+                {               
+                    player.knockFromRight = true;
+                }
+                else
+                {
+                    player.knockFromRight = false;
+                }
+
+                player.knockBack();
             }
-            else
-            {
-                player.knockFromRight = false;
-            }*/
         }
     }
 }

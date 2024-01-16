@@ -5,8 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 
 public class healthManager : MonoBehaviour {
-	public static int playerHealth;
-	public static int maxPlayerHealth = 3;
+
+	[Header("Health Info")] 
+    [SerializeField] static int playerHealth;
+    [SerializeField] static int maxPlayerHealth = 20;
 
 	public bool isDead;
 

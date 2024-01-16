@@ -128,11 +128,15 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Count();
+        checkStunned();
         if(InteractScript.DoorEnterCheck())
         {
             gunVisual.GetComponent<SpriteRenderer>().enabled = false;
             animation.ChangeAnimationState(DoorEnter);
-        } 
+        } else if (stunned){
+            Debug.Log("Stunned");
+        }
         else 
         {
             PhysicsCalcInit();
@@ -141,7 +145,7 @@ public class CharacterController : MonoBehaviour
             StateSwitch();
             CheckWillFlip();
             UpdateFlipping();
-            Count();
+            
             Vector2 moveInput = GetMoveInput();
             float runInput = GetRunInput();
             Move(moveInput);
@@ -405,6 +409,8 @@ public class CharacterController : MonoBehaviour
     {
         if (currentJumpTime > 0)
             currentJumpTime -= Time.fixedDeltaTime;
+        if (currentStunnedTime > 0)
+            currentStunnedTime -= Time.fixedDeltaTime;
     }
 
     private void CheckWillFlip()
@@ -483,6 +489,21 @@ public class CharacterController : MonoBehaviour
 
     Vector2 RFGunPos = new Vector2(-0.2f,0.5f);
     Vector2 LFrGunPos = new Vector2(0.08f, 0.5f);
+
+    
+
+    [Header("Knockback Info")] 
+    [SerializeField] float StunnedTime;
+    [SerializeField] float knockback;
+    [SerializeField] float moveVelocity;
+    public float knockbackLength;
+    public float knockbackCount;
+
+    public bool knockFromRight;
+
+    public bool stunned;
+
+    float currentStunnedTime;
 
     private void AnimationBehaviour(Vector2 moveInput, float runInput)
     {
@@ -700,6 +721,29 @@ public class CharacterController : MonoBehaviour
                 gunTransform.localPosition = RFGunPos;
                 animation.ChangeAnimationState(rightCling);
             }
+        }
+    }
+
+    public void knockBack() {
+            
+            Debug.Log("Knockbacked");
+            currentStunnedTime = StunnedTime;
+            if (knockFromRight)
+            {
+                RB.velocity = new Vector2(-knockback, 10f);
+            }
+            if (!knockFromRight)
+            {
+                RB.velocity = new Vector2(knockback, 10f);
+            }
+    }
+
+    private void checkStunned(){
+
+        if (currentStunnedTime > 0) {
+            stunned = true;
+        } else {
+            stunned = false;
         }
     }
 }
