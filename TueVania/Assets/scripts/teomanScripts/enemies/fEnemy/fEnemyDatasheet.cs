@@ -24,17 +24,35 @@ public class fEnemyDatasheet : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
+
         if (enemyHealth <= 0)
         {
+            animation.ChangeAnimationState(DeathFly);
             HandleEnemyDeath();
         }
-        animation.ChangeAnimationState(fEnemyFly);
+        else if (currentAnimTime > 0)
+        {
+            animation.ChangeAnimationState(FlyHit);
+        }
+        else 
+        {
+            animation.ChangeAnimationState(fEnemyFly);
+        }
+
+    }
+
+    void FixedUpdate() {
+        Count();
     }
 
     public void TakeDamage(int damageToGive)
     {
-        enemyHealth -= damageToGive;
-        animation.ChangeAnimationState(FlyHit);
+        if (currentStunTime <= 0)
+        {
+            enemyHealth -= damageToGive;
+            currentAnimTime = 0.3f;
+            currentStunTime = 0.05f;
+        }
     }
 
     void HandleEnemyDeath()
@@ -42,11 +60,24 @@ public class fEnemyDatasheet : MonoBehaviour, IEnemy
         // Instantiate deathEffect if needed
         // Instantiate(deathEffect, transform.position, transform.rotation);
 
-        // Add points to the player's score
-        PlayerScoreManager.AddPoints(pointsOnDeath);
-        animation.ChangeAnimationState(DeathFly);
+        if (currentAnimTime <=  0) {
 
-        // Destroy the enemy GameObject
-        Destroy(gameObject);
+            PlayerScoreManager.AddPoints(pointsOnDeath);
+            // Destroy the enemy GameObject
+            Destroy(gameObject);
+            
+        }
+    }
+
+    float currentAnimTime;
+    float currentStunTime;
+
+    bool countController;
+    private void Count()
+    {
+        if (currentAnimTime > 0)
+            currentAnimTime -= Time.fixedDeltaTime;
+        if (currentStunTime > 0)
+            currentStunTime -= Time.fixedDeltaTime;
     }
 }
