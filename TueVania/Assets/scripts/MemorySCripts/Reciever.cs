@@ -10,6 +10,8 @@ public class Receiver : MonoBehaviour
     private Elevator elevator;
     private LevelEventScript levelEventScript;
     private LevelEvent3Script levelEvent3Script;
+    private LevelEvent2Script levelEvent2Script;
+
 
     private void Start()
     {
@@ -20,6 +22,7 @@ public class Receiver : MonoBehaviour
         PlayerDashScript = FindObjectOfType<PlayerDashScript>();
         elevator = FindAnyObjectByType<Elevator>();
         levelEvent3Script = FindObjectOfType<LevelEvent3Script>();
+        levelEvent2Script = FindObjectOfType<LevelEvent2Script>();
         levelEventScript = FindObjectOfType<LevelEventScript>();
 
         // Set values to variables in VariableManager
@@ -29,8 +32,14 @@ public class Receiver : MonoBehaviour
         if (VariableManager.p2) { PlayerDashScript.changeDashStatus(); }
         if (VariableManager.p3) { PlayerShootScript.changeGunStatus(); }
         if (VariableManager.p4) { PlayerShootScript.changeBigGunStatus(); }
-        if (VariableManager.L1e) { elevator.SetActive(true); }
-        if (levelEventScript != null && VariableManager.L2e) { levelEventScript.SetPressed(); }
-        if (levelEvent3Script != null && VariableManager.L3e) { levelEvent3Script.SetPressed(); }
+        if (VariableManager.L1e) { 
+            elevator.SetActive(true);
+        }
+        if (levelEventScript != null && VariableManager.L2e) { 
+            levelEventScript.SetPressed(); 
+        }
+        if (levelEvent3Script != null && VariableManager.L3e) { 
+            levelEvent3Script.SetPressed(); 
+        }
     }
 }
