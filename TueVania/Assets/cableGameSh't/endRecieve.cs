@@ -21,14 +21,28 @@ public class endRecieve : MonoBehaviour
 
      public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Bağlandı");
+        Debug.Log("Conencted");
 
         var temp = other.GetComponent<WireScript>();
         if (other.gameObject.CompareTag("Wire"))
         {
             setBooleanValueSend(temp.getBooleanValue());
             setFilled(true);
-            Debug.Log("BooleanValueEnd");
+            //Debug.Log("BooleanValueEnd");
+
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("Disconnected");
+
+        var temp = other.GetComponent<WireScript>();
+        if (other.gameObject.CompareTag("Wire"))
+        {
+            setBooleanValueSend(temp.getBooleanValue());
+            setFilled(false);
+            //Debug.Log("BooleanValueEnd");
 
         }
     }

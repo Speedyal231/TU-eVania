@@ -22,6 +22,8 @@ public class terminalConnector : MonoBehaviour
             if (upperWire.getBooleanValueEnd() && lowerWire.getBooleanValueEnd()){
                 gateComplete = true;
             }
+        } else {
+            gateComplete = false;
         }
     }
 
