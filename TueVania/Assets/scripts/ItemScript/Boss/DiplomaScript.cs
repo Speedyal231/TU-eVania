@@ -33,7 +33,7 @@ public class DiplomaScript : MonoBehaviour
             Destroy(this.gameObject);
             
             senderScript.Send();
-            finishScore.fScore = pdata.PlayerScore;
+            //finishScore.fScore = pdata.PlayerScore;
             SceneManager.LoadScene("EndScene");
         }
     }

@@ -1,6 +1,5 @@
 -select music
 -add backstory???
 -end screen & ending
--edit checkpoints
 -edit the decorations / aesthetics
 -presentation
