@@ -171,12 +171,12 @@ MonoBehaviour:
   moveSpeed: 3
   moveRight: 1
   groundCheck: {fileID: 2580536135977136994}
-  groundCheckDistance: 0.05
+  groundCheckDistance: 0
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   wallCheck: {fileID: 3190736986950926333}
-  wallCheckDistance: 0.005
+  wallCheckDistance: 0
 --- !u!50 &5417094235842616886
 Rigidbody2D:
   serializedVersion: 4
