@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BlockCodeGame.unity
     guid: 0a9ddd95f90a52341ab38ae46101a969
+  - enabled: 1
+    path: Assets/Scenes/AtlasLevel3.unity
+    guid: 8ac6c2f2b1338b841a3ed2696a1e7047
   m_configObjects: {}
