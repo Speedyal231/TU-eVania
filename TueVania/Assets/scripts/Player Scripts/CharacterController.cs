@@ -12,7 +12,8 @@ using UnityEngine.Rendering;
  */
 public class CharacterController : MonoBehaviour
 {
-    [Header("Object Declarations")] 
+    [Header("Object Declarations")]
+    [SerializeField] GameObject spritey;
     [SerializeField] Rigidbody2D RB;
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform cameraTransform;
@@ -132,6 +133,7 @@ public class CharacterController : MonoBehaviour
     void FixedUpdate()
     {
         Count();
+        checkInvincible();
         checkStunned();
         if(InteractScript.DoorEnterCheck())
         {
@@ -157,6 +159,18 @@ public class CharacterController : MonoBehaviour
         }
         else 
         {
+            if (invincible)
+            {
+                Color color = spritey.GetComponent<SpriteRenderer>().color;
+                color.a = 0.3f;
+                spritey.GetComponent<SpriteRenderer>().color = color;
+            }
+            else
+            {
+                Color color = spritey.GetComponent<SpriteRenderer>().color;
+                color.a = 1f;
+                spritey.GetComponent<SpriteRenderer>().color = color;
+            }
             PhysicsCalcInit();
             GroundedCheck();
             WalledCheck();
@@ -429,6 +443,9 @@ public class CharacterController : MonoBehaviour
             currentJumpTime -= Time.fixedDeltaTime;
         if (currentStunnedTime > 0)
             currentStunnedTime -= Time.fixedDeltaTime;
+        if (currentInvincibilityTime > 0)
+            currentInvincibilityTime -= Time.fixedDeltaTime;
+
     }
 
     private void CheckWillFlip()
@@ -517,13 +534,13 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float StunnedTime;
     [SerializeField] float knockback;
     [SerializeField] float moveVelocity;
+    [SerializeField] float invincibilityTime;
     public float knockbackLength;
     public float knockbackCount;
 
     public bool knockFromRight;
 
     public bool stunned;
-
     float currentStunnedTime;
 
     private void AnimationBehaviour(Vector2 moveInput, float runInput)
@@ -747,16 +764,21 @@ public class CharacterController : MonoBehaviour
 
     public void knockBack() {
             
+        if (!invincible)
+        {
             Debug.Log("Knockbacked");
             currentStunnedTime = StunnedTime;
+            currentInvincibilityTime = invincibilityTime;
             if (knockFromRight)
             {
                 RB.velocity = new Vector2(-knockback, 10f);
+                
             }
             if (!knockFromRight)
             {
                 RB.velocity = new Vector2(knockback, 10f);
             }
+        }
     }
 
     private void checkStunned(){
@@ -766,5 +788,26 @@ public class CharacterController : MonoBehaviour
         } else {
             stunned = false;
         }
+    }
+
+    float currentInvincibilityTime;
+    bool invincible;
+
+    private void checkInvincible()
+    {
+        
+        if (currentInvincibilityTime > 0)
+        {
+            invincible = true;
+        }
+        else
+        {
+            invincible = false;
+        }
+    }
+
+    public bool getInvincible()
+    {
+        return invincible;
     }
 }

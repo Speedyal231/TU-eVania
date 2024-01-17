@@ -8,6 +8,7 @@ public class healthManager : MonoBehaviour {
 
 	[Header("Health Info")] 
     [SerializeField] static int playerHealth;
+	CharacterController characterController;
     [SerializeField] static int maxPlayerHealth = 20;
 
 	public bool isDead;
@@ -22,16 +23,23 @@ public class healthManager : MonoBehaviour {
 
 	public bool animPlayed;
 
+	static bool invincible;
+
 	public bool checkStunned;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        playerHealth = maxPlayerHealth;
+    }
 
-		//text = GetComponent<TMP_Text>(); 
+    // Use this for initialization
+    void Start () {
 
-		//healthBar = GetComponent<Slider>();
+        //text = GetComponent<TMP_Text>(); 
 
-		playerHealth = maxPlayerHealth;
+        //healthBar = GetComponent<Slider>();
+        characterController = FindObjectOfType<CharacterController>();
+        if (playerHealth <= 0) { playerHealth = maxPlayerHealth; }
 
 		levelManager = FindObjectOfType<levelManager>();
 		isDead = false;
@@ -42,6 +50,7 @@ public class healthManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		invincible = characterController.getInvincible();
 		//Debug.Log("Current lives: " + playerHealth);
 		if (playerHealth <= 0)
 		{
@@ -66,8 +75,11 @@ public class healthManager : MonoBehaviour {
 
     public static void hurtPlayer(int damageToGive)
     {
-		Debug.Log("Player Hurt");
-		playerHealth -= damageToGive;
+		if (!invincible)
+		{
+            Debug.Log("Player Hurt");
+            playerHealth -= damageToGive;
+        }	
     }
 
     public void fullHealth()

@@ -32,7 +32,10 @@ public class LevelEvent2Script : Interactable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        button.GetComponent<SpriteRenderer>().color = flashColor;
+        if (other.CompareTag("Player"))
+        {
+            button.GetComponent<SpriteRenderer>().color = flashColor;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

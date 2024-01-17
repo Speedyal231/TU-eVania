@@ -592,6 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be1839f76071464ca611f3867fedff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spritey: {fileID: 2687139596413591051}
   RB: {fileID: 5064818175417941156}
   playerTransform: {fileID: 4996919354015548923}
   cameraTransform: {fileID: 0}
@@ -628,6 +629,7 @@ MonoBehaviour:
   StunnedTime: 0.3
   knockback: 10.1
   moveVelocity: 10
+  invincibilityTime: 1
   knockbackLength: 5
   knockbackCount: 5
   knockFromRight: 0

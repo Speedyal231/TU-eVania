@@ -53,18 +53,22 @@ public class Elevator : Interactable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        prompt.SetActive(true);
-        if (!active)
+        if (other.CompareTag("Player"))
         {
-            floorText.fontSize = 0.2f;
-            floorText.text = "Activate elevator switch.";
-            src.PlayOneShot(clipFail);
-        } else
-        {
-            floorText.fontSize = 0.35f;
-            floorText.text = "Floor " + floorNum;
-            src.PlayOneShot(clipOpen);
-            animation.ChangeAnimationState(open);
+            prompt.SetActive(true);
+            if (!active)
+            {
+                floorText.fontSize = 0.2f;
+                floorText.text = "Activate elevator switch.";
+                src.PlayOneShot(clipFail);
+            }
+            else
+            {
+                floorText.fontSize = 0.35f;
+                floorText.text = "Floor " + floorNum;
+                src.PlayOneShot(clipOpen);
+                animation.ChangeAnimationState(open);
+            }
         }
     }
 
