@@ -106,7 +106,8 @@ public class Elevator : Interactable
         {
             case 0: return "AtlasGroundLevel";
             case 1: return "AtlasLevel1";
-            case 2: return "AtlasLevel3";
+            case 2: return "AtlasLevel2";
+            case 3: return "AtlasLevel3";
             default: return "BaseScene";
         }
 
