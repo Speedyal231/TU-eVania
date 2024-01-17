@@ -58,7 +58,7 @@ public class CheckIntersections : MonoBehaviour
         {
             intersectinMiniGameFinished = true;
             checkString.text = "COMPLETED";
-            SceneManager.LoadScene("AtlasLevel2");
+            SceneManager.LoadScene("AtlasLevel3");
         }
     }
 

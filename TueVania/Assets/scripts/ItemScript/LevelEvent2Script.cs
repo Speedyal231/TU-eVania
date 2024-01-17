@@ -17,12 +17,14 @@ public class LevelEvent2Script : Interactable
     Color flashColor;
     bool pressed;
     VariableManager variableManager;
+    SenderScript senderScript;
 
     private void Start()
     {
         //variableManager = FindObjectOfType<VariableManager>();
         baseColor = button.GetComponent<SpriteRenderer>().color;
         button.GetComponent<SpriteRenderer>().sprite = red;
+        senderScript = FindObjectOfType<SenderScript>();
         flashColor = Color.white;
         entryClosed.active = true;
         entryOpen.active = false;
@@ -31,6 +33,8 @@ public class LevelEvent2Script : Interactable
             button.GetComponent<SpriteRenderer>().sprite = green;
             entryClosed.active = false;
             entryOpen.active = true;
+            
+            
         }
     }
 
@@ -63,6 +67,8 @@ public class LevelEvent2Script : Interactable
             entryOpen.active = true;
             button.GetComponent<SpriteRenderer>().sprite = green;
             baseColor = Color.white;
+            senderScript.Send();
+            SceneManager.LoadScene("CableScene");
         }
     }
 

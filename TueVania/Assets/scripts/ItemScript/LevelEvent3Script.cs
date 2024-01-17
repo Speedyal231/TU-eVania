@@ -15,11 +15,13 @@ public class LevelEvent3Script : Interactable
     Color flashColor;
     bool pressed;
     VariableManager variableManager;
+    SenderScript senderScript;
 
     private void Start()
     {
         //variableManager = FindObjectOfType<VariableManager>();
         baseColor = button.GetComponent<SpriteRenderer>().color;
+        senderScript = FindObjectOfType<SenderScript>();
         flashColor = Color.white;
         entryClosed.active = true;
         entryOpen.active = false;
@@ -29,6 +31,7 @@ public class LevelEvent3Script : Interactable
             button.GetComponent<SpriteRenderer>().color = baseColor;
             entryClosed.active = false;
             entryOpen.active = true;
+            
         }
     }
 
@@ -60,6 +63,8 @@ public class LevelEvent3Script : Interactable
             entryClosed.active = false;
             entryOpen.active = true;
             baseColor = Color.green;
+            senderScript.Send();
+            SceneManager.LoadScene("LogicGameScene");
         }
     }
 

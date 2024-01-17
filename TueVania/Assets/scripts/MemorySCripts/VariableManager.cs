@@ -20,4 +20,10 @@ public class VariableManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
+
+
+    private void FixedUpdate(){
+
+        //Debug.Log("Current Health: " + hTransfer);
+    }
 }

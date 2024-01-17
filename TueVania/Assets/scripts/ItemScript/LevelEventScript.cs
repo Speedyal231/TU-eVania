@@ -16,6 +16,7 @@ public class LevelEventScript : Interactable
     [SerializeField] Sprite green;
     Color baseColor;
     Color flashColor;
+    SenderScript senderScript;
     bool pressed;
     //VariableManager variableManager;
 
@@ -24,6 +25,7 @@ public class LevelEventScript : Interactable
         //variableManager = FindObjectOfType<VariableManager>();
         baseColor = button.GetComponent<SpriteRenderer>().color;
         button.GetComponent<SpriteRenderer>().sprite = red;
+        senderScript = FindObjectOfType<SenderScript>();
         flashColor = Color.white;
         entryClosed.active = true;
         entryOpen.active = false;
@@ -64,6 +66,9 @@ public class LevelEventScript : Interactable
             entryOpen.active = true;
             button.GetComponent<SpriteRenderer>().sprite = green;
             baseColor = Color.white;
+            BlockManager.blockMiniGameFinished = false;
+            senderScript.Send();
+            SceneManager.LoadScene("BlockCodeGame");
         }
     }
 
