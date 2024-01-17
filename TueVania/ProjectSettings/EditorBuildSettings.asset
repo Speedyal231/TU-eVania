@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AtlasLevel3.unity
     guid: 8ac6c2f2b1338b841a3ed2696a1e7047
+  - enabled: 1
+    path: Assets/Scenes/AtlasLevel2.unity
+    guid: 068c5a875f60bbf409bca7f354f0f62e
   m_configObjects: {}
