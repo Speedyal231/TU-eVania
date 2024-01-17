@@ -33,6 +33,14 @@ public class UponBossDeath : MonoBehaviour
             }
         }
         
-    } 
+    }
+
+    public void broJustDied(){
+        Blockade.SetActive(false);
+        open.SetActive(false);
+        Closed.SetActive(true);
+
+        Destroy(gameObject);
+    }
 
 }
