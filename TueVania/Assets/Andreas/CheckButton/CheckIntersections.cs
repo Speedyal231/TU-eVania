@@ -48,11 +48,11 @@ public class CheckIntersections : MonoBehaviour
             completions++;
         } else
         {
-            checkString.text = "Incorrect, all children died"; 
+            checkString.text = "Incorrect"; 
         }
-        if (completions == 2) 
+        if (completions == 3) 
         {
-            Debug.Log("yay");
+            checkString.text = "COMPLETED";
         }
     }
 

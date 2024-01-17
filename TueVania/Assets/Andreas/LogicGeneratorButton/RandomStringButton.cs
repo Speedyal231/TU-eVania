@@ -15,7 +15,7 @@ public class RandomStringButton : MonoBehaviour
     void Start()
     {
         // Make sure the references are set in the Inspector
-        lastCheck = 0;
+        
         if (objectArrays == null || LogicalProposition == null)
         {
             Debug.LogError("References not set properly. Make sure to assign ObjectArrays and buttonText in the Inspector.");
@@ -58,8 +58,10 @@ public class RandomStringButton : MonoBehaviour
                 do
                 {
                     randomIndex = Random.Range(0, stringList.Count);
-                    
-                } while (usedIndeces.Contains(randomIndex) && lastCheck == randomIndex);
+                    Debug.Log("new" + randomIndex);
+                    Debug.Log("old" + lastCheck);
+
+                } while (usedIndeces.Contains(randomIndex) || lastCheck == randomIndex);
                 if (currGuess && checkDone)
                 {
                     usedIndeces.Add(randomIndex);
