@@ -1,23 +1,11 @@
-TBD-
-Art shit:
-    enemies - Done
-        follow enemy - done
-        patrol enemy - done
-    inner light for the foreground areas - done
-    misc. art decorations (tables etc.) - done
-the border issue - done
-button and event systems - button done
-scene transitions
-    work with bartek to implement this!!!!
-UI
-    start screen
-    small background information on the game
-    credits?
-    finalize the health bar (teoman on it)
-finalizing minigames:
-    circuits: teoman & bora
-    andreas game: andreas and alex
-    block game: teoman
-ending of the game
-
-
+-select music
+-spikes (sprite)
+-connect the minigames!!
+-make sure that the minigames work!!
+-splash screen
+-end screen & ending
+-final boss + ending trigger
+-edit checkpoints
+-edit the decorations / aesthetics
+-presentation
+-level 1 spikes addition
