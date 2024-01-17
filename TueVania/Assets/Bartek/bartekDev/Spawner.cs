@@ -38,6 +38,8 @@ public class Spawner : MonoBehaviour
             Debug.Log("the SpawnPoint child of Spawner currently has no SpriteRenderer assigned.");
         }
 
+        objectToSpawn.SetActive(false);
+
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -50,17 +52,10 @@ public class Spawner : MonoBehaviour
         spawned = true;
         if (collision.gameObject.CompareTag("Player"))
         {
-            Spawn(objectToSpawn);
+            objectToSpawn.SetActive(true);
+
         }
     }
 
-    private void Spawn(GameObject objectToSpawn)
-    {
-        Vector3 position = spawnPoint.transform.position;
-        GameObject newPrefab = Instantiate(objectToSpawn, position, Quaternion.identity);
-        if ( newPrefab == null)
-        {
-            Debug.Log("instantiation failed.");
-        }
-    }
+ 
 }
