@@ -230,7 +230,7 @@ public class BlockManager : MonoBehaviour
                 if (corrects == 5) {
                     //Debug.Log("Bitti amk");
                     blockMiniGameFinished = true;
-                    SceneManager.LoadScene("AtlasLevel3");
+                    SceneManager.LoadScene("AtlasLevel1");
                     feedbackText.text = "True"; // Correct order
                     return true;
                 }

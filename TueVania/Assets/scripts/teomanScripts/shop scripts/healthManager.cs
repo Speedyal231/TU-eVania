@@ -34,12 +34,13 @@ public class healthManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+		
         //text = GetComponent<TMP_Text>(); 
 
         //healthBar = GetComponent<Slider>();
         characterController = FindObjectOfType<CharacterController>();
-        if (playerHealth <= 0) { playerHealth = maxPlayerHealth; }
+        //if (playerHealth <= 0) { playerHealth = maxPlayerHealth; }
+		playerHealth = maxPlayerHealth;
 
 		levelManager = FindObjectOfType<levelManager>();
 		isDead = false;
@@ -55,8 +56,8 @@ public class healthManager : MonoBehaviour {
 		if (playerHealth <= 0)
 		{
             isDead = true;
-            Debug.Log(animPlayed +" number");
-            Debug.Log(animPlayed + " number");
+            //Debug.Log(animPlayed +" number");
+            //Debug.Log(animPlayed + " number");
             if (animPlayed && !checkStunned) {
 				Debug.Log("died");
 				levelManager.RespawnPlayer();
@@ -82,7 +83,7 @@ public class healthManager : MonoBehaviour {
         }	
     }
 
-    public void fullHealth()
+    public static void fullHealth()
     {
 		playerHealth = maxPlayerHealth;
     }
@@ -110,5 +111,9 @@ public class healthManager : MonoBehaviour {
     {
         playerHealth = health;
     }
+
+	private void FixedUpdate() {
+		//Debug.Log("Health: " + getHealth());
+	}
 
 }

@@ -36,7 +36,7 @@ public class minigameManager : MonoBehaviour
         if (upperGate.getGateComplete() && lowerGate.getGateComplete()){
                 endCanvas.SetActive(true);
                 cableManager = true;
-                SceneManager.LoadScene("AtlasLevel1");                
+                SceneManager.LoadScene("AtlasLevel2");                
         }
     }    
 }
