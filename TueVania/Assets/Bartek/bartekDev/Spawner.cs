@@ -13,6 +13,8 @@ public class Spawner : MonoBehaviour
 
     [SerializeField]
     private GameObject objectToSpawn;
+    [SerializeField]
+    private GameObject blockadeToSpawn;
 
     private void Start()
     {
@@ -39,21 +41,33 @@ public class Spawner : MonoBehaviour
         }
 
         objectToSpawn.SetActive(false);
+        blockadeToSpawn.SetActive(false);
+
 
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (spawned && !regenerate)
-        {
-            return;
-        }
+        if (objectToSpawn != null){
+            Debug.Log("Collision Detected");
+            if (spawned && !regenerate)
+            {
+                objectToSpawn.SetActive(true);
+                blockadeToSpawn.SetActive(true);
+                regenerate = false;
+                objectToSpawn.transform.position = spawnPoint.transform.position;
+                Debug.Log("Regen");
+            }
 
-        spawned = true;
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            objectToSpawn.SetActive(true);
+            spawned = true;
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                objectToSpawn.SetActive(true);
+                
+                blockadeToSpawn.SetActive(true);
+                Debug.Log("First time");
 
+            }
         }
     }
 

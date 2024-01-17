@@ -8,6 +8,7 @@ public class bigBossCheckpoint : MonoBehaviour
     public fEnemyDatasheet bossData;
     public UponBossDeath uponBossDeath;
     public healthManager healthManagerHere;
+    private bool temp;
 
     
     // Start is called before the first frame update
@@ -16,12 +17,15 @@ public class bigBossCheckpoint : MonoBehaviour
         level_manager = FindObjectOfType<levelManager>();
         uponBossDeath = FindObjectOfType<UponBossDeath>();
         healthManagerHere = FindObjectOfType<healthManager>();
+        temp = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (healthManagerHere.isDead){
+            temp = true;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -32,10 +36,11 @@ public class bigBossCheckpoint : MonoBehaviour
             Debug.Log (("Activated Checkpoint") + transform.position);
 		}
 
-        if (healthManagerHere.isDead){
+        if (temp){
             Debug.Log("lets go");
             bossData.enemyHealth = 300;
             uponBossDeath.broJustDied();
+            temp = false;
         }
         
 	}

@@ -18,6 +18,7 @@ public class UponBossDeath : MonoBehaviour
         Closed.SetActive(true);
         fEnemy = Boss.GetComponent<fEnemyDatasheet>(); 
         done = false;
+        Blockade.SetActive(false);
     }
 
     private void Update()
@@ -40,7 +41,11 @@ public class UponBossDeath : MonoBehaviour
         open.SetActive(false);
         Closed.SetActive(true);
 
-        Destroy(gameObject);
+        //GameObject boss = GameObject.Find("Boss");
+        if (gameObject != null) {
+            Boss.SetActive(false);
+        }
+       
     }
 
 }
