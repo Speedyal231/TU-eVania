@@ -16,6 +16,8 @@ public class enemyPatrol : MonoBehaviour {
 
     private bool atEdge;
 
+    public bool makeABigBoy;
+
     // Use this for initialization
     void Start () {
         
@@ -33,13 +35,20 @@ public class enemyPatrol : MonoBehaviour {
         }
 
 
+        if (makeABigBoy) {
+            float moveDirection = moveRight ? 4f : -4f;
 
+            transform.localScale = new Vector3(moveDirection, 4f, 4f);
+
+            GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed * moveDirection, GetComponent<Rigidbody2D>().velocity.y);
+        } else {
+            float moveDirection = moveRight ? 1f : -1f;
+
+            transform.localScale = new Vector3(moveDirection, 1f, 1f);
+
+            GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed * moveDirection, GetComponent<Rigidbody2D>().velocity.y);
+        }
         
-        float moveDirection = moveRight ? 1f : -1f;
-
-        transform.localScale = new Vector3(moveDirection, 1f, 1f);
-
-        GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed * moveDirection, GetComponent<Rigidbody2D>().velocity.y);
     }
 
     bool CheckGround()
@@ -52,6 +61,7 @@ public class enemyPatrol : MonoBehaviour {
     {
         float direction = moveRight ? 1f : -1f;
         RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, new Vector2(direction, 0), wallCheckDistance);
+            
 
         // Check if the detected object has the tag "unbreakable"
         if (hit.collider != null && (hit.collider.CompareTag("Breakable") || hit.collider.CompareTag("Border") || hit.collider.CompareTag("Player") || hit.collider.CompareTag("Enemy")))

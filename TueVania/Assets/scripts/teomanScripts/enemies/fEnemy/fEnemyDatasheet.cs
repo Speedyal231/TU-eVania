@@ -14,11 +14,18 @@ public class fEnemyDatasheet : MonoBehaviour, IEnemy
     const string DeathFly = "DeathFly";
 
     const string fEnemyFly = "fEnemyFly";
+    private Collider2D myCollider;
 
     // Use this for initialization
     void Start()
     {
         // Initialization code if needed
+        myCollider = GetComponent<Collider2D>();
+
+        if (myCollider == null)
+        {
+            Debug.LogError("You fucked up");
+        }
     }
 
     // Update is called once per frame
@@ -27,6 +34,7 @@ public class fEnemyDatasheet : MonoBehaviour, IEnemy
 
         if (enemyHealth <= 0)
         {
+            myCollider.enabled = false;
             animation.ChangeAnimationState(DeathFly);
             HandleEnemyDeath();
         }

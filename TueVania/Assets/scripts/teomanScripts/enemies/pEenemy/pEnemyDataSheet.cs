@@ -10,6 +10,8 @@ public class pEnemyDataSheet : MonoBehaviour, IEnemy
     public int enemyHealth;
     public int pointsOnDeath;
     public AnimationControlScript animation;
+
+    private Collider2D myCollider;
     
     const string Hit = "Hit";
     const string Death = "Death";
@@ -20,6 +22,12 @@ public class pEnemyDataSheet : MonoBehaviour, IEnemy
     void Start()
     {
         // Initialization code if needed
+        myCollider = GetComponent<Collider2D>();
+
+        if (myCollider == null)
+        {
+            Debug.LogError("You fucked up");
+        }
     }
 
     // Update is called once per frame
@@ -28,6 +36,7 @@ public class pEnemyDataSheet : MonoBehaviour, IEnemy
 
         if (enemyHealth <= 0)
         {
+            myCollider.enabled = false;
             animation.ChangeAnimationState(Death);
             HandleEnemyDeath();
         }

@@ -22474,6 +22474,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6371938810782893223, guid: 58a9066d8f916e24ba8565ff5124caea, type: 3}
   m_PrefabInstance: {fileID: 1681806571}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &940964049 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8720606732766178529, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
+  m_PrefabInstance: {fileID: 1286654399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &941641329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32211,11 +32216,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228646897873089305, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.977444
+      value: -24.95
       objectReference: {fileID: 0}
     - target: {fileID: 1228646897873089305, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9948149
+      value: -2.93
       objectReference: {fileID: 0}
     - target: {fileID: 1228646897873089305, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -32249,14 +32254,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4913520634240817739, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
+      propertyPath: m_Radius
+      value: 0.43631017
+      objectReference: {fileID: 0}
+    - target: {fileID: 4913520634240817739, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.045349717
+      objectReference: {fileID: 0}
+    - target: {fileID: 5179237439462010460, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
+      propertyPath: makeABigBoy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645169806202870989, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
+      propertyPath: m_Radius
+      value: 0.3788268
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645169806202870989, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.1285842
+      objectReference: {fileID: 0}
     - target: {fileID: 8720606732766178529, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
       propertyPath: m_Name
       value: patrollEnemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4913520634240817739, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8720606732766178529, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1296509805}
   m_SourcePrefab: {fileID: 100100000, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
 --- !u!4 &1287655852 stripped
 Transform:
@@ -32514,6 +32543,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1228646897873089305, guid: 6a18f174c05c6b64790f5c273066fe9f, type: 3}
   m_PrefabInstance: {fileID: 1286654399}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1296509805
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940964049}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0038282871, y: -0.18670619}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 2.12, y: 1.92}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8187957, y: 0.6265876}
+  m_EdgeRadius: 0
 --- !u!4 &1298983321 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7895831231380619728, guid: da5e5f9cc9d00954fabccfb7925fb760, type: 3}
