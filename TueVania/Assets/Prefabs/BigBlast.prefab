@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 598398073091741559}
   m_Layer: 0
   m_Name: BigBlast
-  m_TagString: Untagged
+  m_TagString: BigBlast
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,7 +1,5 @@
 -select music
--connect the minigames!!
--make sure that the minigames work!!
--splash screen
+-add backstory???
 -end screen & ending
 -edit checkpoints
 -edit the decorations / aesthetics

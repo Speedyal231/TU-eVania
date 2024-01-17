@@ -71,8 +71,14 @@ public class BulletMovementScript : MonoBehaviour
 
                     if (enemy != null)
                     {
+                        if (bulletObject.CompareTag("BigBlast")) {
+                            Debug.Log("Recognized");
+                            enemy.TakeDamage(20);
+                        } else {
+                            enemy.TakeDamage(2);
+                        }
                         // Now you can call the TakeDamage method on any enemy type
-                        enemy.TakeDamage(2);
+                        
                     }
                 }
             }
