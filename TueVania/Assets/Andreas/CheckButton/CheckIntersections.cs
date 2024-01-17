@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class CheckIntersections : MonoBehaviour
 {
@@ -25,9 +27,11 @@ public class CheckIntersections : MonoBehaviour
     bool checkDone;
     public TextMeshProUGUI checkString;
     int completions;
+    public static bool intersectinMiniGameFinished;
 
     private void Start()
     {
+        intersectinMiniGameFinished = false;
         if (objectArrays == null || checkString == null || randomStringButton == null)
         {
             Debug.LogError("References not set properly. Make sure to assign ObjectArrays and buttonText in the Inspector.");
@@ -52,7 +56,9 @@ public class CheckIntersections : MonoBehaviour
         }
         if (completions == 3) 
         {
+            intersectinMiniGameFinished = true;
             checkString.text = "COMPLETED";
+            SceneManager.LoadScene("AtlasLevel2");
         }
     }
 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class LevelEvent2Script : Interactable
 {
@@ -14,9 +16,11 @@ public class LevelEvent2Script : Interactable
     Color baseColor;
     Color flashColor;
     bool pressed;
+    VariableManager variableManager;
 
     private void Start()
     {
+        //variableManager = FindObjectOfType<VariableManager>();
         baseColor = button.GetComponent<SpriteRenderer>().color;
         button.GetComponent<SpriteRenderer>().sprite = red;
         flashColor = Color.white;
@@ -52,6 +56,7 @@ public class LevelEvent2Script : Interactable
     {
         if (!pressed)
         {
+            //VariableManager.playerPosition = transform.position;
             pressed = true;
             src.PlayOneShot(clip);
             entryClosed.active = false;

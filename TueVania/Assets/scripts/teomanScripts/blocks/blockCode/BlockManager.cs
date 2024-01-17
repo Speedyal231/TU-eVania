@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
+
 
 
 public class BlockManager : MonoBehaviour
@@ -22,9 +24,11 @@ public class BlockManager : MonoBehaviour
     private List<Transform> currentCorrectOrder;
 
     private int currentSetIndex = 0;
+    public static bool blockMiniGameFinished;
 
     void Start()
     {
+        blockMiniGameFinished = false;
         SetCurrentSet(1); // Start with set 1
     }
 
@@ -224,7 +228,9 @@ public class BlockManager : MonoBehaviour
                 Debug.Log("Corrects:" + corrects);
                 Debug.Log($"{Mathf.Floor(currentBlocks[i].position.y) } == {Mathf.Floor(correctOrderSet3[i].position.y)}");
                 if (corrects == 5) {
-                    Debug.Log("Bitti amk");
+                    //Debug.Log("Bitti amk");
+                    blockMiniGameFinished = true;
+                    SceneManager.LoadScene("AtlasLevel3");
                     feedbackText.text = "True"; // Correct order
                     return true;
                 }

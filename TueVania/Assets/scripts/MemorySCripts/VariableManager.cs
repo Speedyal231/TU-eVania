@@ -14,6 +14,8 @@ public class VariableManager : MonoBehaviour
     public static bool L3e;
     public static bool L4e;
 
+    public static Vector3 playerPosition;
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
