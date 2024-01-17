@@ -27,7 +27,7 @@ public class Elevator : Interactable
     [SerializeField] AnimationControlScript animation;
 
 
-    private const int MAX_FLOOR_NUM = 4;
+    private const int MAX_FLOOR_NUM = 3;
     const string open = "Opening";
     const string close = "Closed";
 
@@ -108,7 +108,7 @@ public class Elevator : Interactable
             case 1: return "AtlasLevel1";
             case 2: return "AtlasLevel2";
             case 3: return "AtlasLevel3";
-            default: return "BaseScene";
+            default: return "AtlasGroundLevel";
         }
 
     }
