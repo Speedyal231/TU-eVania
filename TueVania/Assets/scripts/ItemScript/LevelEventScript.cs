@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Presets;
 using UnityEngine;
 
 public class LevelEventScript : Interactable
@@ -9,15 +10,25 @@ public class LevelEventScript : Interactable
     [SerializeField] GameObject entryOpen;
     [SerializeField] AudioSource src;
     [SerializeField] AudioClip clip;
+    [SerializeField] Sprite red;
+    [SerializeField] Sprite green;
     Color baseColor;
     Color flashColor;
+    bool pressed;
 
     private void Start()
     {
         baseColor = button.GetComponent<SpriteRenderer>().color;
+        button.GetComponent<SpriteRenderer>().sprite = red;
         flashColor = Color.white;
         entryClosed.active = true;
         entryOpen.active = false;
+        if (pressed) 
+        {
+            button.GetComponent<SpriteRenderer>().sprite = green;
+            entryClosed.active = false;
+            entryOpen.active = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -37,10 +48,25 @@ public class LevelEventScript : Interactable
 
     public override void Interact(GameObject player)
     {
-        src.PlayOneShot(clip);
-        entryClosed.active = false;
-        entryOpen.active = true;
-        button.GetComponent<SpriteRenderer>().color = Color.green;
-        baseColor = Color.green;
+        if (!pressed) 
+        {
+            pressed = true;
+            src.PlayOneShot(clip);
+            entryClosed.active = false;
+            entryOpen.active = true;
+            button.GetComponent<SpriteRenderer>().sprite = green;
+            baseColor = Color.white;
+        }
     }
+
+    public bool getInteracted()
+    {
+        return pressed;
+    }
+
+    public void SetPressed()
+    {
+        pressed = true;
+    }
+
 }

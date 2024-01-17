@@ -101,6 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 9192474933581921837}
   elevator: {fileID: 0}
+  src: {fileID: -4908423825257324066}
+  clip: {fileID: 8300000, guid: 58b24b0642a3f5040bce94265f26e406, type: 3}
+  pressed: 0
 --- !u!61 &6277686558898309497
 BoxCollider2D:
   m_ObjectHideFlags: 0

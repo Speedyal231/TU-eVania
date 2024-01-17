@@ -8,6 +8,9 @@ public class SenderScript : MonoBehaviour
     private PlayerClingScript PlayerClingScript;
     private PlayerDashScript PlayerDashScript;
     private PlayerShootScript PlayerShootScript;
+    private Elevator elevator;
+    private LevelEventScript levelEventScript;
+    private LevelEvent3Script levelEvent3Script;
     private void Start()
     {
         healthManager = FindObjectOfType<healthManager>();
@@ -15,6 +18,9 @@ public class SenderScript : MonoBehaviour
         PlayerClingScript = FindObjectOfType<PlayerClingScript>();
         PlayerShootScript = FindObjectOfType<PlayerShootScript>();
         PlayerDashScript = FindObjectOfType<PlayerDashScript>();
+        elevator = FindAnyObjectByType<Elevator>();
+        levelEvent3Script = FindObjectOfType<LevelEvent3Script>();
+        levelEventScript = FindObjectOfType<LevelEventScript>();
     }
 
     public void Send()
@@ -26,5 +32,8 @@ public class SenderScript : MonoBehaviour
         VariableManager.p2 = PlayerDashScript.dashStatus();
         VariableManager.p3 = PlayerShootScript.shootStatus();
         VariableManager.p4 = PlayerShootScript.BlastStatus();
+        VariableManager.L1e = elevator.active;
+        if (levelEventScript != null) { VariableManager.L2e = levelEventScript.getInteracted(); }
+        if (levelEvent3Script != null) { VariableManager.L3e = levelEvent3Script.getInteracted(); }
     }
 }

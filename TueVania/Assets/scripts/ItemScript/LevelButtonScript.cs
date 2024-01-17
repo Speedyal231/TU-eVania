@@ -18,7 +18,13 @@ public class LevelButtonScript : Interactable
     {
         baseColor = button.GetComponent<SpriteRenderer>().color;
         flashColor = Color.white;
-        elevator.SetActive(false);
+        if (!elevator.active)
+        {
+            elevator.SetActive(false);
+        } else
+        {
+            button.GetComponent<SpriteRenderer>().color = Color.green;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -38,10 +44,14 @@ public class LevelButtonScript : Interactable
 
     public override void Interact(GameObject player)
     {
-        pressed = true;
-        elevator.SetActive(true);
-        src.PlayOneShot(clip);
-        button.GetComponent<SpriteRenderer>().color = Color.green;
-        baseColor = Color.green;
+        if (!elevator.active)
+        {
+            pressed = true;
+            elevator.SetActive(true);
+            src.PlayOneShot(clip);
+            button.GetComponent<SpriteRenderer>().color = Color.green;
+            baseColor = Color.green;
+        }
+        
     }
 }

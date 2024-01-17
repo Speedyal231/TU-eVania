@@ -7,6 +7,9 @@ public class Receiver : MonoBehaviour
     private PlayerClingScript PlayerClingScript;
     private PlayerDashScript PlayerDashScript;
     private PlayerShootScript PlayerShootScript;
+    private Elevator elevator;
+    private LevelEventScript levelEventScript;
+    private LevelEvent3Script levelEvent3Script;
 
     private void Start()
     {
@@ -15,6 +18,10 @@ public class Receiver : MonoBehaviour
         PlayerClingScript = FindObjectOfType<PlayerClingScript>();
         PlayerShootScript = FindObjectOfType<PlayerShootScript>();
         PlayerDashScript = FindObjectOfType<PlayerDashScript>();
+        elevator = FindAnyObjectByType<Elevator>();
+        levelEvent3Script = FindObjectOfType<LevelEvent3Script>();
+        levelEventScript = FindObjectOfType<LevelEventScript>();
+
         // Set values to variables in VariableManager
         healthManager.setHealth(VariableManager.hTransfer);
         PlayerScoreManager.playerScore = VariableManager.sTransfer;
@@ -22,5 +29,8 @@ public class Receiver : MonoBehaviour
         if (VariableManager.p2) { PlayerDashScript.changeDashStatus(); }
         if (VariableManager.p3) { PlayerShootScript.changeGunStatus(); }
         if (VariableManager.p4) { PlayerShootScript.changeBigGunStatus(); }
+        if (VariableManager.L1e) { elevator.SetActive(true); }
+        if (levelEventScript != null && VariableManager.L2e) { levelEventScript.SetPressed(); }
+        if (levelEvent3Script != null && VariableManager.L3e) { levelEvent3Script.SetPressed(); }
     }
 }
