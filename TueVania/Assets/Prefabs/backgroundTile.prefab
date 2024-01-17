@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6371938810782893223}
   - component: {fileID: 8877593870398439321}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: backgroundTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

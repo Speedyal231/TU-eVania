@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AtlasLevel2.unity
     guid: 068c5a875f60bbf409bca7f354f0f62e
+  - enabled: 1
+    path: Assets/Scenes/CableScene.unity
+    guid: 5001b58552097f84e9d86a5712fc3213
   m_configObjects: {}
