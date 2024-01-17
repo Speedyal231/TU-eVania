@@ -29,7 +29,7 @@ public class scoreUpdated : MonoBehaviour
         if (pdata != null)
         {
             // Use the instance to access the non-static property
-            textScore.text = "Score: " + pdata.PlayerScore.ToString();
+            textScore.text = "Final Score: " + pdata.PlayerScore.ToString();
         }
         else
         {

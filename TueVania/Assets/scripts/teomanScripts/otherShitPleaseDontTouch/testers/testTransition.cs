@@ -25,7 +25,7 @@ public class testTransition : MonoBehaviour
         var temp = other.GetComponent<WireScript>();
         if (other.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("BlockCodeGame");
+            SceneManager.LoadScene("EndScene");
         }
     }
 
