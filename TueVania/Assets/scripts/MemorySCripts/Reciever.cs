@@ -13,7 +13,7 @@ public class Receiver : MonoBehaviour
     private LevelEvent2Script levelEvent2Script;
 
 
-    private void Start()
+    private void Awake()
     {
         healthManager = FindObjectOfType<healthManager>();
         PlayerScoreManager = FindObjectOfType<PlayerScoreManager>();
@@ -45,8 +45,7 @@ public class Receiver : MonoBehaviour
         if (levelEvent3Script != null && VariableManager.L3e) { 
             levelEvent3Script.SetPressed(); 
         }
-        if (levelEvent2Script != null && VariableManager.L4e)
-        {
+        if (levelEvent2Script != null && VariableManager.L4e){
             levelEvent2Script.SetPressed();
         }
     }
