@@ -41,5 +41,9 @@ public class Receiver : MonoBehaviour
         if (levelEvent3Script != null && VariableManager.L3e) { 
             levelEvent3Script.SetPressed(); 
         }
+        if (levelEvent2Script != null && VariableManager.L4e)
+        {
+            levelEvent2Script.SetPressed();
+        }
     }
 }

@@ -10,6 +10,7 @@ public class SenderScript : MonoBehaviour
     private PlayerShootScript PlayerShootScript;
     private Elevator elevator;
     private LevelEventScript levelEventScript;
+    private LevelEvent2Script levelEvent2Script;
     private LevelEvent3Script levelEvent3Script;
     private void Start()
     {
@@ -21,6 +22,7 @@ public class SenderScript : MonoBehaviour
         elevator = FindAnyObjectByType<Elevator>();
         levelEvent3Script = FindObjectOfType<LevelEvent3Script>();
         levelEventScript = FindObjectOfType<LevelEventScript>();
+        levelEvent2Script = FindObjectOfType<LevelEvent2Script>();
     }
 
     public void Send()
@@ -35,5 +37,6 @@ public class SenderScript : MonoBehaviour
         VariableManager.L1e = elevator.active;
         if (levelEventScript != null) { VariableManager.L2e = levelEventScript.getInteracted(); }
         if (levelEvent3Script != null) { VariableManager.L3e = levelEvent3Script.getInteracted(); }
+        if (levelEvent2Script != null) { VariableManager.L4e = levelEvent2Script.getInteracted(); }
     }
 }
