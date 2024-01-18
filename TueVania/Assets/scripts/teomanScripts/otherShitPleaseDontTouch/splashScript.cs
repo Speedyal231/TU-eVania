@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class splashScript : MonoBehaviour
 {
+    public int index;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,13 @@ public class splashScript : MonoBehaviour
 
     void CheckOrder()
     {
-        SceneManager.LoadScene("AtlasLevel1");
+        if (index == 0) {
+            SceneManager.LoadScene("backstory");
+        } else if (index == 1) {
+            SceneManager.LoadScene("AtlasGroundLevel");
+        } else {
+            Debug.Log("brüh");
+        }
+        
     }
 }
