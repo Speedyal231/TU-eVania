@@ -34,6 +34,10 @@ public class Receiver : MonoBehaviour
         if (VariableManager.p4) { PlayerShootScript.changeBigGunStatus(); }
         if (VariableManager.L1e) { 
             elevator.SetActive(true);
+        } 
+        else 
+        {
+            healthManager.setHealth(20);
         }
         if (levelEventScript != null && VariableManager.L2e) { 
             levelEventScript.SetPressed(); 
