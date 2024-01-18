@@ -397,10 +397,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 24584718125793132, guid: 16a8b9e979f3655478c00b2a1f8f7f82, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 24584718125793132, guid: 16a8b9e979f3655478c00b2a1f8f7f82, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 24584718125793132, guid: 16a8b9e979f3655478c00b2a1f8f7f82, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -133
+      objectReference: {fileID: 0}
     - target: {fileID: 1688882486391216008, guid: 16a8b9e979f3655478c00b2a1f8f7f82, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 507384591}
+    - target: {fileID: 2391976137937618127, guid: 16a8b9e979f3655478c00b2a1f8f7f82, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391976137937618127, guid: 16a8b9e979f3655478c00b2a1f8f7f82, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 900
+      objectReference: {fileID: 0}
     - target: {fileID: 4541465092915429843, guid: 16a8b9e979f3655478c00b2a1f8f7f82, type: 3}
       propertyPath: m_Name
       value: MANCnavas

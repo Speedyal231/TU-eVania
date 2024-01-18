@@ -65,6 +65,8 @@ public class BulletMovementScript : MonoBehaviour
                         // Now you can access methods or variables from breakScript
                         breakScript.BreakAnimPlay(); // Replace YourMethod() with the actual method you want to call
                     }
+                } else if (hitObject.CompareTag("Item")){
+                    
                 } else if (hitObject.CompareTag("Enemy")) {
                     Debug.Log("Enemy hit");
                     IEnemy enemy = hitObject.GetComponent<IEnemy>();
