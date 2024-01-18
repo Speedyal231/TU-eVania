@@ -8,12 +8,16 @@ public class UponBossDeath : MonoBehaviour
     [SerializeField] GameObject Blockade;
     [SerializeField] GameObject open;
     [SerializeField] GameObject Closed;
+    [SerializeField] Spawner spawner;
     fEnemyDatasheet fEnemy;
+    [SerializeField] AudioSource src;
+    AudioClip existingTrack;
     bool done;
 
     // Start is called before the first frame update
     void Start()
     {
+        existingTrack = src.clip;
         open.SetActive(false);
         Closed.SetActive(true);
         fEnemy = Boss.GetComponent<fEnemyDatasheet>(); 
@@ -40,6 +44,8 @@ public class UponBossDeath : MonoBehaviour
         Blockade.SetActive(false);
         open.SetActive(false);
         Closed.SetActive(true);
+        switchMusic(existingTrack);
+        spawner.GetComponent<Collider2D>().enabled = true;
 
         //GameObject boss = GameObject.Find("Boss");
         if (gameObject != null) {
@@ -48,4 +54,10 @@ public class UponBossDeath : MonoBehaviour
        
     }
 
+    private void switchMusic(AudioClip one)
+    {
+        src.Pause();
+        src.clip = one;
+        src.Play();
+    }
 }

@@ -15,6 +15,8 @@ public class Spawner : MonoBehaviour
     private GameObject objectToSpawn;
     [SerializeField]
     private GameObject blockadeToSpawn;
+    [SerializeField] AudioSource src;
+    [SerializeField] AudioClip bossMusic;
 
     private void Start()
     {
@@ -63,12 +65,20 @@ public class Spawner : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 objectToSpawn.SetActive(true);
-                
+                this.GetComponent<Collider2D>().enabled = false;
+                switchMusic(bossMusic);
                 blockadeToSpawn.SetActive(true);
                 Debug.Log("First time");
 
             }
         }
+    }
+
+    private void switchMusic(AudioClip one)
+    {
+        src.Pause();
+        src.clip = one;
+        src.Play();
     }
 
  
