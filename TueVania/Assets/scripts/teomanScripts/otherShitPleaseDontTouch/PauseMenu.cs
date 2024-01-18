@@ -39,6 +39,7 @@ public class PauseMenu : MonoBehaviour
     // You can call this method from a button click event to resume the game
     public void ResumeGame()
     {
+        Debug.Log("TriggeredButton");
         TogglePause();
     }
 

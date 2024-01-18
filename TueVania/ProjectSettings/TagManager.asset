@@ -10,6 +10,7 @@ TagManager:
   - Wire
   - Door
   - BigBlast
+  - Item
   layers:
   - Default
   - TransparentFX
